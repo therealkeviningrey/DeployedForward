@@ -20,44 +20,13 @@ export default function PricingPage() {
         'IDE integration',
         'CLI tooling',
         'Community access',
-      ],
-      cta: {
-        label: 'Start as Operator',
-        href: '/login',
-      },
-    },
-    {
-      name: 'Unit',
-      price: { monthly: 99, annual: 990 },
-      features: [
-        'Everything in Operator',
-        'Unit-level Missions',
-        'Team workflows & templates',
-        'Priority support',
-        'Up to 5 seats',
-        'Team analytics',
+        'Progress tracking',
+        'Certificates on completion',
       ],
       recommended: true,
       cta: {
-        label: 'Start as Unit',
+        label: 'Start Training',
         href: '/login',
-      },
-    },
-    {
-      name: 'Battalion',
-      price: { monthly: 299, annual: 2990 },
-      features: [
-        'Everything in Unit',
-        'Battalion-level Missions',
-        'Custom workflows',
-        'Dedicated support',
-        'Unlimited seats',
-        'SSO & SAML',
-        'Private content hosting',
-      ],
-      cta: {
-        label: 'Contact Sales',
-        href: '/api/contact',
       },
     },
   ];
