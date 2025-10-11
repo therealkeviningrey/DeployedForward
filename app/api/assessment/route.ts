@@ -115,7 +115,7 @@ function evaluateAnswer(assessment: any, answer: string): boolean {
       
       // Split correct answer into keywords and check if most are present
       const keywords = correctLower.split(/\s+/);
-      const matches = keywords.filter((kw) => answerLower.includes(kw));
+      const matches = keywords.filter((kw: string) => answerLower.includes(kw));
       return matches.length >= keywords.length * 0.7; // 70% keyword match
 
     case 'CODE':
