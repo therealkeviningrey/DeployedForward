@@ -65,7 +65,7 @@ export default function PricingPage() {
   const faqItems = [
     {
       id: 'q1',
-      title: 'What's the difference between the tiers?',
+      title: 'What is the difference between the tiers?',
       content:
         'Operator is for individual contributors. Unit is for teams (5-10 people). Battalion is for organizations (multiple teams). Each tier includes progressively advanced missions and coordination features.',
     },
@@ -78,7 +78,7 @@ export default function PricingPage() {
       id: 'q3',
       title: 'Do you offer refunds?',
       content:
-        'Yes. 30-day money-back guarantee. If the training doesn't produce deployable results, we refund you.',
+        'Yes. 30-day money-back guarantee. If the training does not produce deployable results, we refund you.',
     },
     {
       id: 'q4',
@@ -89,7 +89,7 @@ export default function PricingPage() {
     {
       id: 'q5',
       title: 'Can I pay annually?',
-      content: 'Yes. Annual billing saves ~17% compared to monthly. Toggle the switch above to see annual pricing.',
+      content: 'Yes. Annual billing saves approximately 17% compared to monthly. Toggle the switch above to see annual pricing.',
     },
   ];
 
