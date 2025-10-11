@@ -12,11 +12,17 @@ const isPublicRoute = createRouteMatcher([
   '/legal(.*)',
   '/changelog(.*)',
   '/api/webhooks/(.*)',
+  '/api/og(.*)',
 ]);
 
 const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 
 export default clerkMiddleware((auth, req) => {
+  // In development without Clerk keys, allow all routes
+  if (process.env.NODE_ENV === 'development' && !process.env.CLERK_SECRET_KEY) {
+    return;
+  }
+
   // Protect all routes except public ones
   if (!isPublicRoute(req)) {
     auth().protect();
