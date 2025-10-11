@@ -9,8 +9,9 @@ export async function generateStaticParams() {
   return await generateStaticParamsForMissions();
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const mission = await getMissionBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const mission = await getMissionBySlug(slug);
   
   if (!mission) {
     return {
@@ -24,8 +25,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function MissionPage({ params }: { params: { slug: string } }) {
-  const mission = await getMissionBySlug(params.slug);
+export default async function MissionPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const mission = await getMissionBySlug(slug);
 
   if (!mission) {
     notFound();

@@ -7,9 +7,10 @@ import { prisma } from '@/lib/prisma';
 import { auth } from '@clerk/nextjs/server';
 import { getLessonBySlug } from '@/lib/content';
 
-export async function generateMetadata({ params }: { params: { slug: string; lessonSlug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string; lessonSlug: string }> }) {
+  const { lessonSlug } = await params;
   const lesson = await prisma.lesson.findFirst({
-    where: { slug: params.lessonSlug },
+    where: { slug: lessonSlug },
     include: { module: { include: { course: true } } },
   });
 
@@ -23,7 +24,8 @@ export async function generateMetadata({ params }: { params: { slug: string; les
   };
 }
 
-export default async function LessonPage({ params }: { params: { slug: string; lessonSlug: string } }) {
+export default async function LessonPage({ params }: { params: Promise<{ slug: string; lessonSlug: string }> }) {
+  const { slug, lessonSlug } = await params;
   const { userId } = auth();
 
   if (!userId) {
@@ -50,7 +52,7 @@ export default async function LessonPage({ params }: { params: { slug: string; l
   }
 
   const lesson = await prisma.lesson.findFirst({
-    where: { slug: params.lessonSlug },
+    where: { slug: lessonSlug },
     include: {
       module: {
         include: {

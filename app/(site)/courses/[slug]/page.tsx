@@ -20,9 +20,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const course = await prisma.course.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
 
   if (!course) {
@@ -48,11 +49,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function CoursePage({ params }: { params: { slug: string } }) {
+export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const { userId } = auth();
 
   const course = await prisma.course.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     include: {
       modules: {
         include: {

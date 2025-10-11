@@ -4,10 +4,11 @@ import { prisma } from '@/lib/prisma';
 
 export const runtime = 'edge';
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params;
     const certificate = await prisma.certificate.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         user: true,
         course: true,

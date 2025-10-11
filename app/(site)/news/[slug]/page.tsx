@@ -8,8 +8,9 @@ export async function generateStaticParams() {
   return await generateStaticParamsForNews();
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getNewsBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getNewsBySlug(slug);
 
   if (!post) {
     return {
@@ -23,8 +24,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function NewsPostPage({ params }: { params: { slug: string } }) {
-  const post = await getNewsBySlug(params.slug);
+export default async function NewsPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getNewsBySlug(slug);
 
   if (!post) {
     notFound();
