@@ -11,18 +11,24 @@ import { generateCourseJsonLd } from '@/lib/seo';
 
 export async function generateStaticParams() {
   // Skip static generation at build time if no database
-  if (!process.env.DATABASE_URL) {
+  if (!process.env.POSTGRES_PRISMA_URL && !process.env.DATABASE_URL) {
     return [];
   }
 
-  const courses = await prisma.course.findMany({
-    where: { published: true },
-    select: { slug: true },
-  });
+  try {
+    const courses = await prisma.course.findMany({
+      where: { published: true },
+      select: { slug: true },
+    });
 
-  return courses.map((course: { slug: string }) => ({
-    slug: course.slug,
-  }));
+    return courses.map((course: { slug: string }) => ({
+      slug: course.slug,
+    }));
+  } catch (error) {
+    // If tables don't exist or connection fails during build, skip static generation
+    console.warn('Skipping static generation for courses:', error);
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
