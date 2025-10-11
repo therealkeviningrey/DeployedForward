@@ -1,7 +1,7 @@
 import styles from './Hero.module.css';
 
 interface HeroProps {
-  eyebrow?: string;
+  eyebrow?: React.ReactNode;
   title: string;
   subtitle?: string;
   actions?: React.ReactNode;
