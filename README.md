@@ -2,7 +2,15 @@
 
 > Train where the future is operational. Master AI workflows. Deploy capability, not experiments.
 
-A complete Next.js 15 course platform with authentication, payments, progress tracking, and email automation. Dark, minimal UI inspired by factory.ai.
+A production-ready Next.js 15 course platform with authentication, payments, progress tracking, and email automation. Dark, minimal UI inspired by factory.ai.
+
+## 🚀 Quick Deploy
+
+**Deploy in 15 minutes** → See `QUICK_START.md`
+
+**Full setup guide** → See `LAUNCH_GUIDE.md`
+
+**Live Preview**: http://localhost:3000 (run `npm run dev`)
 
 ## Tech Stack
 
