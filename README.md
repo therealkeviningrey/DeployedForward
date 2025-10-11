@@ -6,11 +6,24 @@ A production-ready Next.js 15 course platform with authentication, payments, pro
 
 ## 🚀 Quick Deploy
 
-**Deploy in 15 minutes** → See `QUICK_START.md`
+**Deploy in 15 minutes** → See [`docs/QUICK_START.md`](docs/QUICK_START.md)
 
-**Full setup guide** → See `LAUNCH_GUIDE.md`
+**Full setup guide** → See [`docs/LAUNCH_GUIDE.md`](docs/LAUNCH_GUIDE.md)
+
+**Dual environment setup** → See [`docs/DUAL_ENVIRONMENT_SETUP.md`](docs/DUAL_ENVIRONMENT_SETUP.md)
 
 **Live Preview**: http://localhost:3000 (run `npm run dev`)
+
+---
+
+## 📖 Documentation
+
+All guides are in the [`/docs`](docs/) folder:
+
+- **[QUICK_START.md](docs/QUICK_START.md)** - Deploy in 15 minutes
+- **[LAUNCH_GUIDE.md](docs/LAUNCH_GUIDE.md)** - Complete deployment guide
+- **[DUAL_ENVIRONMENT_SETUP.md](docs/DUAL_ENVIRONMENT_SETUP.md)** - Preview + Production isolation
+- **[GIT_WORKFLOW.md](docs/GIT_WORKFLOW.md)** - Git branching strategy
 
 ## Tech Stack
 
