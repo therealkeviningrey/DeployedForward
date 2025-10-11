@@ -13,7 +13,7 @@ export const metadata = {
 
 export default async function CoursesPage() {
   // Fetch published courses from database (empty if no DB configured)
-  if (!process.env.DATABASE_URL) {
+  if (!process.env.POSTGRES_PRISMA_URL && !process.env.DATABASE_URL) {
     return (
       <Container>
         <Hero title="Courses" subtitle="Structured training paths for AI workflows." />
