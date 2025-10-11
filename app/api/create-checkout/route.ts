@@ -23,6 +23,7 @@ export async function POST(request: Request) {
     // Find or create user
     let user = await prisma.user.findUnique({
       where: { clerkId: userId },
+      include: { subscription: true },
     });
 
     if (!user) {
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
           email: clerkUser.emailAddresses[0]?.emailAddress || '',
           name: `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim(),
         },
+        include: { subscription: true },
       });
     }
 

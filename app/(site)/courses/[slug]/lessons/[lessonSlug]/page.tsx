@@ -115,8 +115,8 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
   const mdxContent = await getLessonBySlug(lesson.slug);
 
   // Find next lesson
-  const allLessons = lesson.module.course.modules.flatMap((m) => m.lessons);
-  const currentIndex = allLessons.findIndex((l) => l.id === lesson.id);
+  const allLessons = lesson.module.course.modules.flatMap((m: any) => m.lessons);
+  const currentIndex = allLessons.findIndex((l: any) => l.id === lesson.id);
   const nextLesson = currentIndex < allLessons.length - 1 ? allLessons[currentIndex + 1] : null;
 
   return (

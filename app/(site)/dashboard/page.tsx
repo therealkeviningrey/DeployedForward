@@ -62,14 +62,14 @@ export default async function DashboardPage() {
 
   // Calculate stats
   const totalEnrollments = user.enrollments.length;
-  const completedLessons = user.progress.filter((p) => p.completed).length;
+  const completedLessons = user.progress.filter((p: any) => p.completed).length;
   const totalCertificates = user.certificates.length;
 
   // Calculate progress for each enrollment
-  const enrollmentsWithProgress = user.enrollments.map((enrollment) => {
-    const totalLessons = enrollment.course.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+  const enrollmentsWithProgress = user.enrollments.map((enrollment: any) => {
+    const totalLessons = enrollment.course.modules.reduce((acc: number, m: any) => acc + m.lessons.length, 0);
     const completedInCourse = user.progress.filter(
-      (p) => p.completed && enrollment.course.modules.some((m) => m.lessons.some((l) => l.id === p.lessonId))
+      (p: any) => p.completed && enrollment.course.modules.some((m: any) => m.lessons.some((l: any) => l.id === p.lessonId))
     ).length;
     const progressPercent = totalLessons > 0 ? Math.round((completedInCourse / totalLessons) * 100) : 0;
     const isCompleted = progressPercent === 100;
@@ -109,7 +109,7 @@ export default async function DashboardPage() {
             </Card>
           ) : (
             <div className="grid gap-4">
-              {enrollmentsWithProgress.map((enrollment) => (
+              {enrollmentsWithProgress.map((enrollment: any) => (
                 <Card key={enrollment.id} hover>
                   <div className="flex justify-between items-start mb-3">
                     <h3>{enrollment.course.title}</h3>
@@ -144,7 +144,7 @@ export default async function DashboardPage() {
           <section>
             <h2 className="mb-6">Certificates</h2>
             <div className="grid grid-2 gap-4">
-              {user.certificates.map((cert) => (
+              {user.certificates.map((cert: any) => (
                 <Card key={cert.id}>
                   <Badge variant="orange" className="mb-3">
                     Certificate

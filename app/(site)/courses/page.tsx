@@ -12,7 +12,20 @@ export const metadata = {
 };
 
 export default async function CoursesPage() {
-  // Fetch published courses from database
+  // Fetch published courses from database (empty if no DB configured)
+  if (!process.env.DATABASE_URL) {
+    return (
+      <Container>
+        <Hero title="Courses" subtitle="Structured training paths for AI workflows." />
+        <section className="py-12">
+          <Card>
+            <p className="text-secondary text-center">Configure DATABASE_URL to see courses.</p>
+          </Card>
+        </section>
+      </Container>
+    );
+  }
+
   const courses = await prisma.course.findMany({
     where: { published: true },
     include: {
@@ -26,10 +39,10 @@ export default async function CoursesPage() {
   });
 
   // Calculate total lessons and duration for each course
-  const coursesWithMeta = courses.map((course) => {
-    const totalLessons = course.modules.reduce((acc, module) => acc + module.lessons.length, 0);
+  const coursesWithMeta = courses.map((course: any) => {
+    const totalLessons = course.modules.reduce((acc: number, module: any) => acc + module.lessons.length, 0);
     const totalDuration = course.modules.reduce(
-      (acc, module) => acc + module.lessons.reduce((sum, lesson) => sum + (lesson.duration || 0), 0),
+      (acc: number, module: any) => acc + module.lessons.reduce((sum: number, lesson: any) => sum + (lesson.duration || 0), 0),
       0
     );
     return { ...course, totalLessons, totalDuration };
@@ -52,7 +65,7 @@ export default async function CoursesPage() {
         </div>
 
         <div className="grid grid-2 gap-4">
-          {coursesWithMeta.map((course) => (
+          {coursesWithMeta.map((course: any) => (
             <Card key={course.id} hover>
               <div className="flex justify-between items-start mb-3">
                 <Badge variant={course.level === 'Operator' ? 'default' : 'orange'}>

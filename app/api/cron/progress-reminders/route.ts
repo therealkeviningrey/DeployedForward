@@ -56,17 +56,17 @@ export async function GET(request: Request) {
 
       // Check if they have recent activity (within last 3 days)
       const recentActivity = progress.some(
-        (p) => new Date(p.lastViewedAt) > threeDaysAgo
+        (p: any) => new Date(p.lastViewedAt) > threeDaysAgo
       );
 
       // Skip if they've been active recently
       if (recentActivity) continue;
 
       const totalLessons = enrollment.course.modules.reduce(
-        (acc, m) => acc + m.lessons.length,
+        (acc: number, m: any) => acc + m.lessons.length,
         0
       );
-      const completedLessons = progress.filter((p) => p.completed).length;
+      const completedLessons = progress.filter((p: any) => p.completed).length;
 
       // Only send if they've started (>0%) and haven't finished (< 100%)
       if (completedLessons > 0 && completedLessons < totalLessons) {

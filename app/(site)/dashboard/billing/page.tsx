@@ -48,7 +48,7 @@ export default async function BillingPage() {
                 </div>
                 <div className="text-right">
                   <div className="text-3xl font-bold text-accent">
-                    ${TIERS[subscription.tier].monthly}
+                    ${TIERS[subscription.tier as keyof typeof TIERS].monthly}
                   </div>
                   <div className="text-sm text-secondary">per month</div>
                 </div>
@@ -85,7 +85,7 @@ export default async function BillingPage() {
             <Card>
               <h3 className="mb-4">Plan Features</h3>
               <ul className="flex flex-col gap-2">
-                {TIERS[subscription.tier].features.map((feature: string, index: number) => (
+                {TIERS[subscription.tier as keyof typeof TIERS].features.map((feature: string, index: number) => (
                   <li key={index} className="flex items-start gap-2 text-sm">
                     <span className="text-accent">✓</span>
                     <span>{feature}</span>

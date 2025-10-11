@@ -101,7 +101,7 @@ export default async function AdminPage() {
               {recentEnrollments.length === 0 ? (
                 <p className="text-secondary text-center py-4">No enrollments yet.</p>
               ) : (
-                recentEnrollments.map((enrollment) => (
+                recentEnrollments.map((enrollment: any) => (
                   <div
                     key={enrollment.id}
                     className="flex justify-between items-center py-3 border-bottom"

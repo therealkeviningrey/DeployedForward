@@ -57,8 +57,8 @@ export default async function AdminCoursesPage() {
               </p>
             </Card>
           ) : (
-            courses.map((course) => {
-              const totalLessons = course.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+            courses.map((course: any) => {
+              const totalLessons = course.modules.reduce((acc: number, m: any) => acc + m.lessons.length, 0);
               
               return (
                 <Card key={course.id} hover>

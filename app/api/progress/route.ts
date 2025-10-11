@@ -109,14 +109,14 @@ async function checkAndIssueCertificate(userId: string, courseId: string) {
 
   if (!course) return;
 
-  const allLessons = course.modules.flatMap((m) => m.lessons);
+  const allLessons = course.modules.flatMap((m: any) => m.lessons);
   const totalLessons = allLessons.length;
 
   // Get completed lessons
   const completedProgress = await prisma.progress.findMany({
     where: {
       userId,
-      lessonId: { in: allLessons.map((l) => l.id) },
+      lessonId: { in: allLessons.map((l: any) => l.id) },
       completed: true,
     },
   });
@@ -146,7 +146,7 @@ async function checkAndIssueCertificate(userId: string, courseId: string) {
       if (user) {
         const { sendCertificateEmail } = await import('@/lib/email');
         const certificateUrl = `${process.env.NEXT_PUBLIC_APP_URL}/certificate/${certificate.id}`;
-        await sendCertificateEmail(user.email, course.title, certificateUrl);
+        await sendCertificateEmail(user.email, course.title, certificateUrl, user.name || 'Learner');
       }
     }
   }

@@ -10,12 +10,17 @@ import { JsonLd } from '@/components/JsonLd';
 import { generateCourseJsonLd } from '@/lib/seo';
 
 export async function generateStaticParams() {
+  // Skip static generation at build time if no database
+  if (!process.env.DATABASE_URL) {
+    return [];
+  }
+
   const courses = await prisma.course.findMany({
     where: { published: true },
     select: { slug: true },
   });
 
-  return courses.map((course) => ({
+  return courses.map((course: { slug: string }) => ({
     slug: course.slug,
   }));
 }
@@ -90,9 +95,9 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     }
   }
 
-  const totalLessons = course.modules.reduce((acc, module) => acc + module.lessons.length, 0);
+  const totalLessons = course.modules.reduce((acc: number, module: any) => acc + module.lessons.length, 0);
   const totalDuration = course.modules.reduce(
-    (acc, module) => acc + module.lessons.reduce((sum, lesson) => sum + (lesson.duration || 0), 0),
+    (acc: number, module: any) => acc + module.lessons.reduce((sum: number, lesson: any) => sum + (lesson.duration || 0), 0),
     0
   );
 
@@ -145,11 +150,11 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           <section className="py-8">
             <h2 className="mb-6">Curriculum</h2>
             <div className="grid gap-4">
-              {course.modules.map((module) => (
+              {course.modules.map((module: any) => (
                 <Card key={module.id}>
                   <h3 className="mb-3">{module.title}</h3>
                   <ul className="flex flex-col gap-2">
-                    {module.lessons.map((lesson) => (
+                    {module.lessons.map((lesson: any) => (
                       <li key={lesson.id} className="flex justify-between items-center text-sm">
                         <span className="text-secondary">{lesson.title}</span>
                         <span className="text-xs text-secondary">{lesson.duration} min</span>
