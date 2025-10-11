@@ -1,0 +1,115 @@
+---
+title: Prompt Engineering Essentials
+slug: prompt-engineering-essentials
+level: Unit
+duration: 25
+outcomes:
+  - Master prompt structure patterns
+  - Apply context engineering
+  - Build reusable prompt templates
+published: true
+---
+
+# Prompt Engineering Essentials
+
+Learn the operational patterns that separate effective AI workflows from random experimentation.
+
+## The Anatomy of a Working Prompt
+
+Every production-ready prompt has three components:
+
+1. **Context** — what the AI needs to know
+2. **Task** — what you want done
+3. **Constraints** — boundaries and format
+
+### Example: Code Generation
+
+**Bad prompt:**
+```
+Write a function
+```
+
+**Good prompt:**
+```
+You are a senior TypeScript engineer.
+
+Write a pure function that validates email addresses.
+Requirements:
+- Input: string
+- Output: boolean
+- No external dependencies
+- Include JSDoc comments
+- Add 3 test cases
+```
+
+## Context Engineering
+
+The quality of your output is directly proportional to the context you provide.
+
+### Workspace Context
+
+```bash
+df context load --scope workspace
+```
+
+This injects:
+- Project structure
+- Coding standards
+- Existing patterns
+- Dependencies
+
+### Task-Specific Context
+
+```bash
+df context add --file src/auth/types.ts --purpose "match these patterns"
+```
+
+## Building Templates
+
+Create reusable prompt templates:
+
+```bash
+df template create api-endpoint
+```
+
+Example template:
+
+```yaml
+name: api-endpoint
+context:
+  - project-standards
+  - existing-routes
+prompt: |
+  Create a new API endpoint:
+  - Method: {{method}}
+  - Path: {{path}}
+  - Purpose: {{description}}
+  
+  Follow existing patterns in routes/.
+  Include validation, error handling, and tests.
+```
+
+## Real-World Application
+
+Generate a complete CRUD endpoint:
+
+```bash
+df generate endpoint \
+  --method POST \
+  --path /api/users \
+  --description "Create new user with validation"
+```
+
+## Checkpoint
+
+You should now be able to:
+
+- ✅ Structure effective prompts
+- ✅ Engineer relevant context
+- ✅ Build reusable templates
+- ✅ Generate production code consistently
+
+## Next Mission
+
+Advance to **[Team Workflow Patterns](/programs/missions/team-workflow-patterns)** to scale these techniques across your unit.
+

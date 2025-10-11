@@ -1,0 +1,12 @@
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color var(--speed) var(--ease);
+}
+
+.card.hover:hover {
+  border-color: var(--accent);
+}
+

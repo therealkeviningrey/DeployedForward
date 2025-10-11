@@ -1,0 +1,123 @@
+---
+title: Anatomy of a Prompt
+slug: anatomy-of-a-prompt
+duration: 15
+published: true
+---
+
+# Anatomy of a Prompt
+
+Every production-quality prompt has three components: context, task, and constraints. Miss one and you get inconsistent output.
+
+## The Three Components
+
+### 1. Context
+
+Tell the AI what it needs to know:
+- Who it is (role)
+- What environment it's working in
+- What standards to follow
+
+**Example:**
+```
+You are a senior backend engineer working in a Node.js microservices architecture.
+Our API follows REST conventions and uses PostgreSQL for persistence.
+All endpoints must include input validation and error handling.
+```
+
+### 2. Task
+
+State exactly what you want done:
+- Be specific
+- Include inputs and outputs
+- Mention format preferences
+
+**Example:**
+```
+Create a new API endpoint:
+- Method: POST
+- Path: /api/users
+- Input: { email: string, name: string }
+- Output: { id: string, email: string, name: string, createdAt: Date }
+```
+
+### 3. Constraints
+
+Define boundaries:
+- What to avoid
+- Performance requirements
+- Code style preferences
+- Testing requirements
+
+**Example:**
+```
+Constraints:
+- Use Zod for validation
+- Return 400 for invalid input with error details
+- Include JSDoc comments
+- Write 3 test cases (valid, invalid email, missing field)
+```
+
+## Putting It Together
+
+Here's a complete, production-ready prompt:
+
+```
+You are a senior backend engineer working in a Node.js microservices architecture.
+Our API follows REST conventions and uses PostgreSQL for persistence.
+All endpoints must include input validation and error handling.
+
+Create a new API endpoint:
+- Method: POST
+- Path: /api/users
+- Input: { email: string, name: string }
+- Output: { id: string, email: string, name: string, createdAt: Date }
+
+Constraints:
+- Use Zod for validation
+- Return 400 for invalid input with error details
+- Include JSDoc comments
+- Write 3 test cases (valid, invalid email, missing field)
+```
+
+This produces consistent, deployable code.
+
+## Common Mistakes
+
+**Too vague:**
+```
+Write a function to handle users
+```
+
+**Missing context:**
+```
+Create a POST endpoint for users
+```
+(What framework? What validation? What format?)
+
+**No constraints:**
+```
+Build a user API with Node.js
+```
+(No standards, no testing requirements, no error handling guidance)
+
+## Practice
+
+Try generating an endpoint using the three-component pattern. Run:
+
+```bash
+df prompt validate your-prompt.txt
+```
+
+This scores your prompt on context, task clarity, and constraint definition.
+
+## Key Takeaway
+
+**Context + Task + Constraints = Consistent Output**
+
+Without all three, you're rolling dice.
+
+## Next Lesson
+
+You've learned prompt structure. Next: **Context Engineering** — how to load the right information so your prompts work consistently across your codebase.
+

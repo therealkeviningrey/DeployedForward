@@ -1,0 +1,14 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity var(--speed) var(--ease);
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.logo img {
+  display: block;
+}
+

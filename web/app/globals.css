@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base theme */
+:root {
+  --ring: 0 0 0 2px theme(colors.accent);
+}
+
+html, body { height: 100%; }
+body { @apply bg-bg0 text-fg1 font-sans antialiased; }
+
+a { @apply border-b border-transparent text-fg1; }
+a:hover { @apply border-accent; }
+
+/* Utilities similar to prior site */
+.container { @apply mx-auto max-w-[1200px] px-6; }
+.section { @apply py-24; }
+.section-tight { @apply py-16; }
+.grid-gap { @apply gap-6; }
+
+.btn { @apply inline-flex items-center justify-center gap-2 px-4 py-2 border border-bd1 text-fg1; }
+.btn-primary { @apply bg-accent border-accent text-bg0; }
+.btn-ghost { @apply border-bd1 text-fg3; }
+
+.eyebrow { @apply uppercase tracking-[0.12em] text-sm text-accent; }
+.muted { @apply text-fg3; }
+.kpi { @apply font-mono font-bold text-4xl; font-feature-settings: "tnum" 1; }
+
+.card { @apply border border-bd1 p-6; }
+.card-accent { border-top: 2px solid theme(colors.accent); }
+
+.site-header { @apply sticky top-0 z-50 bg-bg0 border-b border-bd1; }
+.site-header .inner { @apply container h-16 flex items-center gap-4; }
+.nav { @apply flex items-center gap-4; }
+.nav a { @apply text-fg3 border-b border-transparent; }
+.nav a:hover, .nav a[aria-current="page"] { @apply text-fg1 border-accent; }
+.nav .cta { @apply btn btn-primary; }
+
+.accent-left { @apply pl-6 border-l-2 border-accent; }
+
+@media (max-width: 900px) {
+  .nav { @apply fixed inset-x-0 top-16 grid gap-4 bg-bg0 border-t border-bd1 p-6; }
+}

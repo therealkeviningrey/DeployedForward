@@ -1,0 +1,224 @@
+// Prisma schema for Deployed Forward
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model synced with Clerk
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollments  Enrollment[]
+  progress     Progress[]
+  attempts     Attempt[]
+  certificates Certificate[]
+  referrals    Referral[]    @relation("Referrer")
+  subscription Subscription?
+
+  @@index([clerkId])
+  @@index([email])
+}
+
+// Subscription tiers
+enum SubscriptionTier {
+  OPERATOR
+  UNIT
+  BATTALION
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  TRIALING
+}
+
+model Subscription {
+  id                 String             @id @default(cuid())
+  userId             String             @unique
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeCustomerId   String             @unique
+  stripeSubscriptionId String?          @unique
+  tier               SubscriptionTier
+  status             SubscriptionStatus @default(TRIALING)
+  seats              Int                @default(1)
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  cancelAtPeriodEnd  Boolean            @default(false)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([userId])
+  @@index([stripeCustomerId])
+}
+
+// Course structure
+model Course {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  level       String   // Operator, Unit, Battalion
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  modules      Module[]
+  enrollments  Enrollment[]
+  certificates Certificate[]
+
+  @@index([slug])
+  @@index([published])
+}
+
+model Module {
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title     String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lessons Lesson[]
+
+  @@unique([courseId, order])
+  @@index([courseId])
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  moduleId    String
+  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  slug        String   // references MDX file
+  title       String
+  order       Int
+  videoUrl    String?
+  duration    Int?     // minutes
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  progress    Progress[]
+  assessments Assessment[]
+
+  @@unique([moduleId, order])
+  @@index([moduleId])
+  @@index([slug])
+}
+
+// Enrollment & Progress
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  startedAt DateTime @default(now())
+  completedAt DateTime?
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+model Progress {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId     String
+  lesson       Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  completed    Boolean  @default(false)
+  lastViewedAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([lessonId])
+}
+
+// Assessment
+enum AssessmentType {
+  MCQ
+  TEXT
+  CODE
+}
+
+model Assessment {
+  id        String         @id @default(cuid())
+  lessonId  String
+  lesson    Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  type      AssessmentType
+  question  String
+  options   Json?          // for MCQ
+  answer    String?        // correct answer/reference
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  attempts Attempt[]
+
+  @@index([lessonId])
+}
+
+model Attempt {
+  id           String     @id @default(cuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  answer       String
+  correct      Boolean
+  createdAt    DateTime   @default(now())
+
+  @@index([userId])
+  @@index([assessmentId])
+}
+
+// Certificates
+model Certificate {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  pdfUrl    String?
+  issuedAt  DateTime @default(now())
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+// Coupon & Referral
+model Coupon {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  discountPercent Int
+  maxUses       Int?
+  usedCount     Int       @default(0)
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@index([code])
+}
+
+model Referral {
+  id         String   @id @default(cuid())
+  referrerId String
+  referrer   User     @relation("Referrer", fields: [referrerId], references: [id], onDelete: Cascade)
+  refereeEmail String
+  redeemed   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([referrerId])
+  @@index([refereeEmail])
+}
+

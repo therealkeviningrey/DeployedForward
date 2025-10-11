@@ -1,0 +1,91 @@
+---
+title: Setting Up Your Environment
+slug: setting-up-your-environment
+duration: 10
+published: true
+---
+
+# Setting Up Your Environment
+
+Before you run your first AI workflow, you need three things installed: the CLI, an API key, and your IDE integration.
+
+## Step 1: Install the CLI
+
+The `df` CLI is your primary interface for running missions and workflows.
+
+**macOS / Linux:**
+```bash
+curl -fsSL https://get.deployedforward.com | sh
+```
+
+**Windows (PowerShell):**
+```powershell
+irm https://get.deployedforward.com/install.ps1 | iex
+```
+
+Verify it works:
+```bash
+df --version
+```
+
+You should see version 1.0.0 or higher.
+
+## Step 2: Authenticate
+
+Connect your Deployed Forward account:
+
+```bash
+df auth login
+```
+
+This opens your browser for authentication. Once complete, your CLI is linked to your account.
+
+## Step 3: Configure Your API Key
+
+Most workflows need an AI provider. We support OpenAI, Anthropic, and Azure OpenAI.
+
+```bash
+df config set ai.provider openai
+df config set ai.key YOUR_API_KEY
+```
+
+Alternatively, set environment variables:
+
+```bash
+export OPENAI_API_KEY=your-key-here
+```
+
+## Step 4: IDE Integration (Optional)
+
+Install the VS Code extension:
+
+1. Open VS Code
+2. Search extensions for "Deployed Forward"
+3. Install and reload
+
+Or install via CLI:
+
+```bash
+code --install-extension deployed-forward.vscode-df
+```
+
+For Cursor or JetBrains, see the [IDE integration docs](https://docs.deployedforward.com/ide).
+
+## Checkpoint
+
+Run the diagnostic:
+
+```bash
+df doctor
+```
+
+You should see:
+- ✅ CLI installed
+- ✅ Authenticated
+- ✅ AI provider configured
+- ✅ IDE integration detected (optional)
+
+## What's Next
+
+You're ready to initialize your first project. Head to the next lesson: **Creating Your First Project**.
+

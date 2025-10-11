@@ -1,0 +1,86 @@
+---
+title: AI Workflow Setup
+slug: ai-workflow-setup
+level: Operator
+duration: 15
+outcomes:
+  - Configure your development environment
+  - Install essential AI tools
+  - Run your first AI-assisted workflow
+published: true
+---
+
+# AI Workflow Setup
+
+Welcome to your first mission. You'll configure a production-ready AI development environment and execute your first assisted workflow.
+
+## Objective
+
+By the end of this mission, you'll have a fully operational AI-enhanced development setup that you can deploy immediately.
+
+## Prerequisites
+
+- macOS, Linux, or Windows with WSL2
+- Basic terminal proficiency
+- Git installed
+
+## Step 1: Install Core Tools
+
+Install the Deployed Forward CLI:
+
+```bash
+curl -fsSL https://get.deployedforward.com | sh
+```
+
+Verify installation:
+
+```bash
+df --version
+```
+
+## Step 2: Configure Your Environment
+
+Initialize your workspace:
+
+```bash
+df init my-project
+cd my-project
+```
+
+This creates a structured project with AI workflow templates pre-configured.
+
+## Step 3: Your First AI Workflow
+
+Run the scaffold workflow:
+
+```bash
+df workflow run scaffold --template api
+```
+
+This generates a production-ready API structure using AI-assisted code generation.
+
+## Step 4: Review & Deploy
+
+Inspect the generated code:
+
+```bash
+df review
+```
+
+Deploy to your environment:
+
+```bash
+df deploy --target staging
+```
+
+## What You've Accomplished
+
+- ✅ Installed and configured the DF CLI
+- ✅ Created a structured AI-ready project
+- ✅ Executed an AI-assisted workflow
+- ✅ Deployed working code
+
+## Next Steps
+
+Continue to **[Prompt Engineering Essentials](/programs/missions/prompt-engineering-essentials)** to refine your AI interaction patterns.
+
