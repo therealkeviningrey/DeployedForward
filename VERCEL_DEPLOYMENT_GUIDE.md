@@ -268,7 +268,7 @@ git push -u origin main
 4. Import your repository
 5. Configure:
    - **Framework Preset**: Next.js
-   - **Root Directory**: `web`
+   - **Root Directory**: `.` (project root)
    - **Build Command**: `npm run build`
    - **Output Directory**: (leave default)
 

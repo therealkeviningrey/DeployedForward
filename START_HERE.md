@@ -34,7 +34,7 @@ This document will guide you from here to launch in **3 hours**.
 
 ## 📚 Documentation Map
 
-Read these in order:
+All documentation is in the project root:
 
 ### 1. **LAUNCH_GUIDE.md** ← **Start here for deployment**
 Step-by-step guide to go live in 3 hours. Covers:
@@ -76,6 +76,12 @@ Project summary:
 - Feature list
 - Technology choices
 
+### 7. **GIT_WORKFLOW.md**
+Git branching strategy:
+- Branch purposes
+- Development workflow
+- Vercel integration
+
 ---
 
 ## 🚀 Quick Start (Choose Your Path)
@@ -96,28 +102,22 @@ Project summary:
 
 **Best for**: Understanding the codebase before deploying
 
-**Time**: 30 minutes
+**Time**: 5 minutes (no config needed!)
 
 **Steps**:
 ```bash
-cd /Users/keviningrey/CursorProjects/DeployedForward/web
+cd /Users/keviningrey/CursorProjects/DeployedForward
 
 # 1. Install
 npm install
 
-# 2. Configure (see LAUNCH_GUIDE.md Phase 1)
-cp .env.example .env.local
-# Edit .env.local with your API keys
-
-# 3. Database
-npm run db:push
-npm run db:seed
-
-# 4. Run
+# 2. Run (marketing site works without any config!)
 npm run dev
 ```
 
 Open http://localhost:3000
+
+**Note**: Marketing pages work immediately. For full platform (auth, courses, payments), follow LAUNCH_GUIDE.md to configure services.
 
 ---
 
@@ -157,7 +157,7 @@ Before you start, make sure you have:
 ## 🏗️ Project Architecture
 
 ```
-/web
+/
 ├── app/                    # Next.js App Router
 │   ├── (site)/            # Marketing + courses
 │   ├── api/               # API endpoints

@@ -105,7 +105,7 @@ RESEND_FROM_EMAIL=hello@deployedforward.com
 ### 2.1 Configure Environment
 
 ```bash
-cd /Users/keviningrey/CursorProjects/DeployedForward/web
+cd /Users/keviningrey/CursorProjects/DeployedForward
 
 # Create local environment file
 cp .env.example .env.local

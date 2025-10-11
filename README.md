@@ -78,13 +78,15 @@ Train where the future is operational. Master AI workflows with field-tested mis
 /app
   /(site)          - Marketing pages (home, product, pricing, etc.)
   /api             - API routes (contact, webhooks, etc.)
-  /sitemap.ts      - Dynamic sitemap generation
-  /robots.ts       - Robots.txt configuration
+  sitemap.ts       - Dynamic sitemap generation
+  robots.ts        - Robots.txt configuration
 /components        - Reusable UI components
 /content           - MDX content (missions, news, lessons)
 /lib               - Utilities (Prisma, MDX, Stripe, email)
 /prisma            - Database schema and seed data
 /styles            - Global CSS and design tokens
+/public            - Static assets (logos, etc.)
+/tests             - E2E tests (Playwright)
 ```
 
 ## Development Scripts
