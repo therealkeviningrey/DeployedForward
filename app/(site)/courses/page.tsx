@@ -12,31 +12,29 @@ export const metadata = {
 };
 
 export default async function CoursesPage() {
-  // Fetch published courses from database (empty if no DB configured)
-  if (!process.env.POSTGRES_PRISMA_URL && !process.env.DATABASE_URL) {
-    return (
-      <Container>
-        <Hero title="Courses" subtitle="Structured training paths for AI workflows." />
-        <section className="py-12">
-          <Card>
-            <p className="text-secondary text-center">Configure DATABASE_URL to see courses.</p>
-          </Card>
-        </section>
-      </Container>
-    );
-  }
+  let courses = [];
 
-  const courses = await prisma.course.findMany({
-    where: { published: true },
-    include: {
-      modules: {
-        include: {
-          lessons: true,
+  // Try to fetch courses from database
+  try {
+    if (!process.env.POSTGRES_PRISMA_URL && !process.env.DATABASE_URL) {
+      throw new Error('Database not configured');
+    }
+
+    courses = await prisma.course.findMany({
+      where: { published: true },
+      include: {
+        modules: {
+          include: {
+            lessons: true,
+          },
         },
       },
-    },
-    orderBy: { createdAt: 'desc' },
-  });
+      orderBy: { createdAt: 'desc' },
+    });
+  } catch (error) {
+    console.error('Failed to fetch courses:', error);
+    // Continue with empty courses array
+  }
 
   // Calculate total lessons and duration for each course
   const coursesWithMeta = courses.map((course: any) => {
