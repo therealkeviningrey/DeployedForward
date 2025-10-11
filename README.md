@@ -1,6 +1,8 @@
 # Deployed Forward
 
-Train where the future is operational. Master AI workflows with field-tested missions and deploy capability, not experiments.
+> Train where the future is operational. Master AI workflows. Deploy capability, not experiments.
+
+A complete Next.js 15 course platform with authentication, payments, progress tracking, and email automation. Dark, minimal UI inspired by factory.ai.
 
 ## Tech Stack
 
