@@ -33,8 +33,6 @@
 
 .navItemWrapper {
   position: relative;
-  /* Add padding-bottom to create hover bridge to dropdown */
-  padding-bottom: 1rem;
 }
 
 .navButton,
@@ -71,10 +69,11 @@
 /* Dropdown Menu - factory.ai style */
 .dropdown {
   position: absolute;
-  top: calc(100% + 1rem);
+  top: 100%; /* No gap - dropdown touches button */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
+  padding-top: 0.5rem; /* Visual spacing, but still in hover area */
 }
 
 .dropdownInner {
