@@ -7,6 +7,7 @@ import { Card } from '@/components/Card';
 import { KPI } from '@/components/KPI';
 import { Testimonial } from '@/components/Testimonial';
 import { Tabs } from '@/components/Tabs';
+import { LogoMarquee } from '@/components/LogoMarquee';
 import styles from './page.module.css';
 
 export default function HomePage() {
@@ -45,25 +46,25 @@ export default function HomePage() {
         />
       </Container>
 
-      {/* Trust Row */}
-      <section className={styles.trustSection}>
-        <Container>
-          <p className={styles.trustLabel}>Trusted by operators at</p>
-          <div className={styles.trustLogos}>
-            {/* Placeholder for trust logos */}
-            <div className={styles.trustLogo}>Company 1</div>
-            <div className={styles.trustLogo}>Company 2</div>
-            <div className={styles.trustLogo}>Company 3</div>
-            <div className={styles.trustLogo}>Company 4</div>
-            <div className={styles.trustLogo}>Company 5</div>
-          </div>
-        </Container>
-      </section>
+      {/* Trust Row - Animated Logo Marquee */}
+      <LogoMarquee
+        label="Trusted by operators at"
+        logos={[
+          { name: 'Stripe' },
+          { name: 'Vercel' },
+          { name: 'GitHub' },
+          { name: 'OpenAI' },
+          { name: 'Anthropic' },
+          { name: 'Linear' },
+          { name: 'Notion' },
+          { name: 'Retool' },
+        ]}
+      />
 
       {/* Work Where You Operate */}
-      <section className="py-16">
+      <section className={styles.section}>
         <Container>
-          <h2 className={styles.sectionTitle}>Work Where You Operate</h2>
+          <h2 className={styles.sectionTitle}>Work where you operate</h2>
           <Tabs
             tabs={[
               {
@@ -107,7 +108,7 @@ export default function HomePage() {
       </section>
 
       {/* Programs */}
-      <section className="py-16">
+      <section className={styles.section}>
         <Container>
           <h2 className={styles.sectionTitle}>Programs</h2>
           <div className="grid grid-3">
@@ -143,7 +144,7 @@ export default function HomePage() {
       </section>
 
       {/* Outcomes */}
-      <section className="py-16">
+      <section className={styles.section}>
         <Container>
           <h2 className={styles.sectionTitle}>Outcomes</h2>
           <div className="grid grid-3">
@@ -155,7 +156,7 @@ export default function HomePage() {
       </section>
 
       {/* Proof */}
-      <section className="py-16">
+      <section className={styles.section}>
         <Container>
           <h2 className={styles.sectionTitle}>Proof</h2>
           <div className="grid grid-2">

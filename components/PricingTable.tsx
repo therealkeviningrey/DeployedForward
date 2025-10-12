@@ -14,6 +14,7 @@ interface PricingTier {
     label: string;
     href: string;
   };
+  disabled?: boolean;
 }
 
 interface PricingTableProps {
@@ -26,11 +27,16 @@ export function PricingTable({ tiers, billingPeriod, className = '' }: PricingTa
   return (
     <div className={`${styles.grid} ${className}`}>
       {tiers.map((tier) => (
-        <Card key={tier.name} hover className={styles.card}>
+        <Card 
+          key={tier.name} 
+          hover={!tier.disabled} 
+          className={`${styles.card} ${tier.disabled ? styles.cardDisabled : ''}`}
+        >
           <div className={styles.header}>
             <div className={styles.titleRow}>
               <h3 className={styles.name}>{tier.name}</h3>
               {tier.recommended && <Badge variant="orange">Recommended</Badge>}
+              {tier.disabled && <Badge>Coming Soon</Badge>}
             </div>
             <div className={styles.price}>
               <span className={styles.amount}>
@@ -68,7 +74,8 @@ export function PricingTable({ tiers, billingPeriod, className = '' }: PricingTa
           {tier.cta && (
             <a
               href={tier.cta.href}
-              className={`btn ${tier.recommended ? 'btn-primary' : 'btn-ghost'}`}
+              className={`btn ${tier.recommended ? 'btn-primary' : 'btn-ghost'} ${tier.disabled ? styles.btnDisabled : ''}`}
+              {...(tier.disabled && { 'aria-disabled': 'true', onClick: (e: React.MouseEvent) => e.preventDefault() })}
             >
               {tier.cta.label}
             </a>

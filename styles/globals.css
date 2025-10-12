@@ -2,16 +2,16 @@
 :root {
   /* Brand palette */
   --brand-signal-orange: #FF6B00;
-  --brand-night-black: #0D0D0D;
-  --brand-tactical-grey: #1F1F1F;
+  --brand-night-black: #0A0A0A; /* Softer than pure black */
+  --brand-tactical-grey: #1A1A1A; /* Slightly lighter */
   --brand-neutral-white: #EAEAEA;
-  --brand-gridline-grey: #565656;
+  --brand-gridline-grey: #2A2A2A; /* More subtle borders */
 
   /* Semantic tokens */
   --bg-primary: var(--brand-night-black);
   --bg-secondary: var(--brand-tactical-grey);
   --text-primary: var(--brand-neutral-white);
-  --text-secondary: rgba(234, 234, 234, 0.7);
+  --text-secondary: rgba(234, 234, 234, 0.65); /* Slightly more subtle */
   --border-subtle: var(--brand-gridline-grey);
   --accent: var(--brand-signal-orange);
 
@@ -19,6 +19,7 @@
   --container-max: 1280px;
   --container-padding: 1.5rem;
   --radius: 8px;
+  --radius-lg: 12px;
 
   /* Typography */
   --font-display: var(--font-orbitron);
@@ -27,10 +28,15 @@
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --speed: 180ms;
+  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --speed: 200ms;
+  --speed-slow: 350ms;
 
-  /* Shadows (none per spec) */
-  --shadow: none;
+  /* Shadows - adding depth */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4);
+  --shadow-accent: 0 8px 32px rgba(255, 107, 0, 0.2);
 
   /* Z-index */
   --z-header: 1000;
@@ -76,27 +82,36 @@ h5,
 h6 {
   font-family: var(--font-display);
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em; /* Reduced tracking */
   line-height: 1.2;
   margin-bottom: 1rem;
 }
 
+/* Only hero h1 uses uppercase, others use normal case */
 h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 4.5rem); /* Larger hero text */
   font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
+  text-transform: capitalize; /* Sentence case for h2 */
 }
 
 h3 {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  text-transform: capitalize; /* Sentence case for h3 */
 }
 
 h4 {
   font-size: 1.25rem;
+  text-transform: capitalize;
+}
+
+p {
+  line-height: 1.7; /* Increased from 1.6 */
 }
 
 h5 {

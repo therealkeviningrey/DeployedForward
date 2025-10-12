@@ -34,12 +34,15 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  transition: border-color var(--speed) var(--ease);
+  padding: 2.5rem; /* Increased from 1.5rem */
+  transition: all var(--speed-slow) var(--ease);
+  box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
-  border-color: var(--accent);
+  border-color: rgba(255, 107, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-accent);
 }
 
 /* Buttons */
@@ -66,6 +69,8 @@
 .btn-primary:hover {
   background: transparent;
   color: var(--accent);
+  transform: scale(1.02);
+  box-shadow: var(--shadow-accent);
 }
 
 .btn-ghost {
@@ -77,6 +82,7 @@
 .btn-ghost:hover {
   border-color: var(--accent);
   color: var(--accent);
+  transform: scale(1.02);
 }
 
 .btn-sm {
@@ -111,6 +117,7 @@
 
 .pill:hover {
   border-color: var(--accent);
+  background: rgba(255, 107, 0, 0.08);
 }
 
 /* Badge */
