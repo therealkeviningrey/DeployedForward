@@ -29,6 +29,47 @@ export default function PricingPage() {
         href: '/login',
       },
     },
+    {
+      name: 'Unit',
+      price: { monthly: 99, annual: 990 },
+      features: [
+        'Everything in Operator',
+        'Unit-level Missions',
+        'Team coordination workflows',
+        '5 team members included',
+        'Shared progress tracking',
+        'Team analytics dashboard',
+        'Priority support',
+        'Custom mission requests',
+      ],
+      recommended: false,
+      cta: {
+        label: 'Coming Soon',
+        href: '#',
+      },
+      disabled: true,
+    },
+    {
+      name: 'Battalion',
+      price: { monthly: 299, annual: 2990 },
+      features: [
+        'Everything in Unit',
+        'Battalion-level Missions',
+        'Multi-team orchestration',
+        'Unlimited team members',
+        'Advanced analytics & reporting',
+        'Dedicated account manager',
+        'Custom training programs',
+        'SLA & priority support',
+        'On-premise deployment option',
+      ],
+      recommended: false,
+      cta: {
+        label: 'Coming Soon',
+        href: '#',
+      },
+      disabled: true,
+    },
   ];
 
   const faqItems = [
@@ -69,7 +110,7 @@ export default function PricingPage() {
         subtitle="Three tiers: Operator (individual), Unit (team), Battalion (organization). All include hands-on missions with deployable outcomes."
       />
 
-      <section className="py-12">
+      <section style={{ paddingBlock: '6rem' }}>
         <div className="flex justify-center gap-2 mb-8">
           <Pill active={billingPeriod === 'monthly'} onClick={() => setBillingPeriod('monthly')}>
             Monthly
@@ -82,8 +123,8 @@ export default function PricingPage() {
         <PricingTable tiers={tiers} billingPeriod={billingPeriod} />
       </section>
 
-      <section className="py-12">
-        <h2 className="text-center mb-8">Frequently Asked Questions</h2>
+      <section style={{ paddingBlock: '6rem' }}>
+        <h2 className="text-center mb-8">Frequently asked questions</h2>
         <Container size="narrow">
           <Accordion items={faqItems} />
         </Container>
