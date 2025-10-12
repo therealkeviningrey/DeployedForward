@@ -88,7 +88,7 @@ export default function PricingPage() {
       id: 'q3',
       title: 'Do you offer refunds?',
       content:
-        'Yes. 30-day money-back guarantee. If you complete 3 lessons and haven't shipped a working project, we'll refund you in full. No questions asked.',
+        'Yes. 30-day money-back guarantee. If you complete 3 lessons and have not shipped a working project, we will refund you in full. No questions asked.',
     },
     {
       id: 'q4',
