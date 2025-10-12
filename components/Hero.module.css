@@ -2,21 +2,21 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 4rem;
-  padding-block: 8rem 6rem; /* Increased mobile padding */
+  padding-block: 4rem 3rem; /* Reduced top padding - closer to header */
 }
 
 @media (min-width: 768px) {
   .hero {
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 6rem; /* Increased gap */
-    padding-block: 12rem 10rem; /* Much larger vertical padding like factory.ai */
+    gap: 6rem;
+    padding-block: 6rem 5rem; /* Tighter to header, factory.ai style */
   }
 }
 
 @media (min-width: 1200px) {
   .hero {
-    padding-block: 16rem 12rem; /* Even more spacious on large screens */
+    padding-block: 8rem 6rem; /* Balanced spacing on large screens */
   }
 }
 
