@@ -12,35 +12,35 @@ export default function PricingPage() {
 
   const tiers = [
     {
-      name: 'Operator',
+      name: 'Individual',
       price: { monthly: 29, annual: 290 },
       features: [
-        'Access to all Briefs',
-        'Operator-level Missions',
-        'IDE integration',
-        'CLI tooling',
-        'Community access',
-        'Progress tracking',
-        'Certificates on completion',
+        'Access to all courses',
+        'Beginner through intermediate tracks',
+        'Hands-on project guides',
+        'Community forum access',
+        'Progress tracking dashboard',
+        'Course completion certificates',
+        'Lifetime access to materials',
       ],
       recommended: true,
       cta: {
-        label: 'Start Training',
+        label: 'Start Learning',
         href: '/login',
       },
     },
     {
-      name: 'Unit',
+      name: 'Team',
       price: { monthly: 99, annual: 990 },
       features: [
-        'Everything in Operator',
-        'Unit-level Missions',
-        'Team coordination workflows',
+        'Everything in Individual',
+        'Advanced courses and specializations',
+        'Team learning dashboard',
         '5 team members included',
-        'Shared progress tracking',
-        'Team analytics dashboard',
-        'Priority support',
-        'Custom mission requests',
+        'Shared project repositories',
+        'Team progress analytics',
+        'Priority email support',
+        'Custom learning paths',
       ],
       recommended: false,
       cta: {
@@ -50,18 +50,18 @@ export default function PricingPage() {
       disabled: true,
     },
     {
-      name: 'Battalion',
+      name: 'Enterprise',
       price: { monthly: 299, annual: 2990 },
       features: [
-        'Everything in Unit',
-        'Battalion-level Missions',
-        'Multi-team orchestration',
+        'Everything in Team',
+        'White-label platform option',
+        'Custom course development',
         'Unlimited team members',
         'Advanced analytics & reporting',
-        'Dedicated account manager',
-        'Custom training programs',
+        'Dedicated success manager',
+        'Custom certification programs',
         'SLA & priority support',
-        'On-premise deployment option',
+        'On-site training available',
       ],
       recommended: false,
       cta: {
@@ -75,31 +75,31 @@ export default function PricingPage() {
   const faqItems = [
     {
       id: 'q1',
-      title: 'What is the difference between the tiers?',
+      title: 'What is the difference between the plans?',
       content:
-        'Operator is for individual contributors. Unit is for teams (5-10 people). Battalion is for organizations (multiple teams). Each tier includes progressively advanced missions and coordination features.',
+        'Individual is perfect for solo learners who want access to all courses. Team is for organizations training 5-10 people together. Enterprise is for companies needing custom curriculums and white-label options.',
     },
     {
       id: 'q2',
-      title: 'Can I switch tiers?',
-      content: 'Yes. Upgrade or downgrade anytime. Changes take effect at your next billing cycle.',
+      title: 'Do I need coding experience?',
+      content: 'No! Our courses are designed for complete beginners. We teach you to build with AI tools like ChatGPT, Claude, and Cursor - no traditional programming knowledge required.',
     },
     {
       id: 'q3',
       title: 'Do you offer refunds?',
       content:
-        'Yes. 30-day money-back guarantee. If the training does not produce deployable results, we refund you.',
+        'Yes. 30-day money-back guarantee. If you complete 3 lessons and haven't shipped a working project, we'll refund you in full. No questions asked.',
     },
     {
       id: 'q4',
-      title: 'What if I need more seats?',
+      title: 'How long does it take to finish a course?',
       content:
-        'Unit tier includes 5 seats. Need more? Upgrade to Battalion for unlimited seats, or contact us for custom pricing.',
+        'Most students complete a beginner course in 2 weeks at 5 hours/week. Intermediate courses take 4 weeks. You can go faster or slower - all courses are self-paced with lifetime access.',
     },
     {
       id: 'q5',
       title: 'Can I pay annually?',
-      content: 'Yes. Annual billing saves approximately 17% compared to monthly. Toggle the switch above to see annual pricing.',
+      content: 'Yes. Annual billing saves 17% compared to monthly. Toggle the switch above to see annual pricing. Annual subscribers also get early access to new courses.',
     },
   ];
 
@@ -107,7 +107,7 @@ export default function PricingPage() {
     <Container>
       <Hero
         title="Pricing"
-        subtitle="Three tiers: Operator (individual), Unit (team), Battalion (organization). All include hands-on missions with deployable outcomes."
+        subtitle="Choose the plan that fits your learning goals. All plans include hands-on courses, real projects, and lifetime access to course materials."
       />
 
       <section style={{ paddingBlock: '6rem' }}>
