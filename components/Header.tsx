@@ -17,55 +17,76 @@ interface DropdownItem {
 
 const productDropdown: DropdownItem[] = [
   {
-    title: 'IDE Integration',
-    description: 'AI workflows in your editor',
-    href: '/product#ide',
+    title: 'ChatGPT Mastery',
+    description: 'Write prompts that get results',
+    href: '/courses#chatgpt',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <path d="M9 9h6M9 13h6M9 17h6" />
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </svg>
     ),
   },
   {
-    title: 'Web Platform',
-    description: 'Track missions and progress',
-    href: '/product#web',
+    title: 'Claude & AI Tools',
+    description: 'Master different AI platforms',
+    href: '/courses#claude',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <path d="M8 21h8M12 17v4" />
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
       </svg>
     ),
   },
   {
-    title: 'CLI Tools',
-    description: 'Command-line automation',
-    href: '/product#cli',
+    title: 'Building with Cursor',
+    description: 'Turn ideas into working apps',
+    href: '/courses#cursor',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M4 17l6-6-6-6M12 19h8" />
+        <path d="M12 19l7-7 3 3-7 7-3-3z" />
+        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+        <path d="M2 2l7.586 7.586" />
       </svg>
     ),
   },
   {
-    title: 'Team Collaboration',
-    description: 'Coordinate AI workflows',
-    href: '/product#team',
+    title: 'Shipping Projects',
+    description: 'Deploy your work to production',
+    href: '/courses#deployment',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
   },
 ];
 
-const programsDropdown: DropdownItem[] = [
+const learningDropdown: DropdownItem[] = [
   {
-    title: 'Briefs',
-    description: 'Weekly AI intel. 10-min reads.',
+    title: 'All Courses',
+    description: 'Browse complete course catalog',
+    href: '/courses',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Learning Paths',
+    description: 'Structured tracks from beginner to expert',
+    href: '/programs',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Free Resources',
+    description: 'Weekly guides and tutorials',
     href: '/programs/briefs',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -75,24 +96,14 @@ const programsDropdown: DropdownItem[] = [
     ),
   },
   {
-    title: 'Missions',
-    description: 'Hands-on training with deployable code',
-    href: '/programs/missions',
+    title: 'Community',
+    description: 'Learn with other AI builders',
+    href: '/company#community',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-        <path d="M22 4L12 14.01l-3-3" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Campaigns',
-    description: 'Complete workflows, not fragments',
-    href: '/programs/campaigns',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-        <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" />
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
   },
@@ -147,11 +158,11 @@ export function Header() {
             <li className={styles.navItem}>
               <div
                 className={styles.navItemWrapper}
-                onMouseEnter={() => setActiveDropdown('product')}
+                onMouseEnter={() => setActiveDropdown('learning')}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 <button className={styles.navButton}>
-                  Product
+                  Learning
                   <svg
                     width="12"
                     height="12"
@@ -168,18 +179,18 @@ export function Header() {
                     />
                   </svg>
                 </button>
-                <Dropdown items={productDropdown} isOpen={activeDropdown === 'product'} />
+                <Dropdown items={learningDropdown} isOpen={activeDropdown === 'learning'} />
               </div>
             </li>
 
             <li className={styles.navItem}>
               <div
                 className={styles.navItemWrapper}
-                onMouseEnter={() => setActiveDropdown('programs')}
+                onMouseEnter={() => setActiveDropdown('resources')}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 <button className={styles.navButton}>
-                  Programs
+                  Resources
                   <svg
                     width="12"
                     height="12"
@@ -196,7 +207,7 @@ export function Header() {
                     />
                   </svg>
                 </button>
-                <Dropdown items={programsDropdown} isOpen={activeDropdown === 'programs'} />
+                <Dropdown items={learningDropdown} isOpen={activeDropdown === 'resources'} />
               </div>
             </li>
 
