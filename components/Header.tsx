@@ -144,56 +144,60 @@ export function Header() {
           <Logo />
           
           <ul className={styles.navLinks}>
-            <li
-              className={styles.navItem}
-              onMouseEnter={() => setActiveDropdown('product')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className={styles.navButton}>
-                Product
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  className={styles.navArrow}
-                >
-                  <path
-                    d="M3 4.5L6 7.5L9 4.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <Dropdown items={productDropdown} isOpen={activeDropdown === 'product'} />
+            <li className={styles.navItem}>
+              <div
+                className={styles.navItemWrapper}
+                onMouseEnter={() => setActiveDropdown('product')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className={styles.navButton}>
+                  Product
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    className={styles.navArrow}
+                  >
+                    <path
+                      d="M3 4.5L6 7.5L9 4.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <Dropdown items={productDropdown} isOpen={activeDropdown === 'product'} />
+              </div>
             </li>
 
-            <li
-              className={styles.navItem}
-              onMouseEnter={() => setActiveDropdown('programs')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className={styles.navButton}>
-                Programs
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  className={styles.navArrow}
-                >
-                  <path
-                    d="M3 4.5L6 7.5L9 4.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <Dropdown items={programsDropdown} isOpen={activeDropdown === 'programs'} />
+            <li className={styles.navItem}>
+              <div
+                className={styles.navItemWrapper}
+                onMouseEnter={() => setActiveDropdown('programs')}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className={styles.navButton}>
+                  Programs
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    className={styles.navArrow}
+                  >
+                    <path
+                      d="M3 4.5L6 7.5L9 4.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <Dropdown items={programsDropdown} isOpen={activeDropdown === 'programs'} />
+              </div>
             </li>
 
             <li>

@@ -31,6 +31,12 @@
   position: relative;
 }
 
+.navItemWrapper {
+  position: relative;
+  /* Add padding-bottom to create hover bridge to dropdown */
+  padding-bottom: 1rem;
+}
+
 .navButton,
 .navLink {
   display: flex;
@@ -58,7 +64,7 @@
   transition: transform var(--speed) var(--ease);
 }
 
-.navItem:hover .navArrow {
+.navItemWrapper:hover .navArrow {
   transform: rotate(180deg);
 }
 
