@@ -34,6 +34,57 @@ export default function HomePage() {
         />
       </Container>
 
+      {/* Tactical Learning Approach */}
+      <section className={styles.approachSection}>
+        <Container>
+          <div className={styles.approachGrid}>
+            <div className={styles.imageContainer}>
+              <img 
+                src="/images/students.png" 
+                alt="Field-tested tactical training approach - students learning AI in hands-on environment"
+                className={styles.approachImage}
+              />
+            </div>
+            <div className={styles.approachContent}>
+              <h2 className={styles.approachTitle}>Field-tested learning approach</h2>
+              <p className={styles.approachDescription}>
+                Our courses are designed like tactical training: clear objectives, hands-on execution, and measured outcomes. No endless tutorials. No theory without practice.
+              </p>
+              <ul className={styles.approachList}>
+                <li>
+                  <span className={styles.checkmark}>✓</span>
+                  <div>
+                    <strong>Mission-based curriculum</strong>
+                    <p>Each lesson has a clear objective and deliverable outcome</p>
+                  </div>
+                </li>
+                <li>
+                  <span className={styles.checkmark}>✓</span>
+                  <div>
+                    <strong>Deploy real projects</strong>
+                    <p>Build working products you can share, not toy examples</p>
+                  </div>
+                </li>
+                <li>
+                  <span className={styles.checkmark}>✓</span>
+                  <div>
+                    <strong>Measure progress</strong>
+                    <p>Track what you ship, not just what you watch</p>
+                  </div>
+                </li>
+                <li>
+                  <span className={styles.checkmark}>✓</span>
+                  <div>
+                    <strong>Community support</strong>
+                    <p>Learn alongside others, get feedback, stay accountable</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Trust Row - Animated Logo Marquee */}
       <LogoMarquee
         label="Trusted by operators at"
