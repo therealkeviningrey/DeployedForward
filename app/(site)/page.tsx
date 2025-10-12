@@ -17,16 +17,16 @@ export default function HomePage() {
       {/* Hero Section */}
       <Container>
         <Hero
-          eyebrow={<Pill>OPERATIONAL INTELLIGENCE</Pill>}
-          title="Train where the future is operational."
-          subtitle="Build repeatable AI advantage with field-tested workflows and missions. Master AI workflows. Deploy capability. No fluff."
+          eyebrow={<Pill>AI SKILLS TRAINING</Pill>}
+          title="Master generative AI. Ship real products."
+          subtitle="Learn to build with ChatGPT, Claude, and Cursor through hands-on courses. No coding background required. Start shipping in days, not months."
           actions={
             <>
               <Link href="/courses" className="btn btn-primary btn-lg">
-                Start Mission
+                Start Learning
               </Link>
-              <Link href="/programs/briefs" className="btn btn-ghost btn-lg">
-                Enter Briefs
+              <Link href="/pricing" className="btn btn-ghost btn-lg">
+                View Courses
               </Link>
             </>
           }
@@ -49,44 +49,43 @@ export default function HomePage() {
         ]}
       />
 
-      {/* Work Where You Operate */}
+      {/* How You Learn */}
       <section className={styles.section}>
         <Container>
-          <h2 className={styles.sectionTitle}>Work where you operate</h2>
+          <h2 className={styles.sectionTitle}>Learn by doing, not watching</h2>
           <Tabs
             tabs={[
               {
-                id: 'ide',
-                label: 'IDE',
+                id: 'hands-on',
+                label: 'Hands-On Projects',
                 content: (
                   <div className={styles.tabContent}>
                     <p className={styles.tabDescription}>
-                      Native integration with VS Code, Cursor, and JetBrains. AI workflows in your editor.
+                      Build real products, not toy examples. Every lesson ends with a working project you can deploy and share.
                     </p>
-                    <CodeSnippet code='// Auto-generated from mission context\nexport async function validateUser(email: string): Promise<boolean> {\n  // Implementation\n}' />
+                    <CodeSnippet code='Lesson 1: Build a landing page with v0\nLesson 2: Create a chatbot with ChatGPT\nLesson 3: Deploy to Vercel\n\nResult: Live product in 3 hours' />
                   </div>
                 ),
               },
               {
-                id: 'web',
-                label: 'Web',
+                id: 'structured',
+                label: 'Structured Path',
                 content: (
                   <div className={styles.tabContent}>
                     <p className={styles.tabDescription}>
-                      Full mission catalog, progress tracking, and team coordination in the browser.
+                      Follow proven learning paths from complete beginner to advanced AI builder. Clear progression, no overwhelm.
                     </p>
                   </div>
                 ),
               },
               {
-                id: 'cli',
-                label: 'CLI',
+                id: 'community',
+                label: 'Community',
                 content: (
                   <div className={styles.tabContent}>
                     <p className={styles.tabDescription}>
-                      Terminal-first workflows. Automate everything with the `df` command.
+                      Learn alongside other AI builders. Get feedback on your projects, share wins, and stay motivated.
                     </p>
-                    <CodeSnippet code='df workflow run scaffold --template api\ndf deploy --target production' />
                   </div>
                 ),
               },
@@ -95,50 +94,50 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Programs */}
+      {/* What You'll Master */}
       <section className={styles.section}>
         <Container>
-          <h2 className={styles.sectionTitle}>Programs</h2>
+          <h2 className={styles.sectionTitle}>What you'll master</h2>
           <div className="grid grid-3">
             <Card hover>
-              <h3 className={styles.cardTitle}>Briefs</h3>
+              <h3 className={styles.cardTitle}>Prompt Engineering</h3>
               <p className={styles.cardDescription}>
-                Weekly intel. 10-minute reads. What's working in production, not theory.
+                Write prompts that actually work. Get consistent, high-quality outputs from any AI tool.
               </p>
-              <Link href="/programs/briefs" className="btn btn-ghost btn-sm">
-                Enter Briefs
+              <Link href="/courses#prompts" className="btn btn-ghost btn-sm">
+                Learn Prompting
               </Link>
             </Card>
             <Card hover>
-              <h3 className={styles.cardTitle}>Missions</h3>
+              <h3 className={styles.cardTitle}>Building Products</h3>
               <p className={styles.cardDescription}>
-                Hands-on training. Measurable output. Deploy working code, not toy examples.
+                Turn ideas into working apps using ChatGPT, Claude, and Cursor. Ship real projects, fast.
               </p>
-              <Link href="/programs/missions" className="btn btn-ghost btn-sm">
-                View Missions
+              <Link href="/courses#building" className="btn btn-ghost btn-sm">
+                Start Building
               </Link>
             </Card>
             <Card hover>
-              <h3 className={styles.cardTitle}>Campaigns</h3>
+              <h3 className={styles.cardTitle}>Going to Production</h3>
               <p className={styles.cardDescription}>
-                Bundled capability. Deploy as a unit. Complete workflows, not fragments.
+                Deploy your work. Share with users. Iterate based on feedback. Complete the full cycle.
               </p>
-              <Link href="/programs/campaigns" className="btn btn-ghost btn-sm">
-                Explore Bundles
+              <Link href="/courses#deployment" className="btn btn-ghost btn-sm">
+                Learn Deployment
               </Link>
             </Card>
           </div>
         </Container>
       </section>
 
-      {/* Outcomes */}
+      {/* Student Outcomes */}
       <section className={styles.section}>
         <Container>
-          <h2 className={styles.sectionTitle}>Outcomes</h2>
+          <h2 className={styles.sectionTitle}>Student outcomes</h2>
           <div className="grid grid-3">
-            <KPI value="2×" label="Ship faster" />
-            <KPI value="40%" label="Cut rework" />
-            <KPI value="100%" label="Stabilize delivery" />
+            <KPI value="2×" label="Faster learning" />
+            <KPI value="95%" label="Completion rate" />
+            <KPI value="7 days" label="First product shipped" />
           </div>
         </Container>
       </section>
@@ -146,17 +145,17 @@ export default function HomePage() {
       {/* Proof */}
       <section className={styles.section}>
         <Container>
-          <h2 className={styles.sectionTitle}>Proof</h2>
+          <h2 className={styles.sectionTitle}>Student success stories</h2>
           <div className="grid grid-2">
             <Testimonial
-              quote="Cut our AI experimentation phase from months to weeks. Real workflows, not theory."
+              quote="I went from zero AI knowledge to shipping my first product in 2 weeks. The hands-on approach actually works."
               author="Sarah Chen"
-              role="VP Engineering, TechCorp"
+              role="Product Manager, now AI Builder"
             />
             <Testimonial
-              quote="Finally, AI training that produces deployable code. Our team is shipping features faster."
+              quote="No coding background required is real. I built and deployed 3 working apps while learning. Game changer."
               author="Marcus Rodriguez"
-              role="Lead Developer, StartupCo"
+              role="Marketing Lead, Startup Founder"
             />
           </div>
         </Container>
@@ -165,9 +164,9 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className={styles.finalCTA}>
         <Container size="narrow">
-          <h3 className={styles.ctaTitle}>Deploy now.</h3>
+          <h3 className={styles.ctaTitle}>Start learning today.</h3>
           <Link href="/courses" className="btn btn-primary btn-lg">
-            Start Mission
+            Browse Courses
           </Link>
         </Container>
       </section>
