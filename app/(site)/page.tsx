@@ -8,6 +8,7 @@ import { KPI } from '@/components/KPI';
 import { Testimonial } from '@/components/Testimonial';
 import { Tabs } from '@/components/Tabs';
 import { LogoMarquee } from '@/components/LogoMarquee';
+import { AIMasteryDashboard } from '@/components/AIMasteryDashboard';
 import styles from './page.module.css';
 
 export default function HomePage() {
@@ -29,20 +30,7 @@ export default function HomePage() {
               </Link>
             </>
           }
-          aside={
-            <div className={styles.heroAside}>
-              <div className={styles.pillGroup}>
-                <Pill>MACOS</Pill>
-                <Pill>LINUX</Pill>
-                <Pill>WINDOWS</Pill>
-              </div>
-              <CodeSnippet code="> df install" />
-              <div className={styles.statusGrid}>
-                <div className={styles.statusDot} />
-                <span className={styles.statusText}>System operational</span>
-              </div>
-            </div>
-          }
+          aside={<AIMasteryDashboard />}
         />
       </Container>
 
