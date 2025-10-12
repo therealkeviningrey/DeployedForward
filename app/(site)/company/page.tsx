@@ -5,45 +5,48 @@ import { Divider } from '@/components/Divider';
 
 export const metadata = {
   title: 'Company',
-  description: 'Mission, principles, and attribution. Deployed Forward is a Kingsbury Labs venture.',
+  description: 'Our mission is to democratize AI skills through hands-on education. A Kingsbury Labs venture.',
 };
 
 export default function CompanyPage() {
   return (
     <Container size="narrow">
-      <Hero title="Company" subtitle="Train where the future is operational." />
+      <Hero 
+        title="Making AI skills accessible to everyone" 
+        subtitle="We believe anyone can learn to build with AI, regardless of their technical background."
+      />
 
       <section className="py-12">
-        <h2 className="mb-4">Mission</h2>
+        <h2 className="mb-4">Our mission</h2>
+        <p className="text-secondary text-lg leading-relaxed mb-4">
+          Most AI education is either too theoretical (endless tutorials) or too intimidating (assumes you're already a developer). We're building a different approach.
+        </p>
         <p className="text-secondary text-lg leading-relaxed">
-          Most teams experiment with AI. Few operationalize it. We build the platform for repeatable AI advantage —
-          field-tested workflows, not theory.
+          Deployed Forward teaches AI skills through hands-on projects. You don't watch 40 hours of videos - you build real products from day one. No coding background required.
         </p>
       </section>
 
       <Divider />
 
       <section className="py-12">
-        <h2 className="mb-6">Principles</h2>
+        <h2 className="mb-6">Our approach</h2>
         <div className="grid gap-4">
           <Card>
-            <h3 className="mb-2">Deploy, don't theorize</h3>
+            <h3 className="mb-2">Build real projects, not toy examples</h3>
             <p className="text-secondary">
-              Every mission produces working code. No toy examples. No concepts without context. You deploy capability or
-              you didn't learn it.
+              Every lesson ends with a working product you can deploy and share. Landing pages, chatbots, web apps - things you'll actually use and be proud of.
             </p>
           </Card>
           <Card>
-            <h3 className="mb-2">Patterns, not prescriptions</h3>
+            <h3 className="mb-2">Learn by doing, not watching</h3>
             <p className="text-secondary">
-              We teach repeatable workflows, not rigid rules. You adapt them to your stack, your team, your constraints.
+              We keep video lectures under 10 minutes. The rest is you building, deploying, and iterating. Hands-on practice beats passive consumption.
             </p>
           </Card>
           <Card>
-            <h3 className="mb-2">Measure outcomes</h3>
+            <h3 className="mb-2">Measure progress through shipping</h3>
             <p className="text-secondary">
-              Training without measurement is hope. We track what you ship, how fast, and how consistently. Prove
-              capability, don't assume it.
+              Your progress is measured by what you ship, not quiz scores. Build a portfolio of real projects that demonstrate your capabilities.
             </p>
           </Card>
         </div>
@@ -52,10 +55,12 @@ export default function CompanyPage() {
       <Divider />
 
       <section className="py-12">
-        <h2 className="mb-4">Team</h2>
+        <h2 className="mb-4">Who we are</h2>
         <p className="text-secondary leading-relaxed mb-6">
-          Deployed Forward is built by operators who've shipped production AI systems. We're not educators — we're
-          practitioners who got tired of training that didn't transfer to real codebases.
+          Deployed Forward is built by educators and practitioners who've taught thousands of students to build with AI. We've seen what works and what doesn't in AI education.
+        </p>
+        <p className="text-secondary leading-relaxed mb-6">
+          Our courses are designed for real people with busy schedules - not full-time students. Learn at your own pace, apply skills immediately, and ship real products.
         </p>
         <p className="text-secondary text-sm" id="attribution">
           A <strong>Kingsbury Labs</strong> venture.
@@ -64,27 +69,36 @@ export default function CompanyPage() {
 
       <Divider />
 
+      <section className="py-12" id="community">
+        <h2 className="mb-4">Community</h2>
+        <p className="text-secondary leading-relaxed mb-4">
+          Join hundreds of students learning to build with AI. Share your projects, get feedback, find accountability partners, and celebrate wins together.
+        </p>
+        <p className="text-secondary leading-relaxed">
+          Our community includes product managers, marketers, founders, designers, and career switchers - not just developers.
+        </p>
+      </section>
+
+      <Divider />
+
       <section className="py-12" id="careers">
         <h2 className="mb-4">Careers</h2>
         <p className="text-secondary leading-relaxed">
-          We're a lean team. When we're hiring, we'll post here. For now, focus on building capability.
+          We're a small team focused on creating the best AI learning experience. When we're hiring, we'll post here.
         </p>
       </section>
 
       <Divider />
 
       <section className="py-12" id="security">
-        <h2 className="mb-4">Security</h2>
+        <h2 className="mb-4">Privacy & security</h2>
         <p className="text-secondary leading-relaxed mb-4">
-          Production systems require production security. We follow SOC 2 Type II standards, encrypt data at rest and in
-          transit, and conduct regular penetration testing.
+          We take your data seriously. All course materials and student data are encrypted. We never sell your information or share it with third parties.
         </p>
         <p className="text-secondary leading-relaxed">
-          Found a vulnerability? Email <strong>security@deployedforward.com</strong> with details. We respond within 24
-          hours.
+          Questions about privacy or security? Email <strong>privacy@deployedforward.com</strong> and we'll respond within 24 hours.
         </p>
       </section>
     </Container>
   );
 }
-
