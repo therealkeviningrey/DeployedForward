@@ -12,81 +12,93 @@ interface DropdownItem {
   title: string;
   description: string;
   href: string;
-  icon?: string;
+  icon: React.ReactNode;
 }
 
-interface DropdownSection {
-  title: string;
-  items: DropdownItem[];
-}
-
-const productDropdown: DropdownSection[] = [
+const productDropdown: DropdownItem[] = [
   {
-    title: 'Platform',
-    items: [
-      {
-        title: 'IDE Integration',
-        description: 'Work directly in your editor',
-        href: '/product#ide',
-      },
-      {
-        title: 'CLI Tools',
-        description: 'Command-line power tools',
-        href: '/product#cli',
-      },
-      {
-        title: 'Web Dashboard',
-        description: 'Track progress and metrics',
-        href: '/product#dashboard',
-      },
-    ],
+    title: 'IDE Integration',
+    description: 'AI workflows in your editor',
+    href: '/product#ide',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M9 9h6M9 13h6M9 17h6" />
+      </svg>
+    ),
   },
   {
-    title: 'Features',
-    items: [
-      {
-        title: 'AI Workflows',
-        description: 'Proven patterns that work',
-        href: '/product#workflows',
-      },
-      {
-        title: 'Mission System',
-        description: 'Hands-on training modules',
-        href: '/product#missions',
-      },
-      {
-        title: 'Progress Tracking',
-        description: 'See your advancement',
-        href: '/product#progress',
-      },
-    ],
+    title: 'Web Platform',
+    description: 'Track missions and progress',
+    href: '/product#web',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <path d="M8 21h8M12 17v4" />
+      </svg>
+    ),
+  },
+  {
+    title: 'CLI Tools',
+    description: 'Command-line automation',
+    href: '/product#cli',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M4 17l6-6-6-6M12 19h8" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Team Collaboration',
+    description: 'Coordinate AI workflows',
+    href: '/product#team',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
   },
 ];
 
-const programsDropdown: DropdownSection[] = [
+const programsDropdown: DropdownItem[] = [
   {
-    title: 'Programs',
-    items: [
-      {
-        title: 'Briefs',
-        description: 'Weekly AI intelligence reports',
-        href: '/programs/briefs',
-      },
-      {
-        title: 'Missions',
-        description: 'Hands-on training exercises',
-        href: '/programs/missions',
-      },
-      {
-        title: 'Campaigns',
-        description: 'Multi-mission workflows',
-        href: '/programs/campaigns',
-      },
-    ],
+    title: 'Briefs',
+    description: 'Weekly AI intel. 10-min reads.',
+    href: '/programs/briefs',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Missions',
+    description: 'Hands-on training with deployable code',
+    href: '/programs/missions',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <path d="M22 4L12 14.01l-3-3" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Campaigns',
+    description: 'Complete workflows, not fragments',
+    href: '/programs/campaigns',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" />
+      </svg>
+    ),
   },
 ];
 
-function Dropdown({ sections, isOpen }: { sections: DropdownSection[]; isOpen: boolean }) {
+function Dropdown({ items, isOpen }: { items: DropdownItem[]; isOpen: boolean }) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -98,25 +110,21 @@ function Dropdown({ sections, isOpen }: { sections: DropdownSection[]; isOpen: b
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className={styles.dropdownInner}>
-            <div className={styles.dropdownContent}>
-              {sections.map((section) => (
-                <div key={section.title} className={styles.dropdownSection}>
-                  <h4 className={styles.dropdownSectionTitle}>{section.title}</h4>
-                  <div className={styles.dropdownItems}>
-                    {section.items.map((item) => (
-                      <Link
-                        key={item.title}
-                        href={item.href}
-                        className={styles.dropdownItem}
-                      >
-                        <div className={styles.dropdownItemTitle}>{item.title}</div>
-                        <div className={styles.dropdownItemDescription}>
-                          {item.description}
-                        </div>
-                      </Link>
-                    ))}
+            <div className={styles.dropdownGrid}>
+              {items.map((item) => (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className={styles.dropdownCard}
+                >
+                  <div className={styles.iconBox}>
+                    {item.icon}
                   </div>
-                </div>
+                  <div className={styles.cardContent}>
+                    <div className={styles.cardTitle}>{item.title}</div>
+                    <div className={styles.cardDescription}>{item.description}</div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -159,7 +167,7 @@ export function Header() {
                   />
                 </svg>
               </button>
-              <Dropdown sections={productDropdown} isOpen={activeDropdown === 'product'} />
+              <Dropdown items={productDropdown} isOpen={activeDropdown === 'product'} />
             </li>
 
             <li
@@ -185,7 +193,7 @@ export function Header() {
                   />
                 </svg>
               </button>
-              <Dropdown sections={programsDropdown} isOpen={activeDropdown === 'programs'} />
+              <Dropdown items={programsDropdown} isOpen={activeDropdown === 'programs'} />
             </li>
 
             <li>
