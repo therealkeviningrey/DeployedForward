@@ -19,15 +19,15 @@ export default function HomePage() {
       <Container>
         <Hero
           eyebrow={<Pill>OPERATOR TRAINING</Pill>}
-          title="Deploy AI capability. Ship real products."
-          subtitle="Mission-based training for ChatGPT, Claude, and Cursor. Field-tested workflows. No coding background required. Operational in days, not months."
+          title="Stop watching tutorials. Start shipping."
+          subtitle="Hands-on training for ChatGPT, Claude, and Cursor. Build real products in 72 hours, not 6 months. No coding background required."
           actions={
             <>
-              <Link href="/courses" className="btn btn-primary btn-lg">
-                Begin Training
+              <Link href="/pricing" className="btn btn-primary btn-lg">
+                Claim Founding Price
               </Link>
-              <Link href="/pricing" className="btn btn-ghost btn-lg">
-                View Missions
+              <Link href="/courses" className="btn btn-ghost btn-lg">
+                See What You'll Build
               </Link>
             </>
           }
@@ -47,37 +47,37 @@ export default function HomePage() {
               />
             </div>
             <div className={styles.approachContent}>
-              <h2 className={styles.approachTitle}>Field-tested learning approach</h2>
+              <h2 className={styles.approachTitle}>Escape tutorial hell</h2>
               <p className={styles.approachDescription}>
-                Our courses are designed like tactical training: clear objectives, hands-on execution, and measured outcomes. No endless tutorials. No theory without practice.
+                Stop watching. Start building. Every mission ends with a working product you deploy to production. Not another todo app. Real projects you'll actually use.
               </p>
               <ul className={styles.approachList}>
                 <li>
                   <span className={styles.checkmark}>✓</span>
                   <div>
-                    <strong>Mission-based curriculum</strong>
-                    <p>Each lesson has a clear objective and deliverable outcome</p>
+                    <strong>Build in hours, not weeks</strong>
+                    <p>Your first working product deploys in 72 hours. Portfolio-ready projects, not tutorials.</p>
                   </div>
                 </li>
                 <li>
                   <span className={styles.checkmark}>✓</span>
                   <div>
-                    <strong>Deploy real projects</strong>
-                    <p>Build working products you can share, not toy examples</p>
+                    <strong>No coding degree needed</strong>
+                    <p>Product managers, marketers, and founders are shipping real products. You can too.</p>
                   </div>
                 </li>
                 <li>
                   <span className={styles.checkmark}>✓</span>
                   <div>
-                    <strong>Measure progress</strong>
-                    <p>Track what you ship, not just what you watch</p>
+                    <strong>Skip the trial and error</strong>
+                    <p>Learn patterns that work from someone who's deployed AI at enterprise scale.</p>
                   </div>
                 </li>
                 <li>
                   <span className={styles.checkmark}>✓</span>
                   <div>
-                    <strong>Community support</strong>
-                    <p>Learn alongside others, get feedback, stay accountable</p>
+                    <strong>Stand out in your role</strong>
+                    <p>While others talk about AI, you'll be the one shipping solutions.</p>
                   </div>
                 </li>
               </ul>
@@ -251,12 +251,12 @@ export default function HomePage() {
         <Container>
           <div className={styles.instructorGrid}>
             <div className={styles.instructorContent}>
-              <h2 className={styles.instructorTitle}>Field-tested by practitioners</h2>
+              <h2 className={styles.instructorTitle}>Taught by someone who's been there</h2>
               <p className={styles.instructorBio}>
-                Deployed Forward is built by <strong>Kevin Ingrey</strong>, former CTO with years of experience helping companies deploy AI at scale. From Microsoft Copilot rollouts to ChatGPT integrations, these missions are distilled from real production implementations.
+                <strong>Kevin Ingrey</strong>, former CTO. I've spent years helping companies adopt AI - from Microsoft Copilot to ChatGPT integrations. I've seen what works and what doesn't. These missions cut through the noise.
               </p>
               <p className={styles.instructorStatement}>
-                "Most AI training is theory. I built this to teach what actually works in production - the workflows, the patterns, the pitfalls. Everything I wish I'd known before deploying AI systems at scale."
+                "I wasted months on tutorials before figuring out what actually works. These missions are everything I wish I'd had - no fluff, just the patterns that get you shipping. Fast."
               </p>
               <div className={styles.instructorMeta}>
                 <div className={styles.metaItem}>
@@ -282,9 +282,9 @@ export default function HomePage() {
         <Container size="narrow">
           <div className={styles.foundingCard}>
             <Badge variant="orange">Limited Availability</Badge>
-            <h2 className={styles.foundingTitle}>Founding Operator Cohort</h2>
+            <h2 className={styles.foundingTitle}>First 100 Get $19/mo. Everyone After Pays $29.</h2>
             <p className={styles.foundingDescription}>
-              Join the first 100 operators. Lock in founding pricing forever. Help shape the training curriculum.
+              Founding operator pricing locks forever. Pay $19/mo while everyone else pays $29. That's $120/year saved. Every year.
             </p>
             
             <div className={styles.foundingBenefits}>
@@ -292,28 +292,28 @@ export default function HomePage() {
                 <span className={styles.benefitCheck}>✓</span>
                 <div>
                   <strong>$19/mo locked forever</strong>
-                  <p>Regular price: $29/mo. Founding operators never pay more.</p>
+                  <p>Everyone after the first 100 pays $29/mo. You never pay more. Ever.</p>
                 </div>
               </div>
               <div className={styles.benefit}>
                 <span className={styles.benefitCheck}>✓</span>
                 <div>
-                  <strong>Lifetime access</strong>
-                  <p>All current and future missions. No additional fees.</p>
+                  <strong>Every mission, forever</strong>
+                  <p>All current courses plus everything we add. No upsells, no course limits.</p>
                 </div>
               </div>
               <div className={styles.benefit}>
                 <span className={styles.benefitCheck}>✓</span>
                 <div>
-                  <strong>Direct instructor access</strong>
-                  <p>Private Slack channel. Get unblocked fast.</p>
+                  <strong>Direct help when stuck</strong>
+                  <p>Private Slack with instructor. Get unblocked in hours, not days.</p>
                 </div>
               </div>
               <div className={styles.benefit}>
                 <span className={styles.benefitCheck}>✓</span>
                 <div>
-                  <strong>Shape the curriculum</strong>
-                  <p>Request missions. Vote on topics. Influence development.</p>
+                  <strong>Founding operator badge</strong>
+                  <p>Show you were first. Recognition for being an early adopter.</p>
                 </div>
               </div>
             </div>
@@ -344,12 +344,12 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className={styles.finalCTA}>
         <Container size="narrow">
-          <h3 className={styles.ctaTitle}>Deploy capability. Start December 2025.</h3>
+          <h3 className={styles.ctaTitle}>The AI revolution isn't waiting. Neither should you.</h3>
           <p className="text-secondary text-center mb-6">
-            Training begins December 2025. Founding operator pricing available now.
+            Cohort 1 starts December 2025. Founding pricing closes at 100 operators.
           </p>
           <Link href="/pricing" className="btn btn-primary btn-lg">
-            Join Founding Cohort
+            Lock in $19/mo Forever
           </Link>
         </Container>
       </section>
