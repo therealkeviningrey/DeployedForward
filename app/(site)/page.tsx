@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Container } from '@/components/Container';
 import { Hero } from '@/components/Hero';
 import { Pill } from '@/components/Pill';
+import { Badge } from '@/components/Badge';
 import { CodeSnippet } from '@/components/CodeSnippet';
 import { Card } from '@/components/Card';
 import { KPI } from '@/components/KPI';
