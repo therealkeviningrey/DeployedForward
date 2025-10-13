@@ -7,6 +7,7 @@ import { PricingTable } from '@/components/PricingTable';
 import { Accordion } from '@/components/Accordion';
 import { Pill } from '@/components/Pill';
 import { TrustBadges } from '@/components/TrustBadges';
+import { ComparePlans } from '@/components/ComparePlans';
 import Link from 'next/link';
 
 export default function PricingPage() {
@@ -156,6 +157,13 @@ export default function PricingPage() {
         </div>
 
         <PricingTable tiers={tiers} billingPeriod={billingPeriod} />
+      </section>
+
+      {/* Compare Plans */}
+      <section style={{ paddingBlock: '4rem' }}>
+        <Container>
+          <ComparePlans />
+        </Container>
       </section>
 
       {/* Trust badges and guarantee */}
