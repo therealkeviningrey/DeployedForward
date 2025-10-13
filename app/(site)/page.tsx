@@ -17,16 +17,16 @@ export default function HomePage() {
       {/* Hero Section */}
       <Container>
         <Hero
-          eyebrow={<Pill>AI SKILLS TRAINING</Pill>}
-          title="Master generative AI. Ship real products."
-          subtitle="Learn to build with ChatGPT, Claude, and Cursor through hands-on courses. No coding background required. Start shipping in days, not months."
+          eyebrow={<Pill>OPERATOR TRAINING</Pill>}
+          title="Deploy AI capability. Ship real products."
+          subtitle="Mission-based training for ChatGPT, Claude, and Cursor. Field-tested workflows. No coding background required. Operational in days, not months."
           actions={
             <>
               <Link href="/courses" className="btn btn-primary btn-lg">
-                Start Learning
+                Begin Training
               </Link>
               <Link href="/pricing" className="btn btn-ghost btn-lg">
-                View Courses
+                View Missions
               </Link>
             </>
           }
@@ -85,18 +85,18 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Trust Row - Animated Logo Marquee */}
+      {/* Tech Stack - Tools You'll Master */}
       <LogoMarquee
-        label="Trusted by operators at"
+        label="Master best-in-class tools"
         logos={[
-          { name: 'Stripe' },
+          { name: 'ChatGPT' },
+          { name: 'Claude' },
+          { name: 'Cursor' },
           { name: 'Vercel' },
           { name: 'GitHub' },
-          { name: 'OpenAI' },
-          { name: 'Anthropic' },
-          { name: 'Linear' },
-          { name: 'Notion' },
-          { name: 'Retool' },
+          { name: 'Stripe' },
+          { name: 'Supabase' },
+          { name: 'Resend' },
         ]}
       />
 
@@ -181,33 +181,66 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Student Outcomes */}
+      {/* Mission Outcomes */}
       <section className={styles.section}>
         <Container>
-          <h2 className={styles.sectionTitle}>Student outcomes</h2>
+          <h2 className={styles.sectionTitle}>Mission outcomes</h2>
           <div className="grid grid-3">
-            <KPI value="2×" label="Faster learning" />
-            <KPI value="95%" label="Completion rate" />
-            <KPI value="7 days" label="First product shipped" />
+            <KPI value="2×" label="Deploy faster" />
+            <KPI value="24" label="Missions available" />
+            <KPI value="7 days" label="First deployment" />
           </div>
         </Container>
       </section>
 
-      {/* Proof */}
+      {/* Example Deployments */}
       <section className={styles.section}>
         <Container>
-          <h2 className={styles.sectionTitle}>Student success stories</h2>
-          <div className="grid grid-2">
-            <Testimonial
-              quote="I went from zero AI knowledge to shipping my first product in 2 weeks. The hands-on approach actually works."
-              author="Sarah Chen"
-              role="Product Manager, now AI Builder"
-            />
-            <Testimonial
-              quote="No coding background required is real. I built and deployed 3 working apps while learning. Game changer."
-              author="Marcus Rodriguez"
-              role="Marketing Lead, Startup Founder"
-            />
+          <h2 className={styles.sectionTitle}>Training missions</h2>
+          <p className="text-center text-secondary mb-8 max-w-2xl mx-auto">
+            Every mission produces deployable code. No toy examples. These are the operations you'll execute during training.
+          </p>
+          <div className="grid grid-2 gap-4">
+            <Card hover>
+              <Badge variant="orange">Mission 01</Badge>
+              <h3 className="mt-3 mb-2">Landing Page Deployment</h3>
+              <p className="text-secondary text-sm mb-4">
+                Execute: Build production landing page with v0. Deploy to Vercel. Configure custom domain. Operational in 3 hours.
+              </p>
+              <div className="text-xs text-secondary">
+                Stack: ChatGPT, v0, Vercel • Duration: 3 hours
+              </div>
+            </Card>
+            <Card hover>
+              <Badge variant="orange">Mission 04</Badge>
+              <h3 className="mt-3 mb-2">AI Chatbot Integration</h3>
+              <p className="text-secondary text-sm mb-4">
+                Execute: Claude API integration with Next.js. Authentication, rate limiting, production deployment. Working customer support bot.
+              </p>
+              <div className="text-xs text-secondary">
+                Stack: Claude, Next.js, Supabase • Duration: 6 hours
+              </div>
+            </Card>
+            <Card hover>
+              <Badge>Mission 12</Badge>
+              <h3 className="mt-3 mb-2">SaaS Application</h3>
+              <p className="text-secondary text-sm mb-4">
+                Execute: Full-stack app with Stripe payments, user auth, database. Deploy complete SaaS product with AI-assisted development using Cursor.
+              </p>
+              <div className="text-xs text-secondary">
+                Stack: Cursor, Stripe, Clerk, Prisma • Duration: 2 weeks
+              </div>
+            </Card>
+            <Card hover>
+              <Badge>Mission 18</Badge>
+              <h3 className="mt-3 mb-2">Custom Workflow Automation</h3>
+              <p className="text-secondary text-sm mb-4">
+                Execute: Design and deploy your own AI workflow. API orchestration, webhooks, scheduled jobs. Production-grade automation.
+              </p>
+              <div className="text-xs text-secondary">
+                Stack: OpenAI, Webhooks, Vercel Functions • Duration: 1 week
+              </div>
+            </Card>
           </div>
         </Container>
       </section>
@@ -215,10 +248,15 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className={styles.finalCTA}>
         <Container size="narrow">
-          <h3 className={styles.ctaTitle}>Start learning today.</h3>
-          <Link href="/courses" className="btn btn-primary btn-lg">
-            Browse Courses
-          </Link>
+          <h3 className={styles.ctaTitle}>Deploy capability. Start now.</h3>
+          <div className="flex gap-3 justify-center">
+            <Link href="/courses" className="btn btn-primary btn-lg">
+              View Training Missions
+            </Link>
+            <Link href="/pricing" className="btn btn-ghost btn-lg">
+              Operator Pricing
+            </Link>
+          </div>
         </Container>
       </section>
     </>
