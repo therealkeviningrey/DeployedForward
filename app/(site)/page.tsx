@@ -245,18 +245,111 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/* Instructor Credibility */}
+      <section className={styles.section}>
+        <Container>
+          <div className={styles.instructorGrid}>
+            <div className={styles.instructorContent}>
+              <h2 className={styles.instructorTitle}>Field-tested by practitioners</h2>
+              <p className={styles.instructorBio}>
+                Deployed Forward is built by <strong>Kevin Ingrey</strong>, former CTO with years of experience helping companies deploy AI at scale. From Microsoft Copilot rollouts to ChatGPT integrations, these missions are distilled from real production implementations.
+              </p>
+              <p className={styles.instructorStatement}>
+                "Most AI training is theory. I built this to teach what actually works in production - the workflows, the patterns, the pitfalls. Everything I wish I'd known before deploying AI systems at scale."
+              </p>
+              <div className={styles.instructorMeta}>
+                <div className={styles.metaItem}>
+                  <div className={styles.metaValue}>Former CTO</div>
+                  <div className={styles.metaLabel}>Leadership</div>
+                </div>
+                <div className={styles.metaItem}>
+                  <div className={styles.metaValue}>Enterprise AI</div>
+                  <div className={styles.metaLabel}>Scale Deployments</div>
+                </div>
+                <div className={styles.metaItem}>
+                  <div className={styles.metaValue}>Production</div>
+                  <div className={styles.metaLabel}>Real Systems</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Founding Operator Cohort */}
+      <section className={styles.foundingSection}>
+        <Container size="narrow">
+          <div className={styles.foundingCard}>
+            <Badge variant="orange">Limited Availability</Badge>
+            <h2 className={styles.foundingTitle}>Founding Operator Cohort</h2>
+            <p className={styles.foundingDescription}>
+              Join the first 100 operators. Lock in founding pricing forever. Help shape the training curriculum.
+            </p>
+            
+            <div className={styles.foundingBenefits}>
+              <div className={styles.benefit}>
+                <span className={styles.benefitCheck}>✓</span>
+                <div>
+                  <strong>$19/mo locked forever</strong>
+                  <p>Regular price: $29/mo. Founding operators never pay more.</p>
+                </div>
+              </div>
+              <div className={styles.benefit}>
+                <span className={styles.benefitCheck}>✓</span>
+                <div>
+                  <strong>Lifetime access</strong>
+                  <p>All current and future missions. No additional fees.</p>
+                </div>
+              </div>
+              <div className={styles.benefit}>
+                <span className={styles.benefitCheck}>✓</span>
+                <div>
+                  <strong>Direct instructor access</strong>
+                  <p>Private Slack channel. Get unblocked fast.</p>
+                </div>
+              </div>
+              <div className={styles.benefit}>
+                <span className={styles.benefitCheck}>✓</span>
+                <div>
+                  <strong>Shape the curriculum</strong>
+                  <p>Request missions. Vote on topics. Influence development.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.foundingMeta}>
+              <div className={styles.launchDate}>
+                <div className={styles.launchLabel}>Mission Start:</div>
+                <div className={styles.launchValue}>December 2025</div>
+              </div>
+              <div className={styles.spotsRemaining}>
+                <div className={styles.spotsLabel}>First Cohort:</div>
+                <div className={styles.spotsValue}>100 Operators</div>
+              </div>
+            </div>
+
+            <div className="flex gap-3 justify-center mt-6">
+              <Link href="/pricing" className="btn btn-primary btn-lg">
+                Claim Your Position
+              </Link>
+              <Link href="/courses" className="btn btn-ghost btn-lg">
+                View All Missions
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Final CTA */}
       <section className={styles.finalCTA}>
         <Container size="narrow">
-          <h3 className={styles.ctaTitle}>Deploy capability. Start now.</h3>
-          <div className="flex gap-3 justify-center">
-            <Link href="/courses" className="btn btn-primary btn-lg">
-              View Training Missions
-            </Link>
-            <Link href="/pricing" className="btn btn-ghost btn-lg">
-              Operator Pricing
-            </Link>
-          </div>
+          <h3 className={styles.ctaTitle}>Deploy capability. Start December 2025.</h3>
+          <p className="text-secondary text-center mb-6">
+            Training begins December 2025. Founding operator pricing available now.
+          </p>
+          <Link href="/pricing" className="btn btn-primary btn-lg">
+            Join Founding Cohort
+          </Link>
         </Container>
       </section>
     </>
