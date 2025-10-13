@@ -40,8 +40,8 @@ class Analytics {
       (window as any).posthog.capture(eventName, properties);
     }
 
-    // Segment
-    if (typeof window !== 'undefined' && (window as any).analytics) {
+    // Segment (check for _loadOptions to ensure it's the real Segment library)
+    if (typeof window !== 'undefined' && (window as any).analytics && (window as any).analytics._loadOptions) {
       (window as any).analytics.track(eventName, properties);
     }
 
@@ -198,8 +198,8 @@ class Analytics {
 // Export singleton instance
 export const analytics = new Analytics();
 
-// Export for debugging in browser console
+// Export for debugging in browser console (use different name to avoid conflict with Segment)
 if (typeof window !== 'undefined') {
-  (window as any).analytics = analytics;
+  (window as any).deployedForwardAnalytics = analytics;
 }
 
