@@ -1,14 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container } from '@/components/Container';
 import { Hero } from '@/components/Hero';
 import { PricingTable } from '@/components/PricingTable';
 import { Accordion } from '@/components/Accordion';
 import { Pill } from '@/components/Pill';
+import { TrustBadges } from '@/components/TrustBadges';
+import Link from 'next/link';
 
 export default function PricingPage() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
+
+  // Persist billing period preference
+  useEffect(() => {
+    const saved = localStorage.getItem('billingPeriod');
+    if (saved === 'annual' || saved === 'monthly') {
+      setBillingPeriod(saved);
+    }
+    // Check URL param
+    const params = new URLSearchParams(window.location.search);
+    const period = params.get('billing');
+    if (period === 'annual' || period === 'monthly') {
+      setBillingPeriod(period);
+    }
+  }, []);
+
+  const handleBillingChange = (period: 'monthly' | 'annual') => {
+    setBillingPeriod(period);
+    localStorage.setItem('billingPeriod', period);
+  };
 
   const tiers = [
     {
@@ -25,7 +46,7 @@ export default function PricingPage() {
       ],
       recommended: true,
       cta: {
-        label: 'Start Learning',
+        label: 'Get Access – Build Today',
         href: '/login',
       },
     },
@@ -106,16 +127,30 @@ export default function PricingPage() {
   return (
     <Container>
       <Hero
-        title="Pricing"
-        subtitle="Choose the plan that fits your learning goals. All plans include hands-on courses, real projects, and lifetime access to course materials."
+        title="Simple pricing, locked forever"
+        subtitle="First 100 operators get $19/mo for life. Everyone after pays $29/mo. No upsells, no hidden fees, no course limits."
+        actions={
+          <Link href="#plans" className="btn btn-primary btn-lg">
+            See Plans
+          </Link>
+        }
       />
 
-      <section style={{ paddingBlock: '6rem' }}>
+      {/* FAQ above fold on mobile */}
+      <section style={{ paddingBlock: '3rem' }}>
+        <h2 className="text-center mb-6">Common questions</h2>
+        <Container size="narrow">
+          <Accordion items={faqItems} />
+        </Container>
+      </section>
+
+      {/* Pricing */}
+      <section id="plans" style={{ paddingBlock: '6rem' }}>
         <div className="flex justify-center gap-2 mb-8">
-          <Pill active={billingPeriod === 'monthly'} onClick={() => setBillingPeriod('monthly')}>
+          <Pill active={billingPeriod === 'monthly'} onClick={() => handleBillingChange('monthly')}>
             Monthly
           </Pill>
-          <Pill active={billingPeriod === 'annual'} onClick={() => setBillingPeriod('annual')}>
+          <Pill active={billingPeriod === 'annual'} onClick={() => handleBillingChange('annual')}>
             Annual (save 17%)
           </Pill>
         </div>
@@ -123,10 +158,16 @@ export default function PricingPage() {
         <PricingTable tiers={tiers} billingPeriod={billingPeriod} />
       </section>
 
-      <section style={{ paddingBlock: '6rem' }}>
-        <h2 className="text-center mb-8">Frequently asked questions</h2>
+      {/* Trust badges and guarantee */}
+      <section style={{ paddingBlock: '4rem' }}>
         <Container size="narrow">
-          <Accordion items={faqItems} />
+          <TrustBadges />
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <h3 style={{ marginBottom: '1rem' }}>30-Day Money-Back Guarantee</h3>
+            <p className="text-secondary">
+              Complete 3 lessons. If you have not shipped a working project, we will refund you in full. No questions asked.
+            </p>
+          </div>
         </Container>
       </section>
     </Container>

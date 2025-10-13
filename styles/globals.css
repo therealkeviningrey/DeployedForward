@@ -1,48 +1,5 @@
-/* Design tokens */
-:root {
-  /* Brand palette */
-  --brand-signal-orange: #FF6B00;
-  --brand-night-black: #0A0A0A; /* Softer than pure black */
-  --brand-tactical-grey: #1A1A1A; /* Slightly lighter */
-  --brand-neutral-white: #EAEAEA;
-  --brand-gridline-grey: #2A2A2A; /* More subtle borders */
-
-  /* Semantic tokens */
-  --bg-primary: var(--brand-night-black);
-  --bg-secondary: var(--brand-tactical-grey);
-  --text-primary: var(--brand-neutral-white);
-  --text-secondary: rgba(234, 234, 234, 0.65); /* Slightly more subtle */
-  --border-subtle: var(--brand-gridline-grey);
-  --accent: var(--brand-signal-orange);
-
-  /* Layout */
-  --container-max: 1280px;
-  --container-padding: 1.5rem;
-  --radius: 8px;
-  --radius-lg: 12px;
-
-  /* Typography */
-  --font-display: var(--font-orbitron);
-  --font-body: var(--font-ibm-plex-sans);
-  --font-mono: var(--font-ibm-plex-mono);
-
-  /* Motion */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --speed: 200ms;
-  --speed-slow: 350ms;
-
-  /* Shadows - adding depth */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4);
-  --shadow-accent: 0 8px 32px rgba(255, 107, 0, 0.2);
-
-  /* Z-index */
-  --z-header: 1000;
-  --z-modal: 2000;
-  --z-toast: 3000;
-}
+/* Import design tokens */
+@import './tokens.css';
 
 /* CSS Reset */
 *,

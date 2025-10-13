@@ -1,0 +1,144 @@
+.filterBar {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: var(--letter-spacing-wide);
+  transition: all var(--duration-base) var(--easing-ease);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filterPill:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+  background: rgba(255, 107, 0, 0.05);
+}
+
+.filterPill.active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(255, 107, 0, 0.1);
+}
+
+.count {
+  font-size: var(--font-size-xs);
+  opacity: 0.7;
+}
+
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+
+.courseCard {
+  position: relative;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.badges {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.difficultyPill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.duration svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-snug);
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-6);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.lessonCount {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.emptyState {
+  grid-column: 1 / -1;
+  padding: var(--space-12);
+}
+
+@media (max-width: 768px) {
+  .courseGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filterBar {
+    gap: var(--space-2);
+  }
+  
+  .filterPill {
+    font-size: var(--font-size-xs);
+    padding: var(--space-2) var(--space-4);
+  }
+}
+
