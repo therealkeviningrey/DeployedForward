@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Container } from '@/components/Container';
 import { Hero } from '@/components/Hero';
@@ -9,13 +11,19 @@ import { KPI } from '@/components/KPI';
 import { Counter } from '@/components/Counter';
 import { TrustBadges } from '@/components/TrustBadges';
 import { LazySection } from '@/components/LazySection';
+import { FeatureCard } from '@/components/FeatureCard';
+import { TrackedLink } from '@/components/TrackedLink';
 import { Testimonial } from '@/components/Testimonial';
 import { Tabs } from '@/components/Tabs';
 import { LogoMarquee } from '@/components/LogoMarquee';
 import { AIMasteryDashboard } from '@/components/AIMasteryDashboard';
+import { useScrollDepth } from '@/lib/hooks/useScrollDepth';
 import styles from './page.module.css';
 
 export default function HomePage() {
+  // Track scroll depth
+  useScrollDepth();
+
   return (
     <>
       {/* Hero Section */}
@@ -26,12 +34,22 @@ export default function HomePage() {
           subtitle="Hands-on training for ChatGPT, Claude, and Cursor. Build real products in 72 hours, not 6 months. No coding background required."
           actions={
             <>
-              <Link href="/pricing" className="btn btn-primary btn-lg">
+              <TrackedLink 
+                href="/pricing" 
+                className="btn btn-primary btn-lg"
+                label="Get Access – Build Today"
+                location="Homepage Hero"
+              >
                 Get Access – Build Today
-              </Link>
-              <Link href="/courses" className="btn btn-ghost btn-lg">
+              </TrackedLink>
+              <TrackedLink 
+                href="/courses" 
+                className="btn btn-ghost btn-lg"
+                label="See What You'll Build"
+                location="Homepage Hero"
+              >
                 See What You'll Build
-              </Link>
+              </TrackedLink>
             </>
           }
           aside={<AIMasteryDashboard />}
@@ -54,36 +72,47 @@ export default function HomePage() {
               <p className={styles.approachDescription}>
                 Stop watching. Start building. Every mission ends with a working product you deploy to production. Not another todo app. Real projects you'll actually use.
               </p>
-              <ul className={styles.approachList}>
-                <li>
-                  <span className={styles.checkmark}>✓</span>
-                  <div>
-                    <strong>Build in hours, not weeks</strong>
-                    <p>Your first working product deploys in 72 hours. Portfolio-ready projects, not tutorials.</p>
-                  </div>
-                </li>
-                <li>
-                  <span className={styles.checkmark}>✓</span>
-                  <div>
-                    <strong>No coding degree needed</strong>
-                    <p>Product managers, marketers, and founders are shipping real products. You can too.</p>
-                  </div>
-                </li>
-                <li>
-                  <span className={styles.checkmark}>✓</span>
-                  <div>
-                    <strong>Skip the trial and error</strong>
-                    <p>Learn patterns that work from someone who's deployed AI at enterprise scale.</p>
-                  </div>
-                </li>
-                <li>
-                  <span className={styles.checkmark}>✓</span>
-                  <div>
-                    <strong>Stand out in your role</strong>
-                    <p>While others talk about AI, you'll be the one shipping solutions.</p>
-                  </div>
-                </li>
-              </ul>
+              <div className={styles.featureGrid}>
+                <FeatureCard
+                  icon={
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                  }
+                  title="Build in hours, not weeks"
+                  description="Your first working product deploys in 72 hours. Portfolio-ready projects, not tutorials."
+                />
+                <FeatureCard
+                  icon={
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+                      <path d="M12 6v6l4 2" />
+                    </svg>
+                  }
+                  title="No coding degree needed"
+                  description="Product managers, marketers, and founders are shipping real products. You can too."
+                />
+                <FeatureCard
+                  icon={
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <path d="M22 4L12 14.01l-3-3" />
+                    </svg>
+                  }
+                  title="Skip the trial and error"
+                  description="Learn patterns that work from someone who's deployed AI at enterprise scale."
+                />
+                <FeatureCard
+                  icon={
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                      <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                  }
+                  title="Stand out in your role"
+                  description="While others talk about AI, you'll be the one shipping solutions."
+                />
+              </div>
             </div>
           </div>
         </Container>
@@ -117,27 +146,42 @@ export default function HomePage() {
                 <p className={styles.cardDescription}>
                   Write prompts that actually work. Get consistent, high-quality outputs from any AI tool.
                 </p>
-                <Link href="/courses#prompts" className="btn btn-ghost btn-sm">
+                <TrackedLink 
+                  href="/courses#prompts" 
+                  className="btn btn-ghost btn-sm"
+                  label="Learn Prompting"
+                  location="Homepage What You'll Master"
+                >
                   Learn Prompting
-                </Link>
+                </TrackedLink>
               </Card>
               <Card hover>
                 <h3 className={styles.cardTitle}>Building Products</h3>
                 <p className={styles.cardDescription}>
                   Turn ideas into working apps using ChatGPT, Claude, and Cursor. Ship real projects, fast.
                 </p>
-                <Link href="/courses#building" className="btn btn-ghost btn-sm">
+                <TrackedLink 
+                  href="/courses#building" 
+                  className="btn btn-ghost btn-sm"
+                  label="Start Building"
+                  location="Homepage What You'll Master"
+                >
                   Start Building
-                </Link>
+                </TrackedLink>
               </Card>
               <Card hover>
                 <h3 className={styles.cardTitle}>Going to Production</h3>
                 <p className={styles.cardDescription}>
                   Deploy your work. Share with users. Iterate based on feedback. Complete the full cycle.
                 </p>
-                <Link href="/courses#deployment" className="btn btn-ghost btn-sm">
+                <TrackedLink 
+                  href="/courses#deployment" 
+                  className="btn btn-ghost btn-sm"
+                  label="Learn Deployment"
+                  location="Homepage What You'll Master"
+                >
                   Learn Deployment
-                </Link>
+                </TrackedLink>
               </Card>
             </div>
           </Container>
@@ -294,12 +338,22 @@ export default function HomePage() {
             </div>
 
             <div className="flex gap-3 justify-center mt-6">
-              <Link href="/pricing" className="btn btn-primary btn-lg">
+              <TrackedLink 
+                href="/pricing" 
+                className="btn btn-primary btn-lg"
+                label="Claim Your $19 Seat"
+                location="Homepage Founding Cohort"
+              >
                 Claim Your $19 Seat
-              </Link>
-              <Link href="/courses" className="btn btn-ghost btn-lg">
+              </TrackedLink>
+              <TrackedLink 
+                href="/courses" 
+                className="btn btn-ghost btn-lg"
+                label="View All Missions"
+                location="Homepage Founding Cohort"
+              >
                 View All Missions
-              </Link>
+              </TrackedLink>
             </div>
           </div>
         </Container>
@@ -314,9 +368,14 @@ export default function HomePage() {
             <p className="text-secondary text-center mb-6">
               Cohort 1 starts December 2025. Founding pricing closes at 100 operators.
             </p>
-            <Link href="/pricing" className="btn btn-primary btn-lg">
+            <TrackedLink 
+              href="/pricing" 
+              className="btn btn-primary btn-lg"
+              label="Get Access – Build Today"
+              location="Homepage Final CTA"
+            >
               Get Access – Build Today
-            </Link>
+            </TrackedLink>
           </Container>
         </section>
       </LazySection>
