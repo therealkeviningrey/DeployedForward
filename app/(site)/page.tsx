@@ -101,51 +101,6 @@ export default function HomePage() {
         ]}
       />
 
-      {/* How You Learn */}
-      <section className={styles.section}>
-        <Container>
-          <h2 className={styles.sectionTitle}>Learn by doing, not watching</h2>
-          <Tabs
-            tabs={[
-              {
-                id: 'hands-on',
-                label: 'Hands-On Projects',
-                content: (
-                  <div className={styles.tabContent}>
-                    <p className={styles.tabDescription}>
-                      Build real products, not toy examples. Every lesson ends with a working project you can deploy and share.
-                    </p>
-                    <CodeSnippet code='Lesson 1: Build a landing page with v0\nLesson 2: Create a chatbot with ChatGPT\nLesson 3: Deploy to Vercel\n\nResult: Live product in 3 hours' />
-                  </div>
-                ),
-              },
-              {
-                id: 'structured',
-                label: 'Structured Path',
-                content: (
-                  <div className={styles.tabContent}>
-                    <p className={styles.tabDescription}>
-                      Follow proven learning paths from complete beginner to advanced AI builder. Clear progression, no overwhelm.
-                    </p>
-                  </div>
-                ),
-              },
-              {
-                id: 'community',
-                label: 'Community',
-                content: (
-                  <div className={styles.tabContent}>
-                    <p className={styles.tabDescription}>
-                      Learn alongside other AI builders. Get feedback on your projects, share wins, and stay motivated.
-                    </p>
-                  </div>
-                ),
-              },
-            ]}
-          />
-        </Container>
-      </section>
-
       {/* What You'll Master */}
       <section className={styles.section}>
         <Container>
