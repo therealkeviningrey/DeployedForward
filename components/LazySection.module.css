@@ -1,0 +1,58 @@
+.lazySection {
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--easing-ease),
+    transform var(--duration-slow) var(--easing-ease);
+}
+
+.lazySection.visible {
+  opacity: 1;
+}
+
+/* Animation variants */
+.fade {
+  opacity: 0;
+}
+
+.fade.visible {
+  opacity: 1;
+}
+
+.slideUp {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slideUp.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slideLeft {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.slideLeft.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .lazySection {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+

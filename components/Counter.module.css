@@ -1,0 +1,10 @@
+.counter {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: inherit;
+  color: var(--accent);
+  tabular-nums: true;
+  font-variant-numeric: tabular-nums;
+}
+

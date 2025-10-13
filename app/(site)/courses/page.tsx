@@ -1,8 +1,6 @@
 import { Container } from '@/components/Container';
 import { Hero } from '@/components/Hero';
-import { Card } from '@/components/Card';
-import { Badge } from '@/components/Badge';
-import { Pill } from '@/components/Pill';
+import { CourseGrid } from '@/components/CourseGrid';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
@@ -49,51 +47,17 @@ export default async function CoursesPage() {
   return (
     <Container>
       <Hero
-        title="Courses"
-        subtitle="Structured training paths for AI workflows. Each course contains multiple lessons with hands-on missions."
+        title="Missions"
+        subtitle="Structured training paths for AI workflows. Deploy real projects, not toy examples."
+        actions={
+          <Link href="/pricing" className="btn btn-primary btn-lg">
+            Get Access – Build Today
+          </Link>
+        }
       />
 
       <section className="py-12">
-        {/* Filter pills */}
-        <div className="flex gap-2 mb-8">
-          <Pill active>All Courses</Pill>
-          <Pill>Operator</Pill>
-          <Pill>Unit</Pill>
-          <Pill>Battalion</Pill>
-        </div>
-
-        <div className="grid grid-2 gap-4">
-          {coursesWithMeta.map((course: any) => (
-            <Card key={course.id} hover>
-              <div className="flex justify-between items-start mb-3">
-                <Badge variant={course.level === 'Operator' ? 'default' : 'orange'}>
-                  {course.level}
-                </Badge>
-                <span className="text-xs text-secondary">{course.totalDuration} min</span>
-              </div>
-              <h3 className="mb-2">{course.title}</h3>
-              <p className="text-secondary text-sm mb-4">{course.description}</p>
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-secondary">{course.totalLessons} lessons</span>
-                <Link href={`/courses/${course.slug}`} className="btn btn-primary btn-sm">
-                  Start Course
-                </Link>
-              </div>
-            </Card>
-          ))}
-
-          {coursesWithMeta.length === 0 && (
-            <Card className="col-span-2">
-              <p className="text-secondary text-center">
-                No courses available yet. Check back soon or{' '}
-                <Link href="/programs/missions" className="text-accent">
-                  browse missions
-                </Link>
-                .
-              </p>
-            </Card>
-          )}
-        </div>
+        <CourseGrid courses={coursesWithMeta} />
       </section>
     </Container>
   );

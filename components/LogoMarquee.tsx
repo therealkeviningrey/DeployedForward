@@ -5,6 +5,7 @@ import styles from './LogoMarquee.module.css';
 interface Logo {
   name: string;
   icon?: string;
+  tooltip?: string;
 }
 
 interface LogoMarqueeProps {
@@ -22,11 +23,18 @@ export function LogoMarquee({ logos, label }: LogoMarqueeProps) {
       <div className={styles.marqueeContainer}>
         <div className={styles.marqueeTrack}>
           {duplicatedLogos.map((logo, index) => (
-            <div key={`${logo.name}-${index}`} className={styles.logoItem}>
+            <div
+              key={`${logo.name}-${index}`}
+              className={styles.logoItem}
+              title={logo.tooltip || logo.name}
+            >
               {logo.icon ? (
                 <span className={styles.logoIcon}>{logo.icon}</span>
               ) : (
                 <span className={styles.logoText}>{logo.name}</span>
+              )}
+              {logo.tooltip && (
+                <span className={styles.tooltip}>{logo.tooltip}</span>
               )}
             </div>
           ))}

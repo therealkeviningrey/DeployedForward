@@ -6,6 +6,9 @@ import { Badge } from '@/components/Badge';
 import { CodeSnippet } from '@/components/CodeSnippet';
 import { Card } from '@/components/Card';
 import { KPI } from '@/components/KPI';
+import { Counter } from '@/components/Counter';
+import { TrustBadges } from '@/components/TrustBadges';
+import { LazySection } from '@/components/LazySection';
 import { Testimonial } from '@/components/Testimonial';
 import { Tabs } from '@/components/Tabs';
 import { LogoMarquee } from '@/components/LogoMarquee';
@@ -19,12 +22,12 @@ export default function HomePage() {
       <Container>
         <Hero
           eyebrow={<Pill>OPERATOR TRAINING</Pill>}
-          title="Stop watching tutorials. Start shipping."
+          title="Ship your first AI-powered product by Friday"
           subtitle="Hands-on training for ChatGPT, Claude, and Cursor. Build real products in 72 hours, not 6 months. No coding background required."
           actions={
             <>
               <Link href="/pricing" className="btn btn-primary btn-lg">
-                Claim Founding Price
+                Get Access – Build Today
               </Link>
               <Link href="/courses" className="btn btn-ghost btn-lg">
                 See What You'll Build
@@ -47,7 +50,7 @@ export default function HomePage() {
               />
             </div>
             <div className={styles.approachContent}>
-              <h2 className={styles.approachTitle}>Escape tutorial hell</h2>
+              <h2 className={styles.approachTitle}>Replace hours of videos with deployable code in 3 hours</h2>
               <p className={styles.approachDescription}>
                 Stop watching. Start building. Every mission ends with a working product you deploy to production. Not another todo app. Real projects you'll actually use.
               </p>
@@ -87,67 +90,73 @@ export default function HomePage() {
       </section>
 
       {/* Tech Stack - Tools You'll Master */}
-      <LogoMarquee
-        label="Master best-in-class tools"
-        logos={[
-          { name: 'ChatGPT' },
-          { name: 'Claude' },
-          { name: 'Cursor' },
-          { name: 'Vercel' },
-          { name: 'GitHub' },
-          { name: 'Stripe' },
-          { name: 'Supabase' },
-          { name: 'Resend' },
-        ]}
-      />
+      <LazySection animation="fade">
+        <LogoMarquee
+          label="Master best-in-class tools"
+          logos={[
+            { name: 'ChatGPT', tooltip: 'Prompt engineering & API integration' },
+            { name: 'Claude', tooltip: 'Advanced reasoning & long context' },
+            { name: 'Cursor', tooltip: 'AI-assisted development' },
+            { name: 'Vercel', tooltip: 'Deploy to production' },
+            { name: 'GitHub', tooltip: 'Version control & collaboration' },
+            { name: 'Stripe', tooltip: 'Payment processing' },
+            { name: 'Supabase', tooltip: 'Database & authentication' },
+            { name: 'Resend', tooltip: 'Transactional emails' },
+          ]}
+        />
+      </LazySection>
 
       {/* What You'll Master */}
-      <section className={styles.section}>
-        <Container>
-          <h2 className={styles.sectionTitle}>What you'll master</h2>
-          <div className="grid grid-3">
-            <Card hover>
-              <h3 className={styles.cardTitle}>Prompt Engineering</h3>
-              <p className={styles.cardDescription}>
-                Write prompts that actually work. Get consistent, high-quality outputs from any AI tool.
-              </p>
-              <Link href="/courses#prompts" className="btn btn-ghost btn-sm">
-                Learn Prompting
-              </Link>
-            </Card>
-            <Card hover>
-              <h3 className={styles.cardTitle}>Building Products</h3>
-              <p className={styles.cardDescription}>
-                Turn ideas into working apps using ChatGPT, Claude, and Cursor. Ship real projects, fast.
-              </p>
-              <Link href="/courses#building" className="btn btn-ghost btn-sm">
-                Start Building
-              </Link>
-            </Card>
-            <Card hover>
-              <h3 className={styles.cardTitle}>Going to Production</h3>
-              <p className={styles.cardDescription}>
-                Deploy your work. Share with users. Iterate based on feedback. Complete the full cycle.
-              </p>
-              <Link href="/courses#deployment" className="btn btn-ghost btn-sm">
-                Learn Deployment
-              </Link>
-            </Card>
-          </div>
-        </Container>
-      </section>
+      <LazySection animation="slide-up">
+        <section className={styles.section}>
+          <Container>
+            <h2 className={styles.sectionTitle}>What you'll master</h2>
+            <div className="grid grid-3">
+              <Card hover>
+                <h3 className={styles.cardTitle}>Prompt Engineering</h3>
+                <p className={styles.cardDescription}>
+                  Write prompts that actually work. Get consistent, high-quality outputs from any AI tool.
+                </p>
+                <Link href="/courses#prompts" className="btn btn-ghost btn-sm">
+                  Learn Prompting
+                </Link>
+              </Card>
+              <Card hover>
+                <h3 className={styles.cardTitle}>Building Products</h3>
+                <p className={styles.cardDescription}>
+                  Turn ideas into working apps using ChatGPT, Claude, and Cursor. Ship real projects, fast.
+                </p>
+                <Link href="/courses#building" className="btn btn-ghost btn-sm">
+                  Start Building
+                </Link>
+              </Card>
+              <Card hover>
+                <h3 className={styles.cardTitle}>Going to Production</h3>
+                <p className={styles.cardDescription}>
+                  Deploy your work. Share with users. Iterate based on feedback. Complete the full cycle.
+                </p>
+                <Link href="/courses#deployment" className="btn btn-ghost btn-sm">
+                  Learn Deployment
+                </Link>
+              </Card>
+            </div>
+          </Container>
+        </section>
+      </LazySection>
 
       {/* Mission Outcomes */}
-      <section className={styles.section}>
-        <Container>
-          <h2 className={styles.sectionTitle}>Mission outcomes</h2>
-          <div className="grid grid-3">
-            <KPI value="2×" label="Deploy faster" />
-            <KPI value="24" label="Missions available" />
-            <KPI value="7 days" label="First deployment" />
-          </div>
-        </Container>
-      </section>
+      <LazySection animation="slide-up">
+        <section className={styles.section}>
+          <Container>
+            <h2 className={styles.sectionTitle}>Mission outcomes</h2>
+            <div className="grid grid-3">
+              <KPI value={<Counter end={2} suffix="×" />} label="Deploy faster" />
+              <KPI value={<Counter end={24} />} label="Missions available" />
+              <KPI value={<Counter end={7} suffix=" days" />} label="First deployment" />
+            </div>
+          </Container>
+        </section>
+      </LazySection>
 
       {/* Example Deployments */}
       <section className={styles.section}>
@@ -237,7 +246,7 @@ export default function HomePage() {
         <Container size="narrow">
           <div className={styles.foundingCard}>
             <Badge variant="orange">Limited Availability</Badge>
-            <h2 className={styles.foundingTitle}>First 100 Get $19/mo. Everyone After Pays $29.</h2>
+            <h2 className={styles.foundingTitle}>Claim your lifelong $19 seat — only 100 exist</h2>
             <p className={styles.foundingDescription}>
               Founding operator pricing locks forever. Pay $19/mo while everyone else pays $29. That's $120/year saved. Every year.
             </p>
@@ -286,7 +295,7 @@ export default function HomePage() {
 
             <div className="flex gap-3 justify-center mt-6">
               <Link href="/pricing" className="btn btn-primary btn-lg">
-                Claim Your Position
+                Claim Your $19 Seat
               </Link>
               <Link href="/courses" className="btn btn-ghost btn-lg">
                 View All Missions
@@ -296,18 +305,21 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Final CTA */}
-      <section className={styles.finalCTA}>
-        <Container size="narrow">
-          <h3 className={styles.ctaTitle}>The AI revolution isn't waiting. Neither should you.</h3>
-          <p className="text-secondary text-center mb-6">
-            Cohort 1 starts December 2025. Founding pricing closes at 100 operators.
-          </p>
-          <Link href="/pricing" className="btn btn-primary btn-lg">
-            Lock in $19/mo Forever
-          </Link>
-        </Container>
-      </section>
+      {/* Trust & Final CTA */}
+      <LazySection animation="fade">
+        <section className={styles.finalCTA}>
+          <Container size="narrow">
+            <TrustBadges />
+            <h3 className={styles.ctaTitle}>The AI revolution isn't waiting. Neither should you.</h3>
+            <p className="text-secondary text-center mb-6">
+              Cohort 1 starts December 2025. Founding pricing closes at 100 operators.
+            </p>
+            <Link href="/pricing" className="btn btn-primary btn-lg">
+              Get Access – Build Today
+            </Link>
+          </Container>
+        </section>
+      </LazySection>
     </>
   );
 }

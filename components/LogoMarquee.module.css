@@ -52,11 +52,37 @@
   flex-shrink: 0;
   min-width: 120px;
   opacity: 0.5;
-  transition: opacity var(--speed) var(--ease);
+  transition: all var(--duration-base) var(--easing-ease);
+  position: relative;
+  cursor: pointer;
 }
 
 .logoItem:hover {
-  opacity: 0.9;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -3rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--duration-base) var(--easing-ease);
+  box-shadow: var(--shadow-md);
+  z-index: var(--z-dropdown);
+}
+
+.logoItem:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .logoIcon {

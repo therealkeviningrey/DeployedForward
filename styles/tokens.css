@@ -1,0 +1,122 @@
+/* Generated design tokens - DO NOT EDIT MANUALLY */
+/* Source: styles/tokens.json */
+
+:root {
+  /* Colors - Brand */
+  --color-brand-signal-orange: #FF6B00;
+  --color-brand-night-black: #0A0A0A;
+  --color-brand-tactical-grey: #1A1A1A;
+  --color-brand-neutral-white: #EAEAEA;
+  --color-brand-gridline-grey: #2A2A2A;
+
+  /* Colors - Semantic */
+  --color-bg-primary: #0A0A0A;
+  --color-bg-secondary: #1A1A1A;
+  --color-text-primary: #EAEAEA;
+  --color-text-secondary: rgba(234, 234, 234, 0.65);
+  --color-border-subtle: #2A2A2A;
+  --color-accent: #FF6B00;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.5);
+  --shadow-accent: 0 8px 32px rgba(255, 107, 0, 0.2);
+  --shadow-accent-lg: 0 12px 48px rgba(255, 107, 0, 0.3);
+
+  /* Typography - Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  --font-size-7xl: 4.5rem;
+
+  /* Typography - Line Height */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  --line-height-loose: 2;
+
+  /* Typography - Letter Spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.08em;
+  --letter-spacing-wider: 0.1em;
+
+  /* Motion - Duration */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+
+  /* Motion - Easing */
+  --easing-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Z-Index */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-header: 1000;
+  --z-modal: 2000;
+  --z-toast: 3000;
+
+  /* Legacy aliases for backwards compatibility */
+  --brand-signal-orange: var(--color-brand-signal-orange);
+  --brand-night-black: var(--color-brand-night-black);
+  --brand-tactical-grey: var(--color-brand-tactical-grey);
+  --brand-neutral-white: var(--color-brand-neutral-white);
+  --brand-gridline-grey: var(--color-brand-gridline-grey);
+  --bg-primary: var(--color-bg-primary);
+  --bg-secondary: var(--color-bg-secondary);
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --border-subtle: var(--color-border-subtle);
+  --accent: var(--color-accent);
+  --container-max: 1280px;
+  --container-padding: 1.5rem;
+  --radius: var(--radius-md);
+  --font-display: var(--font-orbitron);
+  --font-body: var(--font-ibm-plex-sans);
+  --font-mono: var(--font-ibm-plex-mono);
+  --ease: var(--easing-ease);
+  --ease-spring: var(--easing-spring);
+  --speed: var(--duration-base);
+  --speed-slow: var(--duration-slow);
+  --z-header: var(--z-header);
+  --z-modal: var(--z-modal);
+  --z-toast: var(--z-toast);
+}
+

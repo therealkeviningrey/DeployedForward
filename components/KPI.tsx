@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import styles from './KPI.module.css';
 
 interface KPIProps {
-  value: string;
+  value: string | ReactNode;
   label: string;
   className?: string;
 }
