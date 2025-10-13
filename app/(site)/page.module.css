@@ -46,45 +46,51 @@
   letter-spacing: 0.05em;
 }
 
-/* Section spacing - much more generous like factory.ai */
+/* Section spacing - balanced for homepage */
 .section {
-  padding-block: 8rem; /* Doubled from 4rem */
+  padding-block: 4rem; /* Reduced from 8rem */
 }
 
 @media (min-width: 768px) {
   .section {
-    padding-block: 10rem; /* Even more on larger screens */
+    padding-block: 5rem; /* Moderate spacing on larger screens */
   }
 }
 
 @media (min-width: 1200px) {
   .section {
-    padding-block: 12rem; /* Maximum spacing on large screens */
+    padding-block: 6rem; /* More compact than before */
   }
 }
 
 .sectionTitle {
   text-align: center;
-  margin-bottom: 4rem; /* Increased from 3rem */
+  margin-bottom: 2.5rem; /* Reduced from 4rem for tighter spacing */
 }
 
 /* Tactical Approach Section */
 .approachSection {
-  padding-block: 8rem;
+  padding-block: 5rem; /* Reduced from 8rem */
   background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+@media (min-width: 768px) {
+  .approachSection {
+    padding-block: 6rem;
+  }
 }
 
 .approachGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem;
+  gap: 3rem; /* Reduced from 4rem */
   align-items: center;
 }
 
 @media (min-width: 1024px) {
   .approachGrid {
     grid-template-columns: 1.2fr 1fr;
-    gap: 6rem;
+    gap: 4rem; /* Reduced from 6rem */
   }
 }
 
@@ -272,8 +278,14 @@
 
 /* Founding Operator Section */
 .foundingSection {
-  padding-block: 8rem;
+  padding-block: 5rem; /* Reduced from 8rem */
   background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+}
+
+@media (min-width: 768px) {
+  .foundingSection {
+    padding-block: 6rem;
+  }
 }
 
 .foundingCard {
