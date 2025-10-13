@@ -196,13 +196,13 @@
 ### Debug Console
 ```javascript
 // View all tracked events
-window.analytics.getEvents()
+window.deployedForwardAnalytics.getEvents()
 
 // Clear event history
-window.analytics.clearEvents()
+window.deployedForwardAnalytics.clearEvents()
 
 // Manual event tracking
-window.analytics.track('custom_event', { key: 'value' })
+window.deployedForwardAnalytics.track('custom_event', { key: 'value' })
 ```
 
 ---
