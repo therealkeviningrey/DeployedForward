@@ -149,4 +149,3 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     return NextResponse.json({ error: 'Failed to generate certificate' }, { status: 500 });
   }
 }
-

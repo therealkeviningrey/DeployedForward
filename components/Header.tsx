@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@/components/auth/AuthClient';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from './Logo';
 import { Container } from './Container';
+import { TrackedLink } from './TrackedLink';
 import styles from './Header.module.css';
 
 interface DropdownItem {
@@ -63,6 +64,17 @@ const productDropdown: DropdownItem[] = [
 
 const learningDropdown: DropdownItem[] = [
   {
+    title: 'Free Tutorials',
+    description: 'Start learning today - no credit card',
+    href: '/tutorials',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+    ),
+  },
+  {
     title: 'All Courses',
     description: 'Browse complete course catalog',
     href: '/courses',
@@ -81,17 +93,6 @@ const learningDropdown: DropdownItem[] = [
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M12 2L2 7l10 5 10-5-10-5z" />
         <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Free Resources',
-    description: 'Weekly guides and tutorials',
-    href: '/programs/briefs',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
       </svg>
     ),
   },
@@ -147,11 +148,22 @@ function Dropdown({ items, isOpen }: { items: DropdownItem[]; isOpen: boolean })
 
 export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Detect scroll to toggle solid header background
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <Container>
-        <nav className={styles.nav}>
+        <nav className={styles.nav} aria-label="Primary">
           <Logo />
           
           <ul className={styles.navLinks}>
@@ -245,9 +257,14 @@ export function Header() {
               </Link>
               <UserButton afterSignOutUrl="/" />
             </SignedIn>
-            <Link href="/courses" className="btn btn-primary btn-sm">
+            <TrackedLink 
+              href="/courses" 
+              className="btn btn-primary btn-sm"
+              label="Start Mission"
+              location="Header"
+            >
               Start Mission
-            </Link>
+            </TrackedLink>
           </div>
         </nav>
       </Container>

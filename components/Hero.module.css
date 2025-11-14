@@ -1,9 +1,13 @@
 .hero {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
   gap: 4rem;
   padding-block: 4rem 3rem; /* Reduced top padding - closer to header */
+  overflow: hidden;
+  isolation: isolate; /* Create isolated stacking context - prevents children from escaping */
 }
+
 
 @media (min-width: 768px) {
   .hero {
@@ -24,6 +28,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem; /* Increased from 1.5rem */
+  position: relative;
 }
 
 .eyebrow {
@@ -67,6 +72,9 @@
   min-height: 450px;
   box-shadow: var(--shadow-md);
   transition: all var(--speed-slow) var(--ease);
+  position: relative;
+  z-index: 1; /* Force below header */
+  contain: layout style paint; /* Contain terminal rendering */
 }
 
 .aside:hover {

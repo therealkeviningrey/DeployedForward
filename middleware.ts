@@ -1,61 +1,89 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+import { betterAuth } from '@/lib/auth/better-auth';
 
-const isPublicRoute = createRouteMatcher([
-  '/',
-  '/product(.*)',
-  '/programs(.*)',
-  '/pricing(.*)',
-  '/company(.*)',
-  '/news(.*)',
-  '/docs(.*)',
-  '/login(.*)',
-  '/legal(.*)',
-  '/changelog(.*)',
-  '/api/webhooks/(.*)',
-  '/api/og(.*)',
-  '/courses(.*)', // Allow courses page to be public
-]);
+const PUBLIC_ROUTE_PATTERNS: RegExp[] = [
+  /^\/$/,
+  /^\/product(?:\/.*)?$/,
+  /^\/programs(?:\/.*)?$/,
+  /^\/pricing(?:\/.*)?$/,
+  /^\/company(?:\/.*)?$/,
+  /^\/news(?:\/.*)?$/,
+  /^\/docs(?:\/.*)?$/,
+  /^\/login(?:\/.*)?$/,
+  /^\/legal(?:\/.*)?$/,
+  /^\/changelog(?:\/.*)?$/,
+  /^\/api\/webhooks\/.*$/,
+  /^\/api\/og(?:\/.*)?$/,
+  /^\/courses(?:\/.*)?$/,
+];
 
-const isAdminRoute = createRouteMatcher(['/admin(.*)']);
+const ADMIN_ROUTE_PATTERNS: RegExp[] = [/^\/admin(?:\/.*)?$/, /^\/api\/admin(?:\/.*)?$/];
 
-export default clerkMiddleware((auth, req) => {
-  // Allow access to public routes
-  if (isPublicRoute(req)) {
-    return;
-  }
+const experiments: Record<string, string[]> = {
+  exp_hero_headline: ['A', 'B'],
+  exp_hero_primary_cta: ['A', 'B'],
+};
 
-  // Protect all other routes (dashboard, enrolled content, etc.)
-  try {
-    auth().protect();
-  } catch (error) {
-    // If Clerk is not configured, allow in development
-    if (process.env.NODE_ENV === 'development') {
-      return;
-    }
-    throw error;
-  }
+function matches(patterns: RegExp[], pathname: string) {
+  return patterns.some((pattern) => pattern.test(pathname));
+}
 
-  // Admin routes require admin role
-  if (isAdminRoute(req)) {
-    try {
-      auth().protect((has) => {
-        return has({ role: 'org:admin' }) || has({ role: 'admin' });
+function applyExperiments(req: NextRequest, res: NextResponse) {
+  Object.entries(experiments).forEach(([key, variants]) => {
+    const existing = req.cookies.get(key)?.value;
+    if (!existing || !variants.includes(existing)) {
+      const variant = variants[Math.floor(Math.random() * variants.length)];
+      res.cookies.set(key, variant, {
+        path: '/',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 180, // 180 days
       });
-    } catch (error) {
-      // Ignore in development
-      if (process.env.NODE_ENV === 'development') {
-        return;
+    }
+  });
+
+  return res;
+}
+
+function redirectToLogin(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith('/api')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const loginUrl = new URL('/login', req.url);
+  loginUrl.searchParams.set('redirectTo', `${req.nextUrl.pathname}${req.nextUrl.search}`);
+  return NextResponse.redirect(loginUrl);
+}
+
+export default async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  const pathname = req.nextUrl.pathname;
+
+  if (!matches(PUBLIC_ROUTE_PATTERNS, pathname)) {
+    try {
+      const session = await betterAuth.api.getSession({
+        headers: req.headers,
+      });
+
+      if (!session) {
+        return redirectToLogin(req);
       }
-      throw error;
+
+      if (matches(ADMIN_ROUTE_PATTERNS, pathname)) {
+        // TODO: Enforce Better Auth roles once role mapping is implemented
+      }
+    } catch (error) {
+      console.error('Better Auth middleware error', error);
+      return redirectToLogin(req);
     }
   }
-});
+
+  return applyExperiments(req, res);
+}
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
     '/(api|trpc)(.*)',
   ],
 };

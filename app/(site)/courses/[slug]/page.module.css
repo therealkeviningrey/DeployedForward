@@ -1,0 +1,47 @@
+ .layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr 350px;
+  }
+}
+
+.desktopSidebar {
+  display: none;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  grid-column: 2;
+}
+
+@media (min-width: 1024px) {
+  .desktopSidebar {
+    display: block;
+  }
+}
+
+.mobileCta {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  z-index: 100;
+}
+
+@media (min-width: 1024px) {
+  .mobileCta {
+    display: none;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}

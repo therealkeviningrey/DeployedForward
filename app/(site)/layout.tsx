@@ -1,5 +1,8 @@
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { PageViewTracker } from '@/components/PageViewTracker';
+import { ExperimentClient } from '@/components/ExperimentClient';
+import { PromoBanner } from '@/components/PromoBanner';
 
 export default function SiteLayout({
   children,
@@ -8,8 +11,18 @@ export default function SiteLayout({
 }) {
   return (
     <>
+      <ExperimentClient />
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      {/* Promotional Banner - Update with actual promo details when active */}
+      {/* <PromoBanner
+        message="Save $50 on all courses"
+        ctaText="Get Access"
+        ctaHref="/pricing"
+        dismissible={true}
+      /> */}
       <Header />
-      <main>{children}</main>
+      <PageViewTracker />
+      <main id="main-content">{children}</main>
       <Footer />
     </>
   );

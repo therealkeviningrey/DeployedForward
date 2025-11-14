@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Card } from '@/components/Card';
 import { Badge } from '@/components/Badge';
 import { Pill } from '@/components/Pill';
+import { TrackedLink } from '@/components/TrackedLink';
+import { analytics } from '@/lib/analytics';
 import styles from './CourseGrid.module.css';
 
 interface Course {
@@ -57,7 +59,10 @@ export function CourseGrid({ courses }: CourseGridProps) {
         {filters.map((filter) => (
           <button
             key={filter.id}
-            onClick={() => setActiveFilter(filter.id)}
+            onClick={() => {
+              setActiveFilter(filter.id);
+              analytics.track('filter_applied', { filter: filter.id, location: 'Course Catalog' });
+            }}
             className={`${styles.filterPill} ${activeFilter === filter.id ? styles.active : ''}`}
           >
             {filter.label}
@@ -101,9 +106,14 @@ export function CourseGrid({ courses }: CourseGridProps) {
                 <span className={styles.lessonCount}>
                   {course.totalLessons} lesson{course.totalLessons !== 1 ? 's' : ''}
                 </span>
-                <Link href={`/courses/${course.slug}`} className="btn btn-primary btn-sm">
+                <TrackedLink 
+                  href={`/courses/${course.slug}`} 
+                  className="btn btn-primary btn-sm"
+                  label="Start Mission (Catalog)"
+                  location="Course Catalog"
+                >
                   Start Mission
-                </Link>
+                </TrackedLink>
               </div>
             </Card>
           </div>

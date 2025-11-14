@@ -125,7 +125,7 @@
 - [ ] Active states on current page
 
 ### Authentication
-- [ ] Login button redirects to Clerk
+- [ ] Login button redirects to Better Auth
 - [ ] Sign up flow works
 - [ ] Protected routes redirect to login
 - [ ] Logout works
@@ -151,7 +151,7 @@
 - [ ] **Layout shifts** during page load
 - [ ] **Flash of unstyled content** (FOUC)
 - [ ] **Broken links** (404 pages)
-- [ ] **Clerk errors** in console
+- [ ] **Better Auth errors** in console
 - [ ] **Prisma/database errors**
 - [ ] **Slow page loads** (check Network tab)
 

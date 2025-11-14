@@ -1,5 +1,6 @@
 import { Container } from '@/components/Container';
 import { Prose } from '@/components/Prose';
+import { OperatorShell } from '@/components/OperatorShell';
 
 export const metadata = {
   title: 'Terms of Service',
@@ -8,10 +9,16 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <Container size="narrow">
-      <Prose>
-        <h1>Terms of Service</h1>
-        <p className="text-secondary">Last updated: January 2025</p>
+    <OperatorShell
+      activePath="/legal/terms"
+      breadcrumb={[{ label: 'Operations' }, { label: 'legal/' }, { label: 'terms.mdx' }]}
+      title="Terms of Service"
+      subtitle="Terms and conditions for using Deployed Forward."
+    >
+      <Container size="narrow">
+        <Prose>
+          <h1>Terms of Service</h1>
+          <p className="text-secondary">Last updated: January 2025</p>
 
         <h2>Agreement</h2>
         <p>
@@ -115,8 +122,9 @@ export default function TermsPage() {
         <p>
           Questions? Email <strong>legal@deployedforward.com</strong>.
         </p>
-      </Prose>
-    </Container>
+        </Prose>
+      </Container>
+    </OperatorShell>
   );
 }
 

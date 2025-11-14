@@ -4,6 +4,7 @@ import { Card } from '@/components/Card';
 import { Divider } from '@/components/Divider';
 import { Badge } from '@/components/Badge';
 import Link from 'next/link';
+import { OperatorShell } from '@/components/OperatorShell';
 
 export const metadata = {
   title: 'How It Works',
@@ -12,7 +13,22 @@ export const metadata = {
 
 export default function ProductPage() {
   return (
-    <>
+    <OperatorShell
+      activePath="/product"
+      breadcrumb={[{ label: 'Workspace' }, { label: 'product/' }]}
+      title="Product OS"
+      subtitle="Learn by building real products"
+      toolbarActions={
+        <div className="flex gap-2">
+          <Link href="/courses" className="btn btn-primary btn-sm">
+            Browse Courses
+          </Link>
+          <Link href="/pricing" className="btn btn-ghost btn-sm">
+            View Pricing
+          </Link>
+        </div>
+      }
+    >
       <Container>
         <Hero
           title="Learn by building real products"
@@ -182,6 +198,6 @@ export default function ProductPage() {
           </div>
         </section>
       </Container>
-    </>
+    </OperatorShell>
   );
 }

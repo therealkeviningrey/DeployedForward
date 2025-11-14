@@ -1,0 +1,123 @@
+.benefitsBar {
+  padding-block: 3rem;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(255, 107, 0, 0.03) 50%, 
+    transparent 100%
+  );
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+@media (min-width: 768px) {
+  .benefitsBar {
+    padding-block: 4rem;
+  }
+}
+
+.benefitsContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .benefitsContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .benefitsContainer {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+.benefitItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  transition: transform var(--speed-normal) var(--ease);
+}
+
+.benefitItem:hover {
+  transform: translateY(-4px);
+}
+
+.benefitIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  background: rgba(255, 107, 0, 0.1);
+  border: 1px solid rgba(255, 107, 0, 0.2);
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  transition: all var(--speed-normal) var(--ease);
+}
+
+.benefitItem:hover .benefitIcon {
+  background: rgba(255, 107, 0, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
+}
+
+.benefitIcon svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+
+.benefitTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.benefitDescription {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 280px;
+}
+
+@media (max-width: 639px) {
+  .benefitItem {
+    align-items: flex-start;
+    text-align: left;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .benefitIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .benefitIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .benefitTitle {
+    font-size: 1rem;
+  }
+
+  .benefitDescription {
+    font-size: 0.8125rem;
+    max-width: 100%;
+  }
+}
+

@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
-import { auth } from '@clerk/nextjs/server';
 import { Container } from '@/components/Container';
 import { Card } from '@/components/Card';
 import { Badge } from '@/components/Badge';
 import { prisma } from '@/lib/prisma';
+import { getAuthSession, assertRole } from '@/lib/auth';
 import Link from 'next/link';
 
 export const metadata = {
@@ -12,10 +12,24 @@ export const metadata = {
 };
 
 export default async function AdminCoursesPage() {
-  const { userId } = auth();
-
-  if (!userId) {
+  const session = await getAuthSession();
+  if (!session.isAuthenticated || !session.userId) {
     redirect('/login');
+  }
+
+  let authorized = true;
+  try {
+    await assertRole('org:admin');
+  } catch {
+    try {
+      await assertRole('admin');
+    } catch {
+      authorized = false;
+    }
+  }
+
+  if (!authorized) {
+    redirect('/dashboard');
   }
 
   const courses = await prisma.course.findMany({

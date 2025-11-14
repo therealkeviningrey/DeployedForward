@@ -1,0 +1,419 @@
+.heroPanel {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.heroPanel h1 {
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.heroPanel p {
+  margin-top: 0.5rem;
+  color: var(--text-secondary);
+  max-width: 420px;
+}
+
+.actionRow {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.actionButton {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+
+.metricBar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+}
+
+.metricCard {
+  padding: 1.25rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.metricLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.metricValue {
+  font-size: 1.6rem;
+  font-family: var(--font-display);
+}
+
+.metricCaption {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 2rem;
+}
+
+.focusPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.featuredMission {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.featuredMission header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.featuredMission h2 {
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.featuredMission p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.featuredMeta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.featuredProgress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.featuredActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.primaryLink,
+.secondaryLink {
+  padding: 0.55rem 1.15rem;
+  border-radius: 10px;
+  font-size: 0.78rem;
+}
+
+.primaryLink {
+  background: var(--accent);
+  color: var(--color-brand-night-black);
+}
+
+.secondaryLink {
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.emptyState {
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px dashed var(--border-subtle);
+  text-align: center;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.missionList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.missionList h3 {
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.missionList ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.missionListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.missionListItem p {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+}
+
+.missionListMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.missionListItem > a {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+}
+
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.surface {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.surface h3 {
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.surface ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.surface li span {
+  font-size: 0.82rem;
+}
+
+.surface small {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.timeline li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+
+.healthBar {
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.healthBar div {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 107, 0, 0.3), var(--accent));
+}
+
+.healthCaption {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.paletteOverlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.6);
+  display: grid;
+  place-items: center;
+  z-index: var(--z-modal);
+}
+
+.palette {
+  width: min(640px, 90vw);
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 120px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.paletteSearch {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.paletteSearch svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
+
+.paletteSearch input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.paletteResults {
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.paletteItem {
+  padding: 0.95rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.paletteItem strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.paletteItem span {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.paletteItem:hover,
+.paletteItem:focus-visible {
+  background: rgba(255, 107, 0, 0.15);
+}
+
+.paletteEmpty {
+  padding: 2rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.paletteFooter {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidePanel {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sidePanel .surface {
+    flex: 1 1 240px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroPanel {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    gap: 1.5rem;
+  }
+
+  .missionListItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .missionListItem > a {
+    margin-left: 0;
+  }
+
+  .actionRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+

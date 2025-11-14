@@ -5,9 +5,10 @@ interface PillProps {
   active?: boolean;
   onClick?: () => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function Pill({ children, active = false, onClick, className = '' }: PillProps) {
+export function Pill({ children, active = false, onClick, className = '', style }: PillProps) {
   const Component = onClick ? 'button' : 'span';
   
   return (
@@ -15,6 +16,7 @@ export function Pill({ children, active = false, onClick, className = '' }: Pill
       className={`${styles.pill} ${active ? styles.active : ''} ${className}`}
       onClick={onClick}
       type={onClick ? 'button' : undefined}
+      style={style}
     >
       {children}
     </Component>

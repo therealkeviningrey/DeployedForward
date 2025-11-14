@@ -1,5 +1,7 @@
 # 🚀 Launch Guide - Deployed Forward
 
+> ⚠️ Authentication is now powered by Better Auth. Clerk-specific steps remain for archival reference—consult [`docs/BETTER_AUTH_USER_MIGRATION.md`](BETTER_AUTH_USER_MIGRATION.md) for the current process.
+
 ## Quick Start: 0 to Production in 3 Hours
 
 This guide will take you from current state to a live, production-ready course platform.
@@ -10,7 +12,7 @@ This guide will take you from current state to a live, production-ready course p
 
 | Phase | Duration | Description |
 |-------|----------|-------------|
-| Service Setup | 45 min | Sign up for Clerk, Neon, Stripe, Resend |
+| Service Setup | 45 min | Configure Better Auth, Neon, Stripe, Resend |
 | Local Testing | 30 min | Verify everything works locally |
 | Vercel Deploy | 30 min | Deploy to preview environment |
 | Preview Testing | 30 min | Test preview deployment |
@@ -503,7 +505,7 @@ Track these after launch:
 **Platform Issues:**
 - Vercel: https://vercel.com/support
 - Neon: support@neon.tech
-- Clerk: support@clerk.com
+- Better Auth: internal (self-hosted)
 - Stripe: https://support.stripe.com
 - Resend: support@resend.com
 

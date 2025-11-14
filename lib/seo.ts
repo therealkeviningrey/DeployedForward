@@ -100,7 +100,7 @@ export function generateOrganizationJsonLd() {
     '@type': 'Organization',
     name: 'Deployed Forward',
     url: 'https://deployedforward.com',
-    logo: 'https://deployedforward.com/assets/df_lockup_for_dark_bg_transparent.svg',
+    logo: 'https://deployedforward.com/assets/logos/df_lockup_for_dark_bg_transparent.svg',
     description: 'Master AI workflows with field-tested missions. Deploy capability, not experiments.',
     sameAs: [
       // Add social media links when available

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
+import { getAuthSession, assertRole } from '@/lib/auth';
 
 const courseSchema = z.object({
   title: z.string().min(3),
@@ -13,15 +13,20 @@ const courseSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
+    const session = await getAuthSession();
+    if (!session.isAuthenticated || !session.userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // In production, verify admin role here
-    // const user = await clerkClient.users.getUser(userId);
-    // if (!user.publicMetadata.role === 'admin') { return 401; }
+    try {
+      await assertRole('org:admin');
+    } catch {
+      try {
+        await assertRole('admin');
+      } catch {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      }
+    }
 
     const formData = await request.formData();
     const data = {

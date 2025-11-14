@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const mission = await getMissionBySlug(slug);
-  
+
   if (!mission) {
     return {
       title: 'Mission Not Found',
@@ -66,4 +66,3 @@ export default async function MissionPage({ params }: { params: Promise<{ slug: 
     </Container>
   );
 }
-

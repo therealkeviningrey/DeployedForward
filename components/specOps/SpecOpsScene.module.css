@@ -1,0 +1,12 @@
+.scene {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.94;
+}
+
+.scene canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

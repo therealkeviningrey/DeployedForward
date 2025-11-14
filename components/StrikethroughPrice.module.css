@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.originalPrice {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.discountedPrice {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.savings {
+  color: var(--success, var(--accent));
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+/* Size variants */
+.sm .originalPrice {
+  font-size: 0.875rem;
+}
+
+.sm .discountedPrice {
+  font-size: 1.25rem;
+}
+
+.sm .savings {
+  font-size: 0.75rem;
+}
+
+.md .originalPrice {
+  font-size: 1rem;
+}
+
+.md .discountedPrice {
+  font-size: 1.75rem;
+}
+
+.md .savings {
+  font-size: 0.875rem;
+}
+
+.lg .originalPrice {
+  font-size: 1.25rem;
+}
+
+.lg .discountedPrice {
+  font-size: 2.5rem;
+}
+
+.lg .savings {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .lg .discountedPrice {
+    font-size: 2rem;
+  }
+  
+  .md .discountedPrice {
+    font-size: 1.5rem;
+  }
+}
+

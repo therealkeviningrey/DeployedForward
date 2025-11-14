@@ -1,0 +1,123 @@
+.dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 0.75rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.95) 20%);
+  backdrop-filter: blur(20px);
+  pointer-events: none;
+}
+
+.dockInner {
+  max-width: var(--container-max, 1400px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-tactical-grey);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-xl);
+  pointer-events: auto;
+}
+
+.dockIcon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  background: rgba(42, 42, 42, 0.6);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dockIcon:hover {
+  background: var(--color-bg-primary);
+  border-color: var(--color-border-subtle);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-accent);
+}
+
+.dockIcon:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.dockIconActive {
+  background: var(--color-bg-primary);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+}
+
+.dockIconActive:hover {
+  border-color: var(--color-accent);
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+.dockIconMinimized {
+  opacity: 0.6;
+  border-color: rgba(255, 189, 46, 0.5);
+}
+
+.dockIconMinimized:hover {
+  opacity: 1;
+  border-color: rgba(255, 189, 46, 0.8);
+}
+
+.minimizedIndicator {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 189, 46, 0.8);
+  box-shadow: 0 0 8px rgba(255, 189, 46, 0.6);
+  animation: minimizedPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes minimizedPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media (max-width: 768px) {
+  .dock {
+    padding: 0.5rem;
+  }
+
+  .dockInner {
+    padding: 0.5rem 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .dockIcon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .dockIcon:hover {
+    transform: translateY(0) scale(1);
+  }
+}
+

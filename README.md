@@ -18,19 +18,24 @@ A production-ready Next.js 15 course platform with authentication, payments, pro
 
 ## 📖 Documentation
 
-All guides are in the [`/docs`](docs/) folder:
+All guides are in the [`/docs`](docs/) folder. Start with [`docs/README.md`](docs/README.md) for an index that groups every reference by purpose.
 
-- **[QUICK_START.md](docs/QUICK_START.md)** - Deploy in 15 minutes
-- **[LAUNCH_GUIDE.md](docs/LAUNCH_GUIDE.md)** - Complete deployment guide
-- **[DUAL_ENVIRONMENT_SETUP.md](docs/DUAL_ENVIRONMENT_SETUP.md)** - Preview + Production isolation
-- **[GIT_WORKFLOW.md](docs/GIT_WORKFLOW.md)** - Git branching strategy
+- **[QUICK_START.md](docs/QUICK_START.md)** – Deploy in 15 minutes
+- **[LAUNCH_GUIDE.md](docs/LAUNCH_GUIDE.md)** – Complete deployment guide
+- **[DUAL_ENVIRONMENT_SETUP.md](docs/DUAL_ENVIRONMENT_SETUP.md)** – Preview + Production isolation
+- **[HOW_TO_IMPORT_ENV_VARS.md](docs/HOW_TO_IMPORT_ENV_VARS.md)** – Importing environment variables to Vercel
+- **[AGENTS.md](docs/AGENTS.md)** – Repository conventions for collaborators and AI agents
+- **[checklists/READY_TO_TEST.md](docs/checklists/READY_TO_TEST.md)** – QA handoff checklist
+- **[reports/MISSION_STRUCTURE_COMPLETE.md](docs/reports/MISSION_STRUCTURE_COMPLETE.md)** – Status report for mission scaffolding
+- **[plans/BETTER_AUTH_MIGRATION.md](docs/plans/BETTER_AUTH_MIGRATION.md)** – Auth migration roadmap (Clerk → Better Auth)
+- **[BETTER_AUTH_USER_MIGRATION.md](docs/BETTER_AUTH_USER_MIGRATION.md)** – Scripted user migration + reset email playbook
 
 ## Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: CSS Modules + CSS Variables
-- **Auth**: Clerk
+- **Auth**: Better Auth
 - **Database**: Neon (Postgres) + Prisma ORM
 - **Payments**: Stripe
 - **Email**: Resend
@@ -43,7 +48,6 @@ All guides are in the [`/docs`](docs/) folder:
 
 - Node.js 18+ and npm
 - Neon database (sign up at neon.tech)
-- Clerk account (clerk.com)
 - Stripe account (stripe.com)
 - Resend API key (resend.com)
 
@@ -60,13 +64,10 @@ All guides are in the [`/docs`](docs/) folder:
    # Database
    DATABASE_URL="postgresql://..."
 
-   # Clerk
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
-   CLERK_SECRET_KEY=sk_test_xxxxx
-   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
-   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/login
-   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
-   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+   # Auth provider
+   AUTH_PROVIDER=better-auth
+   NEXT_PUBLIC_AUTH_PROVIDER=better-auth
+   BETTER_AUTH_RESET_REDIRECT=http://localhost:3000/login
 
    # Stripe
    STRIPE_SECRET_KEY=sk_test_xxxxx
@@ -94,6 +95,11 @@ All guides are in the [`/docs`](docs/) folder:
    ```
 
    Open [http://localhost:3000](http://localhost:3000)
+
+## Auth Migration Scripts
+
+- `npm run auth:migrate-users` – Copy existing Clerk users into Better Auth tables via the Clerk REST API (`CLERK_SECRET_KEY` required temporarily).
+- `npm run auth:send-reset-emails` – Queue Better Auth password reset emails (append `-- --dry-run` to preview recipients).
 
 ## Project Structure
 

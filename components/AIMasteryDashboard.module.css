@@ -11,6 +11,7 @@
     inset 0 0 80px rgba(0, 0, 0, 0.5),
     var(--shadow-lg);
   font-family: var(--font-mono);
+  z-index: 1; /* Force terminal below header */
 }
 
 /* Terminal Header */
@@ -81,7 +82,7 @@
     rgba(0, 0, 0, 0.3) 100%
   );
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
 }
 
 /* Scanline effect */
@@ -99,7 +100,7 @@
     rgba(0, 255, 136, 0.03) 4px
   );
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
   animation: scanlineMove 8s linear infinite;
 }
 
@@ -115,7 +116,6 @@
 /* Terminal Content */
 .terminalContent {
   position: relative;
-  z-index: 1;
   height: 100%;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -257,7 +257,7 @@
   opacity: 0;
   animation: flicker 4s infinite;
   pointer-events: none;
-  z-index: 4;
+  z-index: 1;
 }
 
 /* Phosphor Glow Effect */

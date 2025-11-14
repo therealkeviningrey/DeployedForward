@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
+import { ensureUserRecord } from '@/lib/users';
 import { z } from 'zod';
+import { getAuthSession } from '@/lib/auth';
 
 const attemptSchema = z.object({
   assessmentId: z.string(),
@@ -10,23 +11,15 @@ const attemptSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
+    const session = await getAuthSession();
+    if (!session.isAuthenticated || !session.userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
     const { assessmentId, answer } = attemptSchema.parse(body);
 
-    // Find user
-    const user = await prisma.user.findUnique({
-      where: { clerkId: userId },
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
+    const user = await ensureUserRecord(session.userId);
 
     // Get assessment
     const assessment = await prisma.assessment.findUnique({
@@ -127,4 +120,3 @@ function evaluateAnswer(assessment: any, answer: string): boolean {
       return false;
   }
 }
-

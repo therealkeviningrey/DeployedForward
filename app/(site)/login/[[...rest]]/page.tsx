@@ -1,7 +1,7 @@
 import { Container } from '@/components/Container';
 import { Hero } from '@/components/Hero';
 import { Card } from '@/components/Card';
-import { SignIn } from '@clerk/nextjs';
+import { SignIn } from '@/components/auth/AuthClient';
 
 export const metadata = {
   title: 'Login',
@@ -15,14 +15,7 @@ export default function LoginPage() {
 
       <section className="py-12 flex justify-center">
         <Card className="w-full max-w-md">
-          <SignIn
-            appearance={{
-              elements: {
-                rootBox: 'w-full',
-                card: 'bg-transparent border-0 shadow-none',
-              },
-            }}
-          />
+          <SignIn />
         </Card>
       </section>
     </Container>

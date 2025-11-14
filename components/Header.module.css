@@ -1,11 +1,21 @@
 .header {
-  position: sticky;
+  position: fixed !important;
   top: 0;
-  z-index: var(--z-header);
-  background: rgba(10, 10, 10, 0.95);
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 99999 !important; /* Maximum z-index with !important to force above everything */
+  background: var(--bg-primary) !important; /* Solid background like factory.ai - always opaque */
   border-bottom: 1px solid var(--border-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.25s ease;
+  transform: translateZ(0); /* Force new layer */
+  will-change: transform; /* Optimize for layer creation */
+}
+
+/* Enhanced shadow on scroll for depth */
+.scrolled {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .nav {
@@ -72,7 +82,7 @@
   top: 100%; /* No gap - dropdown touches button */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1000;
+  z-index: calc(var(--z-header) + 1); /* Above header */
   padding-top: 0.5rem; /* Visual spacing, but still in hover area */
 }
 

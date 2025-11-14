@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
+import { ensureUserRecord } from '@/lib/users';
 import { z } from 'zod';
+import { getAuthSession } from '@/lib/auth';
 
 const progressSchema = z.object({
   lessonId: z.string(),
@@ -10,23 +11,15 @@ const progressSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
+    const session = await getAuthSession();
+    if (!session.isAuthenticated || !session.userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
     const { lessonId, completed } = progressSchema.parse(body);
 
-    // Find user
-    const user = await prisma.user.findUnique({
-      where: { clerkId: userId },
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
+    const user = await ensureUserRecord(session.userId);
 
     // Get lesson and verify enrollment
     const lesson = await prisma.lesson.findUnique({
@@ -151,4 +144,3 @@ async function checkAndIssueCertificate(userId: string, courseId: string) {
     }
   }
 }
-

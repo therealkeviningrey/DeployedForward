@@ -1,0 +1,47 @@
+.section {
+  margin-bottom: 3rem;
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.story {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.story p {
+  margin-bottom: 1.25rem;
+}
+
+.story p:last-child {
+  margin-bottom: 0;
+}
+
+.story strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.story em {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.story a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .story {
+    font-size: 1rem;
+  }
+  
+  .content {
+    padding: 1rem;
+  }
+}
+

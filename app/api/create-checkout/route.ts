@@ -1,42 +1,34 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
-import { stripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
+import { stripe } from '@/lib/stripe';
+import { ensureUserRecord } from '@/lib/users';
 import { z } from 'zod';
+import { getAuthSession } from '@/lib/auth';
 
 const checkoutSchema = z.object({
   tier: z.enum(['OPERATOR', 'UNIT', 'BATTALION']),
   billingPeriod: z.enum(['monthly', 'annual']),
+  couponCode: z.string().optional(),
 });
 
 export async function POST(request: Request) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
+    const session = await getAuthSession();
+    if (!session.isAuthenticated || !session.userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
     const { tier, billingPeriod } = checkoutSchema.parse(body);
 
-    // Find or create user
-    let user = await prisma.user.findUnique({
-      where: { clerkId: userId },
+    const userRecord = await ensureUserRecord(session.userId);
+    const user = await prisma.user.findUnique({
+      where: { id: userRecord.id },
       include: { subscription: true },
     });
 
     if (!user) {
-      const clerkUser = await (await import('@clerk/nextjs/server')).clerkClient.users.getUser(userId);
-      
-      user = await prisma.user.create({
-        data: {
-          clerkId: userId,
-          email: clerkUser.emailAddresses[0]?.emailAddress || '',
-          name: `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim(),
-        },
-        include: { subscription: true },
-      });
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     // Get or create Stripe customer
@@ -47,7 +39,7 @@ export async function POST(request: Request) {
         email: user.email,
         metadata: {
           userId: user.id,
-          clerkId: userId,
+          clerkId: session.userId,
         },
       });
       stripeCustomerId = customer.id;
@@ -71,6 +63,7 @@ export async function POST(request: Request) {
         },
       ],
       mode: 'subscription',
+      allow_promotion_codes: true,
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
       metadata: {
@@ -102,4 +95,3 @@ function getPriceId(tier: string, billingPeriod: string): string | null {
 
   return priceMap[`${tier}_${billingPeriod}`] || null;
 }
-

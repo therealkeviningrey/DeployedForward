@@ -1,5 +1,6 @@
 import { Container } from '@/components/Container';
 import { Prose } from '@/components/Prose';
+import { OperatorShell } from '@/components/OperatorShell';
 
 export const metadata = {
   title: 'Privacy Policy',
@@ -8,10 +9,16 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <Container size="narrow">
-      <Prose>
-        <h1>Privacy Policy</h1>
-        <p className="text-secondary">Last updated: January 2025</p>
+    <OperatorShell
+      activePath="/legal/privacy"
+      breadcrumb={[{ label: 'Operations' }, { label: 'legal/' }, { label: 'privacy.mdx' }]}
+      title="Privacy Policy"
+      subtitle="How we collect, use, and protect your data."
+    >
+      <Container size="narrow">
+        <Prose>
+          <h1>Privacy Policy</h1>
+          <p className="text-secondary">Last updated: January 2025</p>
 
         <h2>Overview</h2>
         <p>
@@ -106,8 +113,9 @@ export default function PrivacyPage() {
         <p>
           Questions? Email <strong>legal@deployedforward.com</strong>.
         </p>
-      </Prose>
-    </Container>
+        </Prose>
+      </Container>
+    </OperatorShell>
   );
 }
 

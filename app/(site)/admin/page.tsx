@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation';
-import { auth } from '@clerk/nextjs/server';
 import { Container } from '@/components/Container';
 import { Card } from '@/components/Card';
 import { KPI } from '@/components/KPI';
 import { prisma } from '@/lib/prisma';
+import { ensureUserRecord } from '@/lib/users';
+import { getAuthSession, assertRole } from '@/lib/auth';
 import Link from 'next/link';
 
 export const metadata = {
@@ -12,21 +13,28 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-  const { userId } = auth();
-
-  if (!userId) {
+  const session = await getAuthSession();
+  if (!session.isAuthenticated || !session.userId) {
     redirect('/login');
   }
 
-  // In production, verify admin role with Clerk
-  // For now, we'll check if user exists
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
-  });
+  let authorized = true;
+  try {
+    await assertRole('org:admin');
+  } catch {
+    try {
+      await assertRole('admin');
+    } catch {
+      authorized = false;
+    }
+  }
 
-  if (!user) {
+  if (!authorized) {
     redirect('/dashboard');
   }
+
+  // Ensure profile exists in our database
+  await ensureUserRecord(session.userId);
 
   // Fetch admin stats
   const [totalCourses, totalUsers, totalEnrollments, recentEnrollments] = await Promise.all([

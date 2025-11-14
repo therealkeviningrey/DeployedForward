@@ -154,6 +154,49 @@ class Analytics {
   }
 
   /**
+   * Track onboarding flow
+   */
+  trackOnboardingStarted() {
+    this.track('onboarding_started', {
+      timestamp: Date.now(),
+    });
+  }
+
+  trackOnboardingStepViewed(step: number, stepName: string) {
+    this.track('onboarding_step_viewed', {
+      step,
+      step_name: stepName,
+    });
+  }
+
+  trackOnboardingCourseSelected(courseSlug: string) {
+    this.track('onboarding_course_selected', {
+      course_slug: courseSlug,
+    });
+  }
+
+  trackOnboardingGoalSelected(goal: string) {
+    this.track('onboarding_goal_selected', {
+      goal,
+    });
+  }
+
+  trackOnboardingCompleted(stepsCompleted: number, selectedCourse?: string, learningGoal?: string) {
+    this.track('onboarding_completed', {
+      steps_completed: stepsCompleted,
+      selected_course: selectedCourse || '',
+      learning_goal: learningGoal || '',
+      timestamp: Date.now(),
+    });
+  }
+
+  trackOnboardingSkipped(atStep: number) {
+    this.track('onboarding_skipped', {
+      at_step: atStep,
+    });
+  }
+
+  /**
    * Store event in sessionStorage for debugging
    */
   private storeEvent(event: AnalyticsEvent) {

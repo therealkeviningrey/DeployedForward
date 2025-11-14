@@ -135,7 +135,7 @@ For each variable, configure the environment scope:
 #### **Preview Variables** (for `preview` branch)
 Add all development/test variables:
 - Development database URL
-- Clerk test keys
+- Better Auth environment variables
 - Stripe test mode keys
 - Test Resend key
 - Preview APP_URL: `https://deployed-forward-git-preview-[...].vercel.app`
@@ -145,7 +145,7 @@ Select: ☑️ Preview
 #### **Production Variables** (for `main` branch)
 Add all production variables:
 - Production database URL
-- Clerk production keys
+- Better Auth production variables
 - Stripe live mode keys (when ready)
 - Production Resend key
 - Production APP_URL: `https://deployedforward.com`

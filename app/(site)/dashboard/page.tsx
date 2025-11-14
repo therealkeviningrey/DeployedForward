@@ -4,8 +4,10 @@ import { Container } from '@/components/Container';
 import { Card } from '@/components/Card';
 import { Badge } from '@/components/Badge';
 import { KPI } from '@/components/KPI';
+import { DashboardOnboarding } from '@/components/DashboardOnboarding';
 import { prisma } from '@/lib/prisma';
-import { auth } from '@clerk/nextjs/server';
+import { ensureUserRecord } from '@/lib/users';
+import { getAuthSession } from '@/lib/auth';
 
 export const metadata = {
   title: 'Dashboard',
@@ -13,15 +15,15 @@ export const metadata = {
 };
 
 export default async function DashboardPage() {
-  const { userId } = auth();
-
-  if (!userId) {
+  const session = await getAuthSession();
+  if (!session.isAuthenticated || !session.userId) {
     redirect('/login');
   }
 
-  // Find or create user
-  let user = await prisma.user.findUnique({
-    where: { clerkId: userId },
+  const ensuredUser = await ensureUserRecord(session.userId);
+
+  const user = await prisma.user.findUnique({
+    where: { id: ensuredUser.id },
     include: {
       enrollments: {
         include: {
@@ -60,6 +62,25 @@ export default async function DashboardPage() {
     );
   }
 
+  // Check if onboarding should be shown
+  const shouldShowOnboarding = !user.onboardingCompletedAt && user.enrollments.length === 0;
+
+  // Fetch available courses for onboarding (only if needed)
+  const availableCourses = shouldShowOnboarding
+    ? await prisma.course.findMany({
+        where: { published: true },
+        select: {
+          id: true,
+          slug: true,
+          title: true,
+          description: true,
+          level: true,
+        },
+        take: 5,
+        orderBy: { createdAt: 'asc' },
+      })
+    : [];
+
   // Calculate stats
   const totalEnrollments = user.enrollments.length;
   const completedLessons = user.progress.filter((p: any) => p.completed).length;
@@ -85,6 +106,13 @@ export default async function DashboardPage() {
 
   return (
     <Container>
+      {/* Onboarding Modal for new users */}
+      <DashboardOnboarding
+        shouldShowOnboarding={shouldShowOnboarding}
+        userName={user.name || undefined}
+        courses={availableCourses}
+      />
+
       <div className="py-12">
         <h1 className="mb-8">Dashboard</h1>
 
@@ -167,4 +195,3 @@ export default async function DashboardPage() {
     </Container>
   );
 }
-

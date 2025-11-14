@@ -60,4 +60,3 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
     </Container>
   );
 }
-

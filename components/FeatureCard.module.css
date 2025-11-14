@@ -1,43 +1,28 @@
 .featureCard {
   display: flex;
+  flex-direction: column;
   gap: var(--space-6);
   padding: var(--space-8);
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   transition: all var(--duration-slow) var(--easing-ease);
+  height: 100%;
   position: relative;
   overflow: hidden;
 }
 
-.featureCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--color-accent);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform var(--duration-slow) var(--easing-spring);
-}
-
 .featureCard:hover {
   border-color: rgba(255, 107, 0, 0.4);
-  transform: translateX(8px);
   box-shadow: var(--shadow-accent);
-}
-
-.featureCard:hover::before {
-  transform: scaleY(1);
-  transform-origin: top;
+  transform: translateY(-4px);
 }
 
 .iconBox {
   flex-shrink: 0;
   width: 64px;
   height: 64px;
+  margin-bottom: 1rem; /* spacing when column */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +49,7 @@
   flex-direction: column;
   gap: var(--space-2);
   flex: 1;
+  justify-content: flex-start;
 }
 
 .title {

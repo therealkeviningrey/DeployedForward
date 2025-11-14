@@ -3,7 +3,7 @@ import { Container } from '@/components/Container';
 import { Card } from '@/components/Card';
 import { Badge } from '@/components/Badge';
 import { prisma } from '@/lib/prisma';
-import { auth } from '@clerk/nextjs/server';
+import { getAuthSession } from '@/lib/auth';
 import { TIERS } from '@/lib/stripe';
 
 export const metadata = {
@@ -12,14 +12,13 @@ export const metadata = {
 };
 
 export default async function BillingPage() {
-  const { userId } = auth();
-
-  if (!userId) {
+  const session = await getAuthSession();
+  if (!session.isAuthenticated || !session.userId) {
     redirect('/login');
   }
 
   const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
+    where: { clerkId: session.userId },
     include: { subscription: true },
   });
 

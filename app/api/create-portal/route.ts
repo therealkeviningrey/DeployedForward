@@ -1,19 +1,18 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
 import { stripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
+import { getAuthSession } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
+    const session = await getAuthSession();
+    if (!session.isAuthenticated || !session.userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     // Find user with subscription
     const user = await prisma.user.findUnique({
-      where: { clerkId: userId },
+      where: { clerkId: session.userId },
       include: { subscription: true },
     });
 

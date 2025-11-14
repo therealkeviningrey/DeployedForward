@@ -3,9 +3,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: var(--z-toast);
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-subtle);
+  z-index: 99999;
+  background: rgba(26, 26, 26, 0.98);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
   padding: 1.5rem;
   animation: slideUp var(--speed) var(--ease);
 }

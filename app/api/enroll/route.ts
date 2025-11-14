@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
-import { prisma } from '@/lib/prisma';
 import { sendEnrollmentEmail } from '@/lib/email';
+import { prisma } from '@/lib/prisma';
+import { ensureUserRecord } from '@/lib/users';
+import { readRequestData } from '@/lib/http';
 import { z } from 'zod';
+import { getAuthSession } from '@/lib/auth';
 
 const enrollSchema = z.object({
   courseId: z.string(),
@@ -10,32 +12,15 @@ const enrollSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
+    const session = await getAuthSession();
+    if (!session.isAuthenticated || !session.userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { courseId } = enrollSchema.parse(body);
+    const { data, isForm } = await readRequestData(request);
+    const { courseId } = enrollSchema.parse(data);
 
-    // Find or create user
-    let user = await prisma.user.findUnique({
-      where: { clerkId: userId },
-    });
-
-    if (!user) {
-      // Get user info from Clerk
-      const clerkUser = await (await import('@clerk/nextjs/server')).clerkClient.users.getUser(userId);
-      
-      user = await prisma.user.create({
-        data: {
-          clerkId: userId,
-          email: clerkUser.emailAddresses[0]?.emailAddress || '',
-          name: `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim(),
-        },
-      });
-    }
+    const user = await ensureUserRecord(session.userId);
 
     // Get course
     const course = await prisma.course.findUnique({
@@ -57,10 +42,11 @@ export async function POST(request: Request) {
     });
 
     if (existingEnrollment) {
-      return NextResponse.json(
-        { message: 'Already enrolled', enrollment: existingEnrollment },
-        { status: 200 }
-      );
+      if (isForm) {
+        const redirectTarget = request.headers.get('referer') || `/courses/${course.slug}`;
+        return NextResponse.redirect(new URL(redirectTarget, request.url), { status: 303 });
+      }
+      return NextResponse.json({ message: 'Already enrolled', enrollment: existingEnrollment }, { status: 200 });
     }
 
     // Create enrollment
@@ -74,10 +60,12 @@ export async function POST(request: Request) {
     // Send enrollment confirmation email
     await sendEnrollmentEmail(user.email, course.title);
 
-    return NextResponse.json(
-      { success: true, enrollment },
-      { status: 201 }
-    );
+    if (isForm) {
+      const redirectTarget = request.headers.get('referer') || `/courses/${course.slug}`;
+      return NextResponse.redirect(new URL(redirectTarget, request.url), { status: 303 });
+    }
+
+    return NextResponse.json({ success: true, enrollment }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Invalid request', details: error.errors }, { status: 400 });
@@ -87,4 +75,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
-

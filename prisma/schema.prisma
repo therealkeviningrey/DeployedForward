@@ -11,12 +11,14 @@ datasource db {
 
 // User model synced with Clerk
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                    String    @id @default(cuid())
+  clerkId               String    @unique
+  email                 String    @unique
+  name                  String?
+  onboardingCompletedAt DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  authProfile           AuthUser? @relation("UserAuthProfile")
 
   enrollments  Enrollment[]
   progress     Progress[]
@@ -221,5 +223,77 @@ model Referral {
 
   @@index([referrerId])
   @@index([refereeEmail])
+}
+
+// Better Auth models
+model AuthUser {
+  id            String            @id @default(cuid())
+  name          String
+  email         String            @unique
+  emailVerified Boolean           @default(false)
+  image         String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  appUserId     String?           @unique
+  appUser       User?             @relation("UserAuthProfile", fields: [appUserId], references: [id], onDelete: Cascade)
+  accounts      AuthAccount[]
+  sessions      AuthSession[]
+  verifications AuthVerification[]
+}
+
+model AuthAccount {
+  id                    String    @id @default(cuid())
+  providerId            String
+  accountId             String
+  authUserId            String
+  authUser              AuthUser  @relation(fields: [authUserId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@unique([providerId, accountId])
+  @@index([authUserId])
+}
+
+model AuthSession {
+  id         String    @id @default(cuid())
+  token      String    @unique
+  expiresAt  DateTime
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  ipAddress  String?
+  userAgent  String?
+  authUserId String
+  authUser   AuthUser  @relation(fields: [authUserId], references: [id], onDelete: Cascade)
+
+  @@index([authUserId])
+  @@index([expiresAt])
+}
+
+model AuthVerification {
+  id         String    @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  authUserId String?
+  authUser   AuthUser? @relation(fields: [authUserId], references: [id], onDelete: Cascade)
+
+  @@index([identifier])
+  @@index([value])
+}
+
+model AuthRateLimit {
+  id          String  @id @default(cuid())
+  key         String  @unique
+  count       Int     @default(0)
+  lastRequest BigInt  @default(0)
 }
 

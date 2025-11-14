@@ -105,3 +105,43 @@ export async function sendProgressReminder(
   }
 }
 
+export async function sendPasswordResetEmail(to: string, resetUrl: string) {
+  const client = getResendClient();
+  if (!client) {
+    console.warn('Resend not configured, skipping password reset email');
+    return;
+  }
+
+  try {
+    const appName = 'Deployed Forward';
+    const html = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+        <h2 style="color: #111827; margin-bottom: 16px;">Reset your password</h2>
+        <p style="margin-bottom: 16px;">
+          You recently requested to reset your ${appName} password. Click the button below to choose a new password.
+        </p>
+        <p style="margin-bottom: 16px;">
+          <a href="${resetUrl}" style="background-color: #ff6b00; color: #ffffff; padding: 12px 20px; border-radius: 9999px; text-decoration: none; display: inline-block;">
+            Reset password
+          </a>
+        </p>
+        <p style="margin-bottom: 16px; color: #6b7280; font-size: 14px;">
+          If you did not request this, you can safely ignore this email. This link will expire shortly for security reasons.
+        </p>
+        <p style="margin-top: 24px; color: #6b7280; font-size: 14px;">
+          — The ${appName} team
+        </p>
+      </div>
+    `;
+
+    await client.emails.send({
+      from: fromEmail,
+      to,
+      subject: 'Reset your Deployed Forward password',
+      html,
+    });
+  } catch (error) {
+    console.error('Failed to send password reset email:', error);
+  }
+}
+

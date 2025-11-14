@@ -87,6 +87,7 @@ vercel env pull .env.production production
 **For Production Environment:**
 1. Copy `.env.production.template` → `.env.production`
 2. Fill in ALL values (use LIVE keys for Stripe!)
+   - Ensure `AUTH_PROVIDER=better-auth` once migration is complete; keep Clerk secrets only if you still need to run the migration scripts
 3. Use Vercel Dashboard → Bulk Import
 4. Paste entire file
 5. Select "Production" environment
@@ -129,7 +130,6 @@ After importing:
 
 ### Before Importing:
 - [ ] Created both Neon databases
-- [ ] Signed up for Clerk
 - [ ] Signed up for Stripe
 - [ ] Signed up for Resend
 - [ ] Copied all keys

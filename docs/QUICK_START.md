@@ -50,15 +50,12 @@ Add these for **Preview** environment:
 
 #### **Required for Authentication:**
 ```
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
-CLERK_SECRET_KEY=sk_test_...
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/login
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+AUTH_PROVIDER=better-auth
+NEXT_PUBLIC_AUTH_PROVIDER=better-auth
+BETTER_AUTH_RESET_REDIRECT=https://your-preview-url.vercel.app/login
 ```
 
-Get keys from: https://clerk.com (free tier, 15 min setup)
+> ℹ️ Migrating from Clerk? Run `npm run auth:migrate-users` followed by `npm run auth:send-reset-emails -- --dry-run` before flipping `AUTH_PROVIDER`. See [`docs/BETTER_AUTH_USER_MIGRATION.md`](BETTER_AUTH_USER_MIGRATION.md) for the full playbook.
 
 #### **Required for Database:**
 ```

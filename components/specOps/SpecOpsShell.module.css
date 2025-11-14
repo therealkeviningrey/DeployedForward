@@ -1,0 +1,434 @@
+.root {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #0f111d 0%, #05060f 65%, #03040a 100%);
+  color: rgba(226, 231, 248, 0.9);
+  overflow: hidden;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 107, 0, 0.12) 0%, rgba(4, 6, 14, 0) 45%),
+    radial-gradient(circle at 85% 15%, rgba(80, 103, 255, 0.1) 0%, rgba(5, 7, 16, 0) 55%),
+    linear-gradient(180deg, rgba(5, 6, 14, 0.85) 0%, rgba(5, 7, 16, 0.9) 100%);
+  mix-blend-mode: screen;
+}
+
+.shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(8, 11, 22, 0.85) 0%, rgba(4, 5, 12, 0.95) 100%);
+  backdrop-filter: blur(18px);
+}
+
+.sidebarHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sidebarTitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 189, 141, 0.85);
+}
+
+.sidebarSubtitle {
+  font-size: 0.85rem;
+  color: rgba(203, 211, 240, 0.7);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.navButton {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(14, 18, 32, 0.55);
+  color: inherit;
+  cursor: pointer;
+  transition: border 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.navButton:hover,
+.navButton:focus-visible {
+  outline: none;
+  border-color: rgba(255, 107, 0, 0.65);
+  background: rgba(21, 26, 44, 0.75);
+  transform: translateX(3px);
+}
+
+.navButtonActive {
+  border-color: rgba(255, 120, 36, 0.85);
+  background: linear-gradient(180deg, rgba(36, 43, 68, 0.95) 0%, rgba(20, 24, 41, 0.95) 100%);
+  box-shadow: 0 20px 35px rgba(7, 8, 18, 0.55);
+}
+
+.navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 107, 0, 0.12);
+  color: rgba(255, 189, 141, 0.9);
+}
+
+.navLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(229, 234, 255, 0.92);
+}
+
+.navCallsign {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(150, 161, 203, 0.65);
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  display: grid;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(169, 179, 220, 0.65);
+}
+
+.statusRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusLight {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4);
+}
+
+.statusLightActive {
+  background: rgba(255, 107, 0, 0.85);
+  animation: statusPing 2.6s ease-in-out infinite;
+}
+
+@keyframes statusPing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.45);
+  }
+  75% {
+    box-shadow: 0 0 0 12px rgba(255, 107, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 0, 0);
+  }
+}
+
+.main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  gap: 1.75rem;
+}
+
+.commandBar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: linear-gradient(180deg, rgba(16, 18, 32, 0.88) 0%, rgba(9, 11, 22, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.1rem 1.25rem 1rem;
+  box-shadow: 0 14px 40px rgba(3, 4, 10, 0.55);
+  backdrop-filter: blur(18px);
+}
+
+.commandForm {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.commandGlyph {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 107, 0, 0.2);
+  color: rgba(255, 173, 108, 0.9);
+}
+
+.commandInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: rgba(229, 234, 255, 0.94);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.commandInput::placeholder {
+  color: rgba(181, 193, 232, 0.6);
+}
+
+.commandInput:focus-visible {
+  outline: none;
+}
+
+.commandSubmit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 22, 38, 0.9);
+  color: rgba(199, 209, 246, 0.75);
+  cursor: pointer;
+  transition: border 160ms ease, transform 160ms ease;
+}
+
+.commandSubmit:hover,
+.commandSubmit:focus-visible {
+  border-color: rgba(255, 107, 0, 0.65);
+  transform: translateY(-1px);
+}
+
+.commandSuggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.suggestionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(21, 26, 44, 0.65);
+  color: rgba(201, 210, 244, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: border 160ms ease, background 160ms ease;
+}
+
+.suggestionButton:hover,
+.suggestionButton:focus-visible {
+  border-color: rgba(255, 120, 36, 0.75);
+  background: rgba(34, 40, 62, 0.85);
+}
+
+.suggestionCallsign {
+  color: rgba(255, 189, 141, 0.82);
+}
+
+.windowStage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 260px);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.telemetry {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem 1.15rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(12, 15, 28, 0.88) 0%, rgba(7, 9, 20, 0.94) 100%);
+  box-shadow: 0 16px 45px rgba(5, 6, 14, 0.55);
+  backdrop-filter: blur(18px);
+  min-height: 260px;
+}
+
+.telemetryHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(170, 182, 225, 0.75);
+}
+
+.telemetryList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.telemetryItem {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: 0.78rem;
+  color: rgba(197, 206, 242, 0.82);
+  font-family: var(--font-ibm-plex-mono);
+}
+
+.telemetryTime {
+  color: rgba(255, 189, 141, 0.75);
+}
+
+.telemetryCommand {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.telemetryStatus {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.telemetryStatusOk {
+  color: rgba(94, 234, 212, 0.85);
+  border-color: rgba(94, 234, 212, 0.45);
+}
+
+.telemetryStatusWarn {
+  color: rgba(255, 154, 116, 0.85);
+  border-color: rgba(255, 154, 116, 0.45);
+}
+
+.telemetryEmpty {
+  font-size: 0.75rem;
+  color: rgba(167, 179, 221, 0.6);
+  font-family: var(--font-ibm-plex-mono);
+}
+
+.telemetryFooter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(149, 161, 202, 0.6);
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    backdrop-filter: blur(12px);
+  }
+
+  .sidebarHeading {
+    gap: 0.2rem;
+  }
+
+  .nav {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .navButton {
+    min-width: 200px;
+  }
+
+  .sidebarFooter {
+    display: none;
+  }
+
+  .main {
+    padding-block: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .windowStage {
+    grid-template-columns: 1fr;
+  }
+
+  .telemetry {
+    order: -1;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .commandForm {
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem;
+  }
+
+  .commandSubmit {
+    display: none;
+  }
+
+  .suggestionButton {
+    font-size: 0.6rem;
+  }
+
+  .navButton {
+    grid-template-columns: 1fr auto;
+    padding: 0.75rem 0.9rem;
+  }
+
+  .navIcon {
+    display: none;
+  }
+}

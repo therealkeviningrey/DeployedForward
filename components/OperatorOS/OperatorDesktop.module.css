@@ -1,0 +1,143 @@
+.desktop {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  overflow: hidden;
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+.windowContainer {
+  position: relative;
+  flex: 1;
+  min-height: 100vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.paletteOverlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(6, 8, 12, 0.65);
+  display: grid;
+  place-items: center;
+  z-index: 4000;
+}
+
+.palette {
+  width: min(560px, 92vw);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(4, 6, 12, 0.94);
+  box-shadow: 0 30px 120px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.paletteSearch {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.paletteSearch svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
+
+.paletteSearch input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  width: 100%;
+}
+
+.paletteSearch input:focus {
+  outline: none;
+}
+
+.paletteResults {
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.paletteItem {
+  padding: 0.95rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: inherit;
+  cursor: pointer;
+}
+
+.paletteItem strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.paletteItem span {
+  color: rgba(214, 220, 245, 0.7);
+  font-size: 0.75rem;
+}
+
+.paletteItem kbd {
+  align-self: flex-start;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(20, 22, 32, 0.85);
+  color: rgba(214, 220, 245, 0.7);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+
+.paletteItem:hover,
+.paletteItem:focus-visible {
+  background: rgba(255, 107, 0, 0.12);
+}
+
+.paletteEmpty {
+  padding: 2rem;
+  font-size: 0.85rem;
+  color: rgba(214, 220, 245, 0.7);
+  text-align: center;
+}
+
+.paletteFooter {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(214, 220, 245, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .windowContainer {
+    padding: 0;
+  }
+}
+

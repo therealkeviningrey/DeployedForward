@@ -1,3 +1,6 @@
+# Dual Environment Setup
+
+> ⚠️ Better Auth has replaced Clerk. The sections below retain legacy Clerk instructions for historical reference. For the current Better Auth rollout, follow [`docs/BETTER_AUTH_USER_MIGRATION.md`](BETTER_AUTH_USER_MIGRATION.md) and [`docs/BETTER_AUTH_STAGING_ROLLOUT.md`](BETTER_AUTH_STAGING_ROLLOUT.md).
 # Dual Environment Setup - Preview & Production
 
 ## Overview

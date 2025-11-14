@@ -1,6 +1,7 @@
 import { Container } from '@/components/Container';
 import { Hero } from '@/components/Hero';
 import { Card } from '@/components/Card';
+import { OperatorShell } from '@/components/OperatorShell';
 
 export const metadata = {
   title: 'Docs',
@@ -32,31 +33,38 @@ export default function DocsPage() {
   ];
 
   return (
-    <Container>
-      <Hero
-        title="Documentation"
-        subtitle="Guides, references, and examples. Everything you need to deploy AI workflows."
-      />
+    <OperatorShell
+      activePath="/docs"
+      breadcrumb={[{ label: 'Operations' }, { label: 'docs/' }]}
+      title="Documentation"
+      subtitle="Guides, references, and examples."
+    >
+      <Container>
+        <Hero
+          title="Documentation"
+          subtitle="Guides, references, and examples. Everything you need to deploy AI workflows."
+        />
 
-      <section className="py-12">
-        <div className="grid grid-2 gap-4">
-          {docSections.map((section) => (
-            <Card key={section.title} hover>
-              <h3 className="mb-2">{section.title}</h3>
-              <p className="text-secondary mb-4">{section.description}</p>
-              <a
-                href={section.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost btn-sm"
-              >
-                View Docs →
-              </a>
-            </Card>
-          ))}
-        </div>
-      </section>
-    </Container>
+        <section className="py-12">
+          <div className="grid grid-2 gap-4">
+            {docSections.map((section) => (
+              <Card key={section.title} hover>
+                <h3 className="mb-2">{section.title}</h3>
+                <p className="text-secondary mb-4">{section.description}</p>
+                <a
+                  href={section.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost btn-sm"
+                >
+                  View Docs →
+                </a>
+              </Card>
+            ))}
+          </div>
+        </section>
+      </Container>
+    </OperatorShell>
   );
 }
 
