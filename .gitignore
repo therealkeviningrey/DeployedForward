@@ -21,6 +21,11 @@ dist/
 .env*.local
 .env.production
 !.env.example
+env-preview.txt
+env-production.txt
+*.env.backup
+secrets/
+credentials/
 
 # Debug
 npm-debug.log*

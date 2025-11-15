@@ -1,0 +1,57 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Checking for secrets in staged files..."
+
+# Check for common secret patterns
+SECRETS_FOUND=0
+
+# Stripe keys
+if git diff --cached --diff-filter=ACM | grep -E "(sk_live_|pk_live_|sk_test_[a-zA-Z0-9]{24,}|pk_test_[a-zA-Z0-9]{24,})"; then
+  echo "❌ ERROR: Stripe API key detected in staged files!"
+  SECRETS_FOUND=1
+fi
+
+# Database credentials
+if git diff --cached --diff-filter=ACM | grep -E "postgresql://[^:]+:[^@]+@"; then
+  echo "❌ ERROR: Database credentials detected in staged files!"
+  SECRETS_FOUND=1
+fi
+
+# Resend API keys
+if git diff --cached --diff-filter=ACM | grep -E "re_[a-zA-Z0-9]{24,}"; then
+  echo "❌ ERROR: Resend API key detected in staged files!"
+  SECRETS_FOUND=1
+fi
+
+# Generic API keys
+if git diff --cached --diff-filter=ACM | grep -E "api[_-]?key[\"']?\s*[:=]\s*[\"'][a-zA-Z0-9]{20,}"; then
+  echo "❌ ERROR: API key detected in staged files!"
+  SECRETS_FOUND=1
+fi
+
+# Check if env files are being committed
+if git diff --cached --name-only | grep -E "(env-preview\.txt|env-production\.txt|\.env\.local|\.env\.production)"; then
+  echo "❌ ERROR: Environment file with secrets detected!"
+  echo "   Files like env-preview.txt, env-production.txt should not be committed."
+  SECRETS_FOUND=1
+fi
+
+if [ $SECRETS_FOUND -eq 1 ]; then
+  echo ""
+  echo "🚨 COMMIT BLOCKED: Secrets detected!"
+  echo ""
+  echo "To fix:"
+  echo "  1. Remove the secrets from the staged files"
+  echo "  2. Use .env.example with placeholder values instead"
+  echo "  3. Store real secrets in .env.local (which is gitignored)"
+  echo "  4. Add the file to .gitignore if it should never be committed"
+  echo ""
+  echo "To bypass this check (NOT RECOMMENDED):"
+  echo "  git commit --no-verify"
+  echo ""
+  exit 1
+fi
+
+echo "✅ No secrets detected. Proceeding with commit."
+exit 0

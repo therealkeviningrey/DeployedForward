@@ -1,7 +1,5 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { betterAuth } from '@/lib/auth/better-auth';
-import { ensureUserRecord } from '@/lib/users';
 
 const PUBLIC_ROUTE_PATTERNS: RegExp[] = [
   /^\/$/,
@@ -22,6 +20,12 @@ const PUBLIC_ROUTE_PATTERNS: RegExp[] = [
 const ADMIN_ROUTE_PATTERNS: RegExp[] = [/^\/admin(?:\/.*)?$/, /^\/api\/admin(?:\/.*)?$/];
 const ADMIN_ALLOWED_ROLES = new Set(['ADMIN', 'STAFF']);
 const REQUIRE_ADMIN_2FA = process.env.REQUIRE_ADMIN_2FA === 'true';
+
+interface AuthCheckResult {
+  authenticated: boolean;
+  role: string | null;
+  twoFactorEnabled: boolean;
+}
 
 const experiments: Record<string, string[]> = {
   exp_hero_headline: ['A', 'B'],
@@ -48,6 +52,34 @@ function applyExperiments(req: NextRequest, res: NextResponse) {
   return res;
 }
 
+async function getAuthState(req: NextRequest): Promise<AuthCheckResult> {
+  try {
+    const endpoint = new URL('/api/internal/auth/session', req.url);
+    const response = await fetch(endpoint, {
+      headers: {
+        cookie: req.headers.get('cookie') ?? '',
+        'x-forwarded-host': req.headers.get('x-forwarded-host') ?? '',
+        'x-forwarded-proto': req.headers.get('x-forwarded-proto') ?? '',
+      },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      return { authenticated: false, role: null, twoFactorEnabled: false };
+    }
+
+    const data = (await response.json()) as Partial<AuthCheckResult>;
+    return {
+      authenticated: Boolean(data.authenticated),
+      role: data.role ?? null,
+      twoFactorEnabled: Boolean(data.twoFactorEnabled),
+    };
+  } catch (error) {
+    console.error('Failed to load auth state in middleware:', error);
+    return { authenticated: false, role: null, twoFactorEnabled: false };
+  }
+}
+
 function redirectToLogin(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith('/api')) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -64,17 +96,14 @@ export default async function middleware(req: NextRequest) {
 
   if (!matches(PUBLIC_ROUTE_PATTERNS, pathname)) {
     try {
-      const session = await betterAuth.api.getSession({
-        headers: req.headers,
-      });
+      const authState = await getAuthState(req);
 
-      if (!session) {
+      if (!authState.authenticated) {
         return redirectToLogin(req);
       }
 
-      const appUser = await ensureUserRecord(session.user.id);
-      const userRole = appUser.role;
-      const hasTwoFactor = Boolean((session.user as any)?.twoFactorEnabled);
+      const userRole = authState.role ?? 'USER';
+      const hasTwoFactor = authState.twoFactorEnabled;
 
       if (matches(ADMIN_ROUTE_PATTERNS, pathname)) {
         if (!ADMIN_ALLOWED_ROLES.has(userRole)) {
@@ -93,7 +122,7 @@ export default async function middleware(req: NextRequest) {
         }
       }
     } catch (error) {
-      console.error('Better Auth middleware error', error);
+      console.error('Middleware auth error', error);
       return redirectToLogin(req);
     }
   }
