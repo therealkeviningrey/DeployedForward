@@ -218,15 +218,16 @@ export function SignIn() {
 }
 
 export function useAuthUser() {
-  const { isLoaded, isSignedIn, user, refresh } = useBetterAuth();
+  const { isLoaded, isSignedIn, user, refresh, signOut } = useBetterAuth();
   return useMemo<AuthUserState>(
     () => ({
       isLoaded,
       isSignedIn,
       user,
       refresh,
+      signOut,
     }),
-    [isLoaded, isSignedIn, user, refresh],
+    [isLoaded, isSignedIn, user, refresh, signOut],
   );
 }
 
@@ -235,6 +236,7 @@ type AuthUserState = {
   isSignedIn: boolean;
   user: BetterAuthUser | null;
   refresh: () => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 function useBetterAuth() {
