@@ -1,0 +1,124 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  transform: translateY(100%);
+  transition: transform 0.3s var(--ease);
+  display: none; /* Hidden by default */
+}
+
+.container.visible {
+  transform: translateY(0);
+}
+
+/* Show only on mobile/tablet */
+@media (max-width: 1024px) {
+  .container {
+    display: block;
+  }
+}
+
+.inner {
+  padding: 1rem;
+  background: linear-gradient(
+    to top,
+    var(--bg-primary) 0%,
+    var(--bg-primary) 70%,
+    transparent 100%
+  );
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--speed) var(--ease);
+  border: 2px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-height: 56px; /* Touch-friendly */
+  box-shadow: var(--shadow-accent);
+}
+
+/* Accent variant (default) */
+.accent .button {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+.accent .button:active {
+  background: transparent;
+  color: var(--accent);
+  transform: scale(0.98);
+}
+
+/* Primary variant */
+.primary .button {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.primary .button:active {
+  background: rgba(255, 107, 0, 0.1);
+  transform: scale(0.98);
+}
+
+/* Arrow icon animation */
+.button svg {
+  transition: transform var(--speed) var(--ease);
+}
+
+.button:active svg {
+  transform: translateX(4px);
+}
+
+/* Slide up animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.container.visible .inner {
+  animation: slideUp 0.3s var(--ease);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .button,
+  .button svg {
+    transition: none;
+    animation: none;
+  }
+
+  .button:active {
+    transform: none;
+  }
+}
+
+/* Safe area for notched devices */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .inner {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+}

@@ -3,6 +3,8 @@ import { Footer } from '@/components/Footer';
 import { PageViewTracker } from '@/components/PageViewTracker';
 import { ExperimentClient } from '@/components/ExperimentClient';
 import { PromoBanner } from '@/components/PromoBanner';
+import { ExitIntent } from '@/components/ExitIntent';
+import { LiveActivity } from '@/components/SocialProof';
 
 export default function SiteLayout({
   children,
@@ -24,6 +26,8 @@ export default function SiteLayout({
       <PageViewTracker />
       <main id="main-content">{children}</main>
       <Footer />
+      <ExitIntent />
+      <LiveActivity />
     </>
   );
 }

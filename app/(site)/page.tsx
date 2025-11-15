@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import {
   Target,
@@ -17,10 +18,20 @@ import { Badge } from '@/components/Badge';
 import { CodeSnippet } from '@/components/CodeSnippet';
 import { Counter } from '@/components/Counter';
 import { TrackedLink } from '@/components/TrackedLink';
-import { OperatorDesktop, type WindowApp } from '@/components/OperatorOS';
+import { LoadingState } from '@/components/LoadingSpinner';
 import { useScrollDepth } from '@/lib/hooks/useScrollDepth';
+import type { WindowApp } from '@/components/OperatorOS';
 
 import styles from './page.module.css';
+
+// Code-split OperatorDesktop for better initial page load
+const OperatorDesktop = dynamic(
+  () => import('@/components/OperatorOS').then(mod => ({ default: mod.OperatorDesktop })),
+  {
+    loading: () => <LoadingState message="Loading OperatorOS..." />,
+    ssr: false, // OperatorOS uses client-side features like localStorage
+  }
+);
 
 const WINDOW_APPS: WindowApp[] = [
   {

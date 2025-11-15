@@ -5,6 +5,7 @@ import { OperatorOSProvider, useOperatorOS } from './OperatorOSContext';
 import { OperatorWindow } from './OperatorWindow';
 import { TacticalBackground } from './TacticalBackground';
 import { LauncherOptionRail } from './launchers/LauncherOptionRail';
+import { OperatorIntro } from './OperatorIntro';
 import styles from './OperatorDesktop.module.css';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -83,6 +84,7 @@ function DesktopContent({ apps, autoOpenAppId }: OperatorDesktopProps) {
   return (
     <div className={styles.desktop}>
       <TacticalBackground />
+      <OperatorIntro />
 
       <div className={styles.layout} data-operator-layout>
         <LauncherOptionRail apps={apps} onOpenPalette={() => setPaletteOpen(true)} />

@@ -1,0 +1,87 @@
+.spinner {
+  display: inline-block;
+  position: relative;
+}
+
+.svg {
+  animation: rotate 1s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circle {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* Sizes */
+.sm {
+  width: 20px;
+  height: 20px;
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+}
+
+.lg {
+  width: 64px;
+  height: 64px;
+}
+
+/* Colors */
+.primary .circle {
+  stroke: var(--text-primary);
+}
+
+.accent .circle {
+  stroke: var(--accent);
+}
+
+/* Loading State */
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem 2rem;
+  min-height: 400px;
+}
+
+.message {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Inline variant */
+.inline {
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}

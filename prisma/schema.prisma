@@ -15,7 +15,11 @@ model User {
   clerkId               String    @unique
   email                 String    @unique
   name                  String?
+  role                  UserRole  @default(USER)
   onboardingCompletedAt DateTime?
+  currentStreak         Int       @default(0)
+  longestStreak         Int       @default(0)
+  lastActivityDate      DateTime?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
   authProfile           AuthUser? @relation("UserAuthProfile")
@@ -29,6 +33,13 @@ model User {
 
   @@index([clerkId])
   @@index([email])
+  @@index([role])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  STAFF
 }
 
 // Subscription tiers
@@ -232,6 +243,7 @@ model AuthUser {
   email         String            @unique
   emailVerified Boolean           @default(false)
   image         String?
+  twoFactorEnabled Boolean        @default(false)
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
   appUserId     String?           @unique
@@ -239,6 +251,7 @@ model AuthUser {
   accounts      AuthAccount[]
   sessions      AuthSession[]
   verifications AuthVerification[]
+  twoFactor     AuthTwoFactor?
 }
 
 model AuthAccount {
@@ -295,5 +308,18 @@ model AuthRateLimit {
   key         String  @unique
   count       Int     @default(0)
   lastRequest BigInt  @default(0)
+}
+
+model AuthTwoFactor {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  user        AuthUser  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  secret      String
+  backupCodes String
+  enabled     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
 }
 

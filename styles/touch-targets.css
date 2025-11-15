@@ -1,0 +1,144 @@
+/* Touch Target Enhancements for Mobile */
+/* Ensures all interactive elements meet WCAG 2.2 AAA standards (44x44px minimum) */
+
+/* Global touch target minimum */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+[role="tab"],
+[role="link"],
+[role="menuitem"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Ensure inline links have proper spacing */
+p a,
+li a {
+  padding: 0.25rem 0.125rem;
+  margin: -0.25rem -0.125rem;
+}
+
+/* Icon-only buttons */
+button[aria-label]:not([aria-label=""]):empty,
+.icon-button {
+  min-width: 48px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure form inputs have adequate touch targets */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea {
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+}
+
+/* Checkbox and radio buttons */
+input[type="checkbox"],
+input[type="radio"] {
+  min-width: 24px;
+  min-height: 24px;
+  cursor: pointer;
+}
+
+/* Labels for checkboxes/radios should be clickable */
+label {
+  cursor: pointer;
+  padding: 0.5rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Mobile-specific touch target improvements */
+@media (max-width: 768px) {
+  /* Increase touch targets on mobile */
+  button:not(.btn-sm),
+  .btn {
+    min-height: 48px;
+    padding: 0.875rem 1.5rem;
+  }
+
+  /* Dropdown items */
+  [role="menuitem"],
+  [role="option"] {
+    min-height: 48px;
+    padding: 0.875rem 1rem;
+  }
+
+  /* Navigation links */
+  nav a {
+    min-height: 48px;
+    padding: 0.875rem 1rem;
+  }
+
+  /* Pills on mobile */
+  .pill {
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* Badge touch targets (if clickable) */
+  .badge:is(button, a) {
+    min-height: 32px;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Table cell links/buttons */
+  td button,
+  td a {
+    min-height: 44px;
+    padding: 0.75rem;
+  }
+
+  /* Ensure adequate spacing between touch targets */
+  .touch-list > * + * {
+    margin-top: 0.5rem;
+  }
+
+  /* Icon buttons get larger on mobile */
+  .icon-button,
+  button[aria-label]:not([aria-label=""]):empty {
+    min-width: 56px;
+    min-height: 56px;
+  }
+}
+
+/* Touch-friendly spacing between interactive elements */
+.touch-spacing > * + * {
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .touch-spacing > * + * {
+    margin-top: 1rem;
+  }
+}
+
+/* Prevent double-tap zoom on buttons */
+button,
+[role="button"],
+a {
+  touch-action: manipulation;
+}
+
+/* Improve tap highlight */
+@media (hover: none) {
+  button:active,
+  a:active,
+  [role="button"]:active {
+    background-color: rgba(255, 107, 0, 0.1);
+  }
+}

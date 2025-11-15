@@ -1,5 +1,6 @@
 /* Import design tokens */
 @import './tokens.css';
+@import './touch-targets.css';
 
 /* CSS Reset */
 *,
@@ -26,8 +27,8 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 17px; /* Slightly larger for better readability */
+  line-height: 1.7; /* Improved readability */
 }
 
 /* Main content area - offset for fixed header */
@@ -63,48 +64,81 @@ h5,
 h6 {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: 0.08em; /* Reduced tracking */
-  line-height: 1.2;
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
   margin-bottom: 1rem;
+  color: var(--text-primary);
 }
 
-/* Only hero h1 uses uppercase, others use normal case */
+/* Hero headings */
 h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem); /* Larger hero text */
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 800;
   text-transform: uppercase;
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 4.5vw, 3rem);
-  text-transform: capitalize; /* Sentence case for h2 */
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
 }
 
 h3 {
-  font-size: clamp(1.35rem, 3vw, 2rem);
-  text-transform: capitalize; /* Sentence case for h3 */
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 1rem;
 }
 
 h4 {
-  font-size: 1.25rem;
-  text-transform: capitalize;
-}
-
-p {
-  line-height: 1.7; /* Increased from 1.6 */
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
 }
 
 h5 {
   font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 h6 {
   font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
+/* Paragraph spacing and readability */
 p {
-  margin-bottom: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+}
+
+/* Secondary text utility */
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* Larger body text for important content */
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.text-sm {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.text-xs {
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 a {

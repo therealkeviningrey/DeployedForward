@@ -8,6 +8,8 @@ import { Accordion } from '@/components/Accordion';
 import { Pill } from '@/components/Pill';
 import { TrustBadges } from '@/components/TrustBadges';
 import { ComparePlans } from '@/components/ComparePlans';
+import { SocialProof, FoundingSeatCounter } from '@/components/SocialProof';
+import { PricingStickyMobileCTA } from '@/components/StickyMobileCTA';
 import Link from 'next/link';
 import { EmailCapture } from '@/components/EmailCapture';
 import { TrackedLink } from '@/components/TrackedLink';
@@ -152,9 +154,19 @@ export default function PricingPage() {
           }
         />
 
+        {/* Social Proof Banner */}
+        <section style={{ paddingBlock: '2rem' }}>
+          <Container>
+            <SocialProof variant="banner" />
+          </Container>
+        </section>
+
         {/* Pricing Story Section */}
         <section style={{ paddingBlock: '3rem' }}>
           <Container size="narrow">
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <FoundingSeatCounter />
+            </div>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
               <h2 style={{ marginBottom: '1.5rem' }}>Why Founding Operator Pricing?</h2>
               <div style={{ textAlign: 'left', fontSize: '1.0625rem', lineHeight: '1.8', maxWidth: '700px', margin: '0 auto' }}>
@@ -172,14 +184,6 @@ export default function PricingPage() {
                 </p>
               </div>
             </div>
-          </Container>
-        </section>
-
-        {/* FAQ above fold on mobile */}
-        <section style={{ paddingBlock: '3rem' }}>
-          <h2 className="text-center mb-6">Common questions</h2>
-          <Container size="narrow">
-            <Accordion items={faqItems} />
           </Container>
         </section>
 
@@ -267,6 +271,14 @@ export default function PricingPage() {
           </Container>
         </section>
 
+        {/* FAQ Section */}
+        <section style={{ paddingBlock: '4rem' }}>
+          <h2 className="text-center mb-6">Common questions</h2>
+          <Container size="narrow">
+            <Accordion items={faqItems} />
+          </Container>
+        </section>
+
         {/* Final CTA with Email Capture */}
         <section style={{ paddingBlock: '4rem' }}>
           <Container size="narrow">
@@ -284,6 +296,7 @@ export default function PricingPage() {
           </Container>
         </section>
       </Container>
+      <PricingStickyMobileCTA />
     </OperatorShell>
   );
 }

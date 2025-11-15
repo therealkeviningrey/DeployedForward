@@ -1,13 +1,40 @@
-"use client";
+import { Flame } from 'lucide-react';
+import styles from './StreakIndicator.module.css';
 
-import React from 'react';
+interface StreakIndicatorProps {
+  currentStreak: number;
+  longestStreak: number;
+}
 
-export function StreakIndicator({ days }: { days: number }) {
-  const label = days <= 0 ? 'No active streak' : `${days}-day streak`;
+export function StreakIndicator({ currentStreak, longestStreak }: StreakIndicatorProps) {
+  const isActive = currentStreak > 0;
+
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0.375rem 0.625rem', border: '1px solid var(--border-subtle)', borderRadius: 999 }}>
-      <span aria-hidden style={{ color: 'var(--accent)' }}>🔥</span>
-      <span className="text-sm">{label}</span>
+    <div className={styles.container}>
+      <div className={`${styles.streakCard} ${isActive ? styles.active : ''}`}>
+        <div className={styles.iconWrapper}>
+          <Flame className={styles.icon} size={32} />
+        </div>
+        <div className={styles.content}>
+          <div className={styles.label}>Current Streak</div>
+          <div className={styles.value}>
+            {currentStreak} {currentStreak === 1 ? 'day' : 'days'}
+          </div>
+          {longestStreak > currentStreak && (
+            <div className={styles.meta}>
+              Record: {longestStreak} {longestStreak === 1 ? 'day' : 'days'}
+            </div>
+          )}
+        </div>
+      </div>
+      {currentStreak > 0 && (
+        <div className={styles.encouragement}>
+          {currentStreak === 1 && "Great start! Keep it going tomorrow."}
+          {currentStreak >= 2 && currentStreak < 7 && `${currentStreak} days strong! 🚀`}
+          {currentStreak >= 7 && currentStreak < 30 && `You're on fire! ${currentStreak} days!`}
+          {currentStreak >= 30 && `Incredible! ${currentStreak} day streak!`}
+        </div>
+      )}
     </div>
   );
 }

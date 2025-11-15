@@ -199,14 +199,122 @@
   color: var(--accent);
 }
 
+.accountMenuWrapper {
+  position: relative;
+}
+
+.accountButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: border-color var(--speed), color var(--speed);
+}
+
+.accountButton:hover,
+.accountButton:focus-visible {
+  border-color: rgba(255, 107, 0, 0.5);
+  color: var(--accent);
+}
+
+.accountAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.accountName {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.accountCaret {
+  transition: transform var(--speed);
+}
+
+.accountButton[aria-expanded='true'] .accountCaret {
+  transform: rotate(180deg);
+}
+
+.accountMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 200px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  z-index: calc(var(--z-header) + 2);
+}
+
+.accountMenuLink,
+.accountMenuButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--speed), color var(--speed);
+  cursor: pointer;
+}
+
+.accountMenuLink:hover,
+.accountMenuButton:hover {
+  background: rgba(255, 107, 0, 0.08);
+  color: var(--accent);
+}
+
+.accountMenuButton {
+  text-align: left;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .navLinks {
     display: none;
   }
-  
+
   .nav {
     padding-block: 1rem;
+  }
+
+  /* Hide desktop auth elements on mobile */
+  .actions > :not(:last-child) {
+    display: none;
+  }
+
+  /* Only show MobileNav hamburger */
+  .actions {
+    gap: 0;
   }
 }
 

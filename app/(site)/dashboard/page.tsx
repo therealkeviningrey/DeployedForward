@@ -5,6 +5,9 @@ import { Card } from '@/components/Card';
 import { Badge } from '@/components/Badge';
 import { KPI } from '@/components/KPI';
 import { DashboardOnboarding } from '@/components/DashboardOnboarding';
+import { StreakIndicator } from '@/components/StreakIndicator';
+import { NextLessonCard } from '@/components/NextLessonCard';
+import { NoCourses } from '@/components/EmptyState';
 import { prisma } from '@/lib/prisma';
 import { ensureUserRecord } from '@/lib/users';
 import { getAuthSession } from '@/lib/auth';
@@ -86,6 +89,31 @@ export default async function DashboardPage() {
   const completedLessons = user.progress.filter((p: any) => p.completed).length;
   const totalCertificates = user.certificates.length;
 
+  // Find next lesson to complete
+  let nextLesson = null;
+  for (const enrollment of user.enrollments) {
+    const course = enrollment.course;
+    for (const module of course.modules) {
+      for (const lesson of module.lessons) {
+        const progress = user.progress.find((p: any) => p.lessonId === lesson.id);
+        if (!progress || !progress.completed) {
+          nextLesson = {
+            courseTitle: course.title,
+            courseSlug: course.slug,
+            lessonTitle: lesson.title,
+            lessonSlug: lesson.slug,
+            moduleTitle: module.title,
+            estimatedTime: lesson.duration || undefined,
+            progress: progress ? 50 : 0, // If started but not completed, assume 50%
+          };
+          break;
+        }
+      }
+      if (nextLesson) break;
+    }
+    if (nextLesson) break;
+  }
+
   // Calculate progress for each enrollment
   const enrollmentsWithProgress = user.enrollments.map((enrollment: any) => {
     const totalLessons = enrollment.course.modules.reduce((acc: number, m: any) => acc + m.lessons.length, 0);
@@ -116,6 +144,15 @@ export default async function DashboardPage() {
       <div className="py-12">
         <h1 className="mb-8">Dashboard</h1>
 
+        {/* Streak & Next Lesson */}
+        <div className="grid grid-2 gap-6 mb-12">
+          <StreakIndicator
+            currentStreak={user.currentStreak || 0}
+            longestStreak={user.longestStreak || 0}
+          />
+          {nextLesson && <NextLessonCard {...nextLesson} />}
+        </div>
+
         {/* Stats */}
         <div className="grid grid-3 gap-4 mb-12">
           <KPI value={totalEnrollments.toString()} label="Courses Enrolled" />
@@ -127,14 +164,7 @@ export default async function DashboardPage() {
         <section className="mb-12">
           <h2 className="mb-6">Your Courses</h2>
           {enrollmentsWithProgress.length === 0 ? (
-            <Card>
-              <p className="text-secondary text-center mb-4">You haven't enrolled in any courses yet.</p>
-              <div className="text-center">
-                <Link href="/courses" className="btn btn-primary">
-                  Browse Courses
-                </Link>
-              </div>
-            </Card>
+            <NoCourses />
           ) : (
             <div className="grid gap-4">
               {enrollmentsWithProgress.map((enrollment: any) => (
