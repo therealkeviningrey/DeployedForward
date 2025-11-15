@@ -21,12 +21,12 @@ export async function POST(request: Request) {
     }
 
     // Create portal session
-    const session = await stripe.billingPortal.sessions.create({
+    const portalSession = await stripe.billingPortal.sessions.create({
       customer: user.subscription.stripeCustomerId,
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/billing`,
     });
 
-    return NextResponse.json({ url: session.url }, { status: 200 });
+    return NextResponse.json({ url: portalSession.url }, { status: 200 });
   } catch (error) {
     console.error('Portal creation error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

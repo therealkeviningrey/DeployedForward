@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     }
 
     // Create Checkout Session
-    const session = await stripe.checkout.sessions.create({
+    const checkoutSession = await stripe.checkout.sessions.create({
       customer: stripeCustomerId,
       payment_method_types: ['card'],
       line_items: [
@@ -72,7 +72,7 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ sessionId: session.id, url: session.url }, { status: 200 });
+    return NextResponse.json({ sessionId: checkoutSession.id, url: checkoutSession.url }, { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Invalid request', details: error.errors }, { status: 400 });
