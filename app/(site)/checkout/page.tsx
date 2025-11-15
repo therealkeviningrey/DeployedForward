@@ -102,11 +102,9 @@ export default function CheckoutPage() {
                 <p className="text-secondary">Sign in to continue. Your subscription ties to your account.</p>
               </div>
               <div>
-                <SignedOut>
-                  <SignInButton mode="modal">
-                    <button className="btn btn-primary">Sign in to continue</button>
-                  </SignInButton>
-                </SignedOut>
+                    <SignedOut>
+                      <SignInButton className="btn btn-primary">Sign in to continue</SignInButton>
+                    </SignedOut>
                 <SignedIn>
                   <button
                     className="btn btn-primary"

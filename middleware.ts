@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { betterAuth } from '@/lib/auth/better-auth';
+import { ensureUserRecord } from '@/lib/users';
 
 const PUBLIC_ROUTE_PATTERNS: RegExp[] = [
   /^\/$/,
@@ -19,6 +20,8 @@ const PUBLIC_ROUTE_PATTERNS: RegExp[] = [
 ];
 
 const ADMIN_ROUTE_PATTERNS: RegExp[] = [/^\/admin(?:\/.*)?$/, /^\/api\/admin(?:\/.*)?$/];
+const ADMIN_ALLOWED_ROLES = new Set(['ADMIN', 'STAFF']);
+const REQUIRE_ADMIN_2FA = process.env.REQUIRE_ADMIN_2FA === 'true';
 
 const experiments: Record<string, string[]> = {
   exp_hero_headline: ['A', 'B'],
@@ -69,8 +72,25 @@ export default async function middleware(req: NextRequest) {
         return redirectToLogin(req);
       }
 
+      const appUser = await ensureUserRecord(session.user.id);
+      const userRole = appUser.role;
+      const hasTwoFactor = Boolean((session.user as any)?.twoFactorEnabled);
+
       if (matches(ADMIN_ROUTE_PATTERNS, pathname)) {
-        // TODO: Enforce Better Auth roles once role mapping is implemented
+        if (!ADMIN_ALLOWED_ROLES.has(userRole)) {
+          if (pathname.startsWith('/api')) {
+            return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+          }
+
+          const redirectUrl = new URL('/dashboard', req.url);
+          return NextResponse.redirect(redirectUrl);
+        }
+
+        if (REQUIRE_ADMIN_2FA && !hasTwoFactor && !pathname.startsWith('/settings/security')) {
+          const setupUrl = new URL('/settings/security', req.url);
+          setupUrl.searchParams.set('requireTwoFactor', '1');
+          return NextResponse.redirect(setupUrl);
+        }
       }
     } catch (error) {
       console.error('Better Auth middleware error', error);

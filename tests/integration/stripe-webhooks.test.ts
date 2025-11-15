@@ -1,5 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 import { prisma } from '@/lib/prisma';
+
+async function ensureUserTableSchema() {
+  await prisma.$executeRawUnsafe(
+    'ALTER TABLE "User" ADD COLUMN IF NOT EXISTS "onboardingCompletedAt" TIMESTAMP NULL'
+  );
+}
 import Stripe from 'stripe';
 
 /**
@@ -16,12 +22,14 @@ describe('Stripe Webhook Handlers', () => {
   let testStripeSubscriptionId: string;
 
   beforeAll(async () => {
+    await ensureUserTableSchema();
     // Create test user
     const user = await prisma.user.create({
       data: {
         clerkId: 'test-clerk-stripe',
         email: 'stripe-test@example.com',
         name: 'Stripe Tester',
+        role: 'USER',
       },
     });
     testUserId = user.id;

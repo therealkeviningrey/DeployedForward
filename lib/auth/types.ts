@@ -17,6 +17,8 @@ export interface AuthSession {
   sessionId: string | null;
   isAuthenticated: boolean;
   hasRole: (role: string) => Promise<boolean>;
+  role?: string | null;
+  twoFactorEnabled?: boolean;
 }
 
 export interface AuthServerAdapter {

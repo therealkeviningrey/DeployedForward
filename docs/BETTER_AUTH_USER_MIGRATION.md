@@ -50,6 +50,7 @@ The script leverages the Better Auth API, which creates reset tokens and sends m
 Once all users are migrated and have reset their passwords:
 
 - Switch `AUTH_PROVIDER` to `better-auth` in the target environment.
+- Populate the `ADMIN_EMAILS` allowlist with the accounts that need `/admin` access.
 - Redeploy the app (Preview first, then Production).
 - Monitor logs/analytics for sign-in failures and be ready to re-queue resets if needed.
 - Communicate the change to your users (consider an announcement email or changelog entry).

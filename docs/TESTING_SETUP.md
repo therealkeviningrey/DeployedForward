@@ -34,7 +34,7 @@ A comprehensive testing infrastructure has been implemented for Deployed Forward
 tests/
 ├── setup.ts                    # Global test configuration
 ├── helpers/                    # Test utilities
-│   ├── mockClerk.ts           # Clerk auth mocking
+│   ├── mockClerk.ts           # Legacy auth mocking (kept for migration scripts)
 │   └── mockStripe.ts          # Stripe service mocking
 ├── fixtures/                   # Test data (future)
 ├── unit/                       # Unit tests (future)
@@ -133,6 +133,8 @@ mockUnauthenticated()
 // Mock current user data
 mockCurrentUser({ id: 'user-123', email: 'test@example.com' })
 ```
+
+> ⚠️ `mockClerk.ts` exists only for backwards compatibility with the migration scripts. Prefer seeding Prisma directly or using the Better Auth helpers when adding new tests.
 
 #### `mockStripe.ts`
 ```typescript

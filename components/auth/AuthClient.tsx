@@ -11,9 +11,25 @@ type BetterAuthUser = {
   image?: string | null;
 };
 
+const resolvedBaseURL =
+  typeof window !== 'undefined'
+    ? `${window.location.origin}/api/auth`
+    : process.env.NEXT_PUBLIC_APP_URL
+      ? `${process.env.NEXT_PUBLIC_APP_URL}/api/auth`
+      : undefined;
+
 const betterAuthClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}/api/auth` : undefined,
+  baseURL: resolvedBaseURL,
 });
+
+const SOCIAL_PROVIDERS: Array<{ id: string; label: string }> = [
+  process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+    ? { id: 'google', label: 'Continue with Google' }
+    : null,
+  process.env.NEXT_PUBLIC_GITHUB_OAUTH_CLIENT_ID
+    ? { id: 'github', label: 'Continue with GitHub' }
+    : null,
+].filter(Boolean) as Array<{ id: string; label: string }>;
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   return <>{children}</>;
@@ -32,19 +48,29 @@ export function SignedOut({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-export function SignInButton({
-  children,
-  ..._rest
-}: { children?: ReactNode } & Record<string, unknown>) {
+type SignInButtonProps = {
+  children?: ReactNode;
+  className?: string;
+  href?: string;
+};
+
+export function SignInButton({ children, className, href = '/login' }: SignInButtonProps) {
   return (
-    <Link href="/login" className="btn btn-primary btn-sm">
+    <Link href={href} className={className ?? 'btn btn-primary btn-sm'}>
       {children ?? 'Sign in'}
     </Link>
   );
 }
 
-export function UserButton() {
+export function UserButton({ afterSignOutUrl }: { afterSignOutUrl?: string }) {
   const { signOut } = useBetterAuth();
+
+  const handleSignOut = useCallback(async () => {
+    await signOut();
+    if (afterSignOutUrl) {
+      window.location.href = afterSignOutUrl;
+    }
+  }, [afterSignOutUrl, signOut]);
 
   return (
     <div className="flex items-center gap-2">
@@ -54,7 +80,7 @@ export function UserButton() {
       <button
         className="btn btn-ghost btn-sm"
         onClick={() => {
-          void signOut();
+          void handleSignOut();
         }}
       >
         Sign out
@@ -64,11 +90,12 @@ export function UserButton() {
 }
 
 export function SignIn() {
-  const { isSignedIn, isLoaded, signInWithEmail } = useBetterAuth();
+  const { isSignedIn, isLoaded, signInWithEmail, signInWithOAuth } = useBetterAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [oauthError, setOauthError] = useState<string | null>(null);
 
   if (!isLoaded) {
     return (
@@ -114,44 +141,79 @@ export function SignIn() {
     }
   };
 
+  const handleOAuthSignIn = async (providerId: string) => {
+    setOauthError(null);
+    try {
+      await signInWithOAuth(providerId);
+    } catch (err) {
+      console.error('OAuth sign-in failed', err);
+      setOauthError('Unable to start sign-in with that provider. Please try again.');
+    }
+  };
+
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
-      <div className="grid gap-2">
-        <label htmlFor="email" className="text-sm font-semibold">
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          required
-          className="w-full rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-4 py-3"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </div>
-      <div className="grid gap-2">
-        <label htmlFor="password" className="text-sm font-semibold">
-          Password
-        </label>
-        <input
-          id="password"
-          type="password"
-          required
-          className="w-full rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-4 py-3"
-          placeholder="••••••••"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      {error && <p className="text-sm text-red-500">{error}</p>}
-      <button className="btn btn-primary w-full" disabled={status === 'submitting'}>
-        {status === 'submitting' ? 'Signing in…' : 'Sign in'}
-      </button>
-      <p className="text-xs text-secondary">
-        Forgot your password? <Link href="/forgot-password">Reset it here.</Link>
-      </p>
-    </form>
+    <div className="space-y-6">
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="grid gap-2">
+          <label htmlFor="email" className="text-sm font-semibold">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            className="w-full rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-4 py-3"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </div>
+        <div className="grid gap-2">
+          <label htmlFor="password" className="text-sm font-semibold">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            required
+            className="w-full rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)] px-4 py-3"
+            placeholder="••••••••"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        {error && <p className="text-sm text-red-500">{error}</p>}
+        <button className="btn btn-primary w-full" disabled={status === 'submitting'}>
+          {status === 'submitting' ? 'Signing in…' : 'Sign in'}
+        </button>
+        <p className="text-xs text-secondary">
+          Forgot your password? <Link href="/forgot-password">Reset it here.</Link>
+        </p>
+      </form>
+
+      {SOCIAL_PROVIDERS.length > 0 && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 text-xs uppercase tracking-wide text-secondary">
+            <div className="h-px flex-1 bg-[var(--border-subtle)]" />
+            <span>or continue with</span>
+            <div className="h-px flex-1 bg-[var(--border-subtle)]" />
+          </div>
+          <div className="grid gap-2">
+            {SOCIAL_PROVIDERS.map((provider) => (
+              <button
+                key={provider.id}
+                type="button"
+                className="btn btn-ghost w-full justify-center"
+                onClick={() => void handleOAuthSignIn(provider.id)}
+              >
+                {provider.label}
+              </button>
+            ))}
+          </div>
+          {oauthError && <p className="text-sm text-red-500">{oauthError}</p>}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -213,6 +275,17 @@ function useBetterAuth() {
     [refresh],
   );
 
+  const signInWithOAuth = useCallback(
+    async (providerId: string) => {
+      await betterAuthClient.signIn.oauth2({
+        providerId,
+        callbackURL: `${window.location.origin}/dashboard`,
+        errorCallbackURL: `${window.location.origin}/login?provider=${providerId}&error=1`,
+      });
+    },
+    [],
+  );
+
   useEffect(() => {
     let isMounted = true;
     const bootstrap = async () => {
@@ -249,7 +322,16 @@ function useBetterAuth() {
       refresh,
       signOut,
       signInWithEmail,
+       signInWithOAuth,
     }),
-    [authState.isLoaded, authState.isSignedIn, authState.user, refresh, signOut, signInWithEmail],
+    [
+      authState.isLoaded,
+      authState.isSignedIn,
+      authState.user,
+      refresh,
+      signOut,
+      signInWithEmail,
+      signInWithOAuth,
+    ],
   );
 }

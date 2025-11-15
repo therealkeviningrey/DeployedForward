@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 import { prisma } from '@/lib/prisma';
 
+async function ensureUserTableSchema() {
+  await prisma.$executeRawUnsafe(
+    'ALTER TABLE "User" ADD COLUMN IF NOT EXISTS "onboardingCompletedAt" TIMESTAMP NULL'
+  );
+}
+
 /**
  * Integration test for progress tracking and certificate issuance
  *
@@ -18,6 +24,7 @@ describe('Progress Tracking and Certificate Issuance', () => {
 
   // Mock email function
   beforeAll(async () => {
+    await ensureUserTableSchema();
     // Mock the email service to prevent actual emails in tests
     vi.mock('@/lib/email', () => ({
       sendCertificateEmail: vi.fn().mockResolvedValue(true),
@@ -29,6 +36,7 @@ describe('Progress Tracking and Certificate Issuance', () => {
         clerkId: 'test-clerk-id-progress',
         email: 'progress-test@example.com',
         name: 'Progress Tester',
+        role: 'USER',
       },
     });
     testUserId = user.id;

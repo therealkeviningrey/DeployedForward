@@ -67,7 +67,13 @@ All guides are in the [`/docs`](docs/) folder. Start with [`docs/README.md`](doc
    # Auth provider
    AUTH_PROVIDER=better-auth
    NEXT_PUBLIC_AUTH_PROVIDER=better-auth
+  ADMIN_EMAILS=you@example.com,teammate@example.com
+  GOOGLE_OAUTH_CLIENT_ID=your-google-client-id
+  GOOGLE_OAUTH_CLIENT_SECRET=your-google-client-secret
+  GITHUB_OAUTH_CLIENT_ID=your-github-client-id
+  GITHUB_OAUTH_CLIENT_SECRET=your-github-client-secret
    BETTER_AUTH_RESET_REDIRECT=http://localhost:3000/login
+  REQUIRE_ADMIN_2FA=false
 
    # Stripe
    STRIPE_SECRET_KEY=sk_test_xxxxx
@@ -100,6 +106,7 @@ All guides are in the [`/docs`](docs/) folder. Start with [`docs/README.md`](doc
 
 - `npm run auth:migrate-users` – Copy existing Clerk users into Better Auth tables via the Clerk REST API (`CLERK_SECRET_KEY` required temporarily).
 - `npm run auth:send-reset-emails` – Queue Better Auth password reset emails (append `-- --dry-run` to preview recipients).
+- `npm run auth:set-role -- <email> <role>` – Promote/demote a user (`role` = `USER`, `STAFF`, or `ADMIN`).
 
 ## Project Structure
 

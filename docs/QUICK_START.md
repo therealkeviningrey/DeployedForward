@@ -52,7 +52,13 @@ Add these for **Preview** environment:
 ```
 AUTH_PROVIDER=better-auth
 NEXT_PUBLIC_AUTH_PROVIDER=better-auth
+ADMIN_EMAILS=you@example.com,teammate@example.com
+GOOGLE_OAUTH_CLIENT_ID=your-google-client-id
+GOOGLE_OAUTH_CLIENT_SECRET=your-google-client-secret
+GITHUB_OAUTH_CLIENT_ID=your-github-client-id
+GITHUB_OAUTH_CLIENT_SECRET=your-github-client-secret
 BETTER_AUTH_RESET_REDIRECT=https://your-preview-url.vercel.app/login
+REQUIRE_ADMIN_2FA=false
 ```
 
 > ℹ️ Migrating from Clerk? Run `npm run auth:migrate-users` followed by `npm run auth:send-reset-emails -- --dry-run` before flipping `AUTH_PROVIDER`. See [`docs/BETTER_AUTH_USER_MIGRATION.md`](BETTER_AUTH_USER_MIGRATION.md) for the full playbook.

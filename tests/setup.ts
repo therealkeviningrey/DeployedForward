@@ -18,13 +18,12 @@ beforeAll(() => {
   // NODE_ENV is read-only in Next.js, so we don't set it
   process.env.NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
-  // Mock Clerk if not set
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_mock';
-  process.env.CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY || 'sk_test_mock';
-
   // Mock Stripe if not set (use test keys)
   process.env.STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_mock';
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_mock';
+
+  // Ensure an admin allowlist exists for role-based tests
+  process.env.ADMIN_EMAILS = process.env.ADMIN_EMAILS || 'stripe-test@example.com,progress-test@example.com';
 
   // Use TEST_DATABASE_URL if available, otherwise use existing POSTGRES_PRISMA_URL
   if (process.env.TEST_DATABASE_URL) {

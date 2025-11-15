@@ -23,6 +23,7 @@
     "test:e2e:debug": "playwright test --debug",
     "test:lighthouse": "lighthouse http://localhost:3000 --view",
     "test:all": "npm run test:run && npm run test:e2e",
+    "auth:set-role": "tsx scripts/set-user-role.ts",
     "auth:migrate-users": "tsx scripts/migrate-clerk-users-to-better-auth.ts",
     "auth:send-reset-emails": "tsx scripts/send-better-auth-reset-emails.ts"
   },

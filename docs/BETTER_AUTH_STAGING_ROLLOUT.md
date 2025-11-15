@@ -10,6 +10,7 @@ Follow this checklist when you are ready to flip staging (or any preview environ
 ```
 AUTH_PROVIDER=better-auth
 NEXT_PUBLIC_AUTH_PROVIDER=better-auth
+ADMIN_EMAILS=you@example.com,teammate@example.com
 ```
 
 3. Keep legacy Clerk secrets only if you still need to run the migration script or plan for rollback.

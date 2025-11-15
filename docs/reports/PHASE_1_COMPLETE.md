@@ -63,7 +63,7 @@ Successfully implemented a comprehensive testing infrastructure for Deployed For
 tests/
 ├── setup.ts                    # Global config + env loading
 ├── helpers/
-│   ├── mockClerk.ts           # Auth mocking utilities
+│   ├── mockClerk.ts           # Legacy auth mocking (kept for migration scripts)
 │   └── mockStripe.ts          # Stripe service mocks
 ├── integration/
 │   ├── progress.test.ts       # ✅ 6 tests passing
@@ -172,7 +172,7 @@ npm test
 ### Created
 - `vitest.config.ts` - Vitest configuration
 - `tests/setup.ts` - Global test setup
-- `tests/helpers/mockClerk.ts` - Auth mocks
+- `tests/helpers/mockClerk.ts` - Legacy auth mocks (Better Auth replacements forthcoming)
 - `tests/helpers/mockStripe.ts` - Payment mocks
 - `tests/integration/progress.test.ts` - Progress tests
 - `tests/integration/stripe-webhooks.test.ts` - Webhook tests

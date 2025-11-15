@@ -88,6 +88,11 @@ vercel env pull .env.production production
 1. Copy `.env.production.template` → `.env.production`
 2. Fill in ALL values (use LIVE keys for Stripe!)
    - Ensure `AUTH_PROVIDER=better-auth` once migration is complete; keep Clerk secrets only if you still need to run the migration scripts
+   - Populate `ADMIN_EMAILS` with a comma-separated allowlist for admin console access (e.g., founder emails)
+   - Add OAuth client credentials if you want Google/GitHub sign-in:
+     - `GOOGLE_OAUTH_CLIENT_ID` / `GOOGLE_OAUTH_CLIENT_SECRET`
+     - `GITHUB_OAUTH_CLIENT_ID` / `GITHUB_OAUTH_CLIENT_SECRET`
+   - Flip `REQUIRE_ADMIN_2FA=true` once the team has enrolled in two-factor authentication (kept `false` by default during rollout)
 3. Use Vercel Dashboard → Bulk Import
 4. Paste entire file
 5. Select "Production" environment
