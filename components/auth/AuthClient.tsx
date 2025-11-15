@@ -218,16 +218,17 @@ export function SignIn() {
 }
 
 export function useAuthUser() {
-  const { isLoaded, isSignedIn, user, refresh, signOut } = useBetterAuth();
+  const { isLoaded, isSignedIn, user, session, refresh, signOut } = useBetterAuth();
   return useMemo<AuthUserState>(
     () => ({
       isLoaded,
       isSignedIn,
       user,
+      session,
       refresh,
       signOut,
     }),
-    [isLoaded, isSignedIn, user, refresh, signOut],
+    [isLoaded, isSignedIn, user, session, refresh, signOut],
   );
 }
 
@@ -235,6 +236,7 @@ type AuthUserState = {
   isLoaded: boolean;
   isSignedIn: boolean;
   user: BetterAuthUser | null;
+  session: any | null;
   refresh: () => Promise<void>;
   signOut: () => Promise<void>;
 };
@@ -244,16 +246,38 @@ function useBetterAuth() {
     isLoaded: false,
     isSignedIn: false,
     user: null as BetterAuthUser | null,
+    session: null as any | null,
   });
+
+  const normalizeSession = useCallback((result: any) => {
+    if (!result) {
+      return { user: null, session: null };
+    }
+
+    if (typeof result === 'object' && 'data' in result && result.data) {
+      const data = result.data as any;
+      return {
+        user: data?.user ?? null,
+        session: data?.session ?? null,
+      };
+    }
+
+    return {
+      user: result?.user ?? null,
+      session: result?.session ?? null,
+    };
+  }, []);
 
   const refresh = useCallback(async () => {
     const result = await betterAuthClient.getSession({ query: { disableRefresh: false } });
+    const { user, session } = normalizeSession(result);
     setAuthState({
       isLoaded: true,
-      isSignedIn: Boolean(result),
-      user: result?.user ?? null,
+      isSignedIn: Boolean(user),
+      user,
+      session,
     });
-  }, []);
+  }, [normalizeSession]);
 
   const signOut = useCallback(async () => {
     await betterAuthClient.signOut();
@@ -261,6 +285,7 @@ function useBetterAuth() {
       isLoaded: true,
       isSignedIn: false,
       user: null,
+      session: null,
     });
   }, []);
 
@@ -294,10 +319,12 @@ function useBetterAuth() {
       try {
         const result = await betterAuthClient.getSession();
         if (!isMounted) return;
+         const { user, session } = normalizeSession(result);
         setAuthState({
           isLoaded: true,
-          isSignedIn: Boolean(result),
-          user: result?.user ?? null,
+          isSignedIn: Boolean(user),
+          user,
+          session,
         });
       } catch (error) {
         console.error('Better Auth session load failed', error);
@@ -306,6 +333,7 @@ function useBetterAuth() {
             isLoaded: true,
             isSignedIn: false,
             user: null,
+            session: null,
           });
         }
       }
@@ -321,15 +349,17 @@ function useBetterAuth() {
       isLoaded: authState.isLoaded,
       isSignedIn: authState.isSignedIn,
       user: authState.user,
+      session: authState.session,
       refresh,
       signOut,
       signInWithEmail,
-       signInWithOAuth,
+      signInWithOAuth,
     }),
     [
       authState.isLoaded,
       authState.isSignedIn,
       authState.user,
+      authState.session,
       refresh,
       signOut,
       signInWithEmail,
