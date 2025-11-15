@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import type { OperatorOSContextType, WindowApp, WindowState } from './types';
+import type { OperatorOSContextType, WindowApp, WindowState, OpenWindowOptions } from './types';
 
 const OperatorOSContext = createContext<OperatorOSContextType | null>(null);
 
