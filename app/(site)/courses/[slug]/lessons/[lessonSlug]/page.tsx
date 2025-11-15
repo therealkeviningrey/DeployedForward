@@ -122,18 +122,40 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
   const recent = await prisma.progress.findMany({
     where: { userId: user.id, completed: true },
     orderBy: { lastViewedAt: 'desc' },
-    take: 50,
+    take: 90,
   });
-  // Calculate consecutive daily streak from today backwards
-  let streakDays = 0;
-  let cursor = new Date();
-  cursor.setHours(0,0,0,0);
-  const daysSet = new Set(recent.map(r => new Date(r.lastViewedAt).toDateString()));
-  // If no progress today, no streak unless yesterday continues
-  // Count back as long as each previous day exists in set
-  while (daysSet.has(cursor.toDateString())) {
-    streakDays += 1;
-    cursor.setDate(cursor.getDate() - 1);
+  const uniqueDayTimestamps = Array.from(
+    new Set(
+      recent.map((entry: any) => {
+        const day = new Date(entry.lastViewedAt);
+        day.setHours(0, 0, 0, 0);
+        return day.getTime();
+      }),
+    ),
+  ).sort((a, b) => a - b);
+
+  let longestStreak = 0;
+  let run = 0;
+  let previousDay: number | null = null;
+
+  for (const timestamp of uniqueDayTimestamps) {
+    if (previousDay !== null && timestamp === previousDay + 86_400_000) {
+      run += 1;
+    } else {
+      run = 1;
+    }
+    longestStreak = Math.max(longestStreak, run);
+    previousDay = timestamp;
+  }
+
+  let currentStreak = 0;
+  const daysSet = new Set(uniqueDayTimestamps);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let cursor = today.getTime();
+  while (daysSet.has(cursor)) {
+    currentStreak += 1;
+    cursor -= 86_400_000;
   }
 
   // Load MDX content
@@ -155,7 +177,7 @@ export default async function LessonPage({ params }: { params: Promise<{ slug: s
             <div style={{ width: '65%' }}>
               <ProgressBar value={coursePct} />
             </div>
-            <StreakIndicator days={streakDays} />
+            <StreakIndicator currentStreak={currentStreak} longestStreak={longestStreak} />
           </div>
           <div className="flex items-center gap-3 mb-4">
             <Badge>{lesson.module.title}</Badge>
