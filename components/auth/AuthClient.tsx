@@ -291,7 +291,8 @@ function useBetterAuth() {
 
   const signInWithEmail = useCallback(
     async (email: string, password: string) => {
-      await betterAuthClient.signInEmail({
+      await betterAuthClient.$fetch('/sign-in/email', {
+        method: 'POST',
         body: {
           email,
           password,
