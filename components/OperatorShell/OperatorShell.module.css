@@ -1,15 +1,15 @@
 .shell {
   display: grid;
   grid-template-columns: 260px 1fr;
-  min-height: calc(100vh - 70px);
+  min-height: 100vh;
   background: var(--bg-primary);
   color: var(--text-primary);
 }
 
 .sidebar {
   position: sticky;
-  top: 70px;
-  height: calc(100vh - 70px);
+  top: 0;
+  height: 100vh;
   border-right: 1px solid var(--border-subtle);
   padding: 1.75rem;
   display: flex;
@@ -155,14 +155,14 @@
 
 .main {
   background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.8) 100%);
-  min-height: calc(100vh - 70px);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .toolbar {
   position: sticky;
-  top: 70px;
+  top: 0;
   z-index: var(--z-sticky);
   display: flex;
   align-items: center;
@@ -326,9 +326,9 @@
 
   .sidebar {
     position: fixed;
-    top: 70px;
+    top: 0;
     left: 0;
-    height: calc(100vh - 70px);
+    height: 100vh;
     width: min(260px, 75vw);
     transform: translateX(-100%);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);

@@ -1,10 +1,8 @@
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
-import { PageViewTracker } from '@/components/PageViewTracker';
 import { ExperimentClient } from '@/components/ExperimentClient';
-import { PromoBanner } from '@/components/PromoBanner';
+import { PageViewTracker } from '@/components/PageViewTracker';
 import { ExitIntent } from '@/components/ExitIntent';
 import { LiveActivity } from '@/components/SocialProof';
+import { OperatorChrome } from '@/components/OperatorChrome';
 
 export default function SiteLayout({
   children,
@@ -14,20 +12,15 @@ export default function SiteLayout({
   return (
     <>
       <ExperimentClient />
-      <a href="#main-content" className="skip-link">Skip to content</a>
-      {/* Promotional Banner - Update with actual promo details when active */}
-      {/* <PromoBanner
-        message="Save $50 on all courses"
-        ctaText="Get Access"
-        ctaHref="/pricing"
-        dismissible={true}
-      /> */}
-      <Header />
-      <PageViewTracker />
-      <main id="main-content">{children}</main>
-      <Footer />
-      <ExitIntent />
-      <LiveActivity />
+      <OperatorChrome>
+        <a href="#operator-content" className="skip-link">
+          Skip to content
+        </a>
+        <PageViewTracker />
+        {children}
+        <ExitIntent />
+        <LiveActivity />
+      </OperatorChrome>
     </>
   );
 }
