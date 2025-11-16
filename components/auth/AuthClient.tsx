@@ -313,10 +313,17 @@ function useBetterAuth() {
           errorCallbackURL: `${window.location.origin}/login?provider=${providerId}&error=1`,
         },
       });
-      if (response?.redirect && response?.url) {
-        window.location.href = response.url;
-      } else if (response?.url) {
-        window.location.href = response.url;
+
+      if ('error' in response && response.error) {
+        throw new Error(response.error.message ?? 'OAuth sign-in failed');
+      }
+
+      const payload = (response as any)?.data ?? response;
+      const redirectUrl = payload?.url;
+      const shouldRedirect = payload?.redirect ?? Boolean(redirectUrl);
+
+      if (shouldRedirect && redirectUrl) {
+        window.location.href = redirectUrl;
       }
     },
     [],
