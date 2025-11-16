@@ -305,11 +305,19 @@ function useBetterAuth() {
 
   const signInWithOAuth = useCallback(
     async (providerId: string) => {
-      await betterAuthClient.signIn.oauth2({
-        providerId,
-        callbackURL: `${window.location.origin}/dashboard`,
-        errorCallbackURL: `${window.location.origin}/login?provider=${providerId}&error=1`,
+      const response = await betterAuthClient.$fetch('/sign-in/social', {
+        method: 'POST',
+        body: {
+          provider: providerId,
+          callbackURL: `${window.location.origin}/dashboard`,
+          errorCallbackURL: `${window.location.origin}/login?provider=${providerId}&error=1`,
+        },
       });
+      if (response?.redirect && response?.url) {
+        window.location.href = response.url;
+      } else if (response?.url) {
+        window.location.href = response.url;
+      }
     },
     [],
   );
