@@ -37,7 +37,7 @@ function SwarmField({ color }: { color: string }) {
   return (
     <points ref={pointsRef} rotation={[0, 0.2, 0]}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" array={positions} count={positions.length / 3} itemSize={3} />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         size={0.12}
@@ -113,7 +113,7 @@ export function SpecOpsScene({ activeModuleId }: SpecOpsSceneProps) {
         <pointLight position={[-10, -6, -8]} intensity={0.4} color="#1e293b" />
 
         <Suspense fallback={null}>
-          <Environment preset="warehouse" intensity={0.08} />
+          <Environment preset="warehouse" />
           <SwarmField color={accentColor} />
           <RadarSweep color={accentColor} />
           <GridPlane />

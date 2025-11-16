@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Container } from '@/components/Container';
 import { Card } from '@/components/Card';
 import { ForgotPasswordForm } from './ForgotPasswordClient';
@@ -19,7 +20,9 @@ export default function ForgotPasswordPage() {
         </div>
 
         <Card className="mx-auto max-w-md p-8">
-          <ForgotPasswordForm />
+          <Suspense fallback={null}>
+            <ForgotPasswordForm />
+          </Suspense>
         </Card>
       </section>
     </Container>

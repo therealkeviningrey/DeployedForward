@@ -93,7 +93,8 @@ export function SpecOpsShell({ modules, defaultModuleId }: SpecOpsShellProps) {
       setActiveModuleId(moduleId);
       if (input) {
         setHistory((prev) => {
-          const next = [...prev, { id: moduleId, input, result: 'launched', timestamp: Date.now() }];
+          const entry: CommandLogEntry = { id: moduleId, input, result: 'launched', timestamp: Date.now() };
+          const next = [...prev, entry];
           return next.slice(-8);
         });
       }
@@ -114,7 +115,8 @@ export function SpecOpsShell({ modules, defaultModuleId }: SpecOpsShellProps) {
         launchModule(matchedModule.id, trimmed);
       } else {
         setHistory((prev) => {
-          const next = [...prev, { id: 'not-found', input: trimmed, result: 'not-found', timestamp: Date.now() }];
+          const entry: CommandLogEntry = { id: 'not-found', input: trimmed, result: 'not-found', timestamp: Date.now() };
+          const next = [...prev, entry];
           return next.slice(-8);
         });
       }

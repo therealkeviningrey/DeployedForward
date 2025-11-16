@@ -15,9 +15,6 @@ async function main() {
     select: {
       email: true,
     },
-    where: {
-      email: { not: null },
-    },
   });
 
   console.log(`Preparing to send reset emails to ${users.length} users.`);

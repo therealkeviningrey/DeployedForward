@@ -31,13 +31,21 @@ async function ensureUserTableSchema() {
 export async function ensureUserRecord(authUserId: string) {
   await ensureUserTableSchema();
 
+  const authUser = await prisma.authUser.findUnique({
+    where: { id: authUserId },
+  });
+
+  if (!authUser) {
+    throw new Error('Better Auth user not found');
+  }
+
   let user = await prisma.user.findUnique({
     where: { clerkId: authUserId },
   });
 
   if (user) {
     // Bootstrap admin role if configured via env
-    if (authUser?.email) {
+    if (authUser.email) {
       const bootstrapAdmins = (process.env.ADMIN_EMAILS || '')
         .split(',')
         .map((value) => value.trim().toLowerCase())
@@ -50,14 +58,6 @@ export async function ensureUserRecord(authUserId: string) {
       }
     }
     return user;
-  }
-
-  const authUser = await prisma.authUser.findUnique({
-    where: { id: authUserId },
-  });
-
-  if (!authUser) {
-    throw new Error('Better Auth user not found');
   }
 
   const bootstrapAdmins = (process.env.ADMIN_EMAILS || '')

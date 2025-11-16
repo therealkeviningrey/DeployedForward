@@ -51,7 +51,7 @@ const oauthConfigs = buildOAuthConfigs();
 
 const betterAuthOptions: BetterAuthOptions = {
   baseURL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-  database: prismaAdapter(prisma, { usePlural: false }),
+  database: prismaAdapter(prisma, { provider: 'postgresql', usePlural: false }),
   user: {
     modelName: 'authUser',
     additionalFields: {
@@ -129,10 +129,11 @@ const createAnonymousSession = (): AuthSession => ({
   hasRole: async () => false,
 });
 
-const cloneRequestHeaders = () => {
+const cloneRequestHeaders = async () => {
   try {
     const mutable = new Headers();
-    headers().forEach((value, key) => {
+    const incoming = await headers();
+    incoming.forEach((value, key) => {
       mutable.set(key, value);
     });
     return mutable;
@@ -143,7 +144,7 @@ const cloneRequestHeaders = () => {
 
 export const betterAuthServerAdapter: AuthServerAdapter = {
   async getAuthSession() {
-    const headers = cloneRequestHeaders();
+    const headers = await cloneRequestHeaders();
     if (!headers) {
       return createAnonymousSession();
     }

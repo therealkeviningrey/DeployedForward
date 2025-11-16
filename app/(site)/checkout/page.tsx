@@ -13,9 +13,17 @@ type Step = 1 | 2 | 3;
 
 export default function CheckoutPage() {
   const [step, setStep] = useState<Step>(1);
-  const [billing, setBilling] = useState<'monthly' | 'annual'>(() => (localStorage.getItem('billingPeriod') as any) || 'monthly');
+  const [billing, setBilling] = useState<'monthly' | 'annual'>(() => {
+    if (typeof window === 'undefined') {
+      return 'monthly';
+    }
+    return (window.localStorage.getItem('billingPeriod') as 'monthly' | 'annual' | null) ?? 'monthly';
+  });
   const [holdUntil, setHoldUntil] = useState<number | null>(() => {
-    const v = localStorage.getItem('seatHoldUntil');
+    if (typeof window === 'undefined') {
+      return null;
+    }
+    const v = window.localStorage.getItem('seatHoldUntil');
     return v ? parseInt(v, 10) : null;
   });
   const { user } = useAuthUser();
@@ -25,7 +33,8 @@ export default function CheckoutPage() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('billingPeriod', billing);
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem('billingPeriod', billing);
   }, [billing]);
 
   const holdRemaining = useMemo(() => (holdUntil ? Math.max(0, holdUntil - Date.now()) : 0), [holdUntil]);
@@ -35,7 +44,9 @@ export default function CheckoutPage() {
     const id = setInterval(() => {
       if (Date.now() >= holdUntil) {
         setHoldUntil(null);
-        localStorage.removeItem('seatHoldUntil');
+        if (typeof window !== 'undefined') {
+          window.localStorage.removeItem('seatHoldUntil');
+        }
       }
     }, 1000);
     return () => clearInterval(id);
@@ -44,7 +55,9 @@ export default function CheckoutPage() {
   const startHold = () => {
     const until = Date.now() + 15 * 60 * 1000; // 15 minutes
     setHoldUntil(until);
-    localStorage.setItem('seatHoldUntil', String(until));
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('seatHoldUntil', String(until));
+    }
     analytics.track('seat_hold_started', { duration_min: 15 });
   };
 
